@@ -1,0 +1,84 @@
+<?php 
+	$design = Mage::registry('design');
+	if ($design) {
+		$designData = $design->getData();
+		$optionCollection = Mage::getModel('pdp/pdp')->getPdpOption($designData['id']);
+	}	
+?>
+<div id='tshirt'>
+	<div class="container-fluid">
+		<div class="row-fluid" <?php echo ( count($optionCollection) == 0) ? "style='display: none'" : ""; ?>>
+			<div class="span12">
+				<?php 
+					$counter = 0; 
+					if ( count($optionCollection) > 0) {
+						$counter = count($optionCollection);
+					}
+				?>
+				<input type='hidden' name='counter' id='counter' value='<?php echo $counter ?>' />
+				<table class="table table-bordered" id='pdp_advanced_options'>
+					<?php if (count($optionCollection) > 0) : ?>
+					<tr>
+						<th>Option Label <span class="required">*</span></th>
+						<th>Price</th>
+						<th>Order</th>
+						<th>Action</th>
+					</tr>
+					<?php else : ?>
+					<tr class="option_head" style="display:none;">
+						<th>Option Label <span class="required">*</span></th>
+						<th>Price</th>
+						<th>Order</th>
+						<th>Action</th>
+					</tr>
+					<?php endif; ?>
+					<?php if ( count($optionCollection) > 0) : ?>
+						<?php $i = 1; ?>
+						<?php foreach ($optionCollection as $option) : ?>
+						<tr>
+							<td>
+								<input type='text' id='optionlabel_<?php echo $i ?>' name='option-label[<?php echo $i ?>]' value='<?php echo $option->getOptionLabel() ?>'/>
+							</td>
+							<td>
+								<input type='text' class='span9' name='option-price[<?php echo $i ?>]' value='<?php echo $option->getPrice() ?>'/>
+							</td>
+							<td>
+								<input type='text' class='span9' name='option-sort[<?php echo $i ?>]' value='<?php echo $option->getSort() ?>'/>
+							</td>
+							<td><button type='button' class="option-item" id='removeoption_<?php echo $i ?>'>Remove</button></td>
+						</tr>
+						<?php $i++; endforeach; ?>
+					<?php else : ?>
+					<!--
+					<tr>
+						<td>
+							<input type='text' id='optionlabel_1' name='option-label[1]' value=''/>
+						</td>
+						<td>
+							<input type='text' class='span9' name='option-price[1]' value=''/>
+						</td>
+						<td>
+							<input type='text' class='span9' name='option-sort[1]' value=''/>
+						</td>
+						<td><button type='button' class="option-item" id='removeoption_1'>Remove</button></td>
+					</tr>
+					-->
+					<?php endif; ?>
+				</table>
+			</div>
+		</div>
+		<div class="btn-group">
+		
+		  <button id='add_more_option' type='button' class="btn"><i class="icon-plus-sign"></i>Add Option</button>
+		  <!--
+		  <button class="btn dropdown-toggle" data-toggle="dropdown">
+			<span class="caret"></span>
+		  </button>
+		  <ul class="dropdown-menu">
+			<li><a href="#" target="_blank">Help(s)</a></li>
+		  </ul>
+		  -->
+		</div>
+		<!--div><button id='add_more_option' type='button'>Add Option(s)</button><a href="#" target="_blank" class="btn btn-mini btn-info">Help(s)</a></div-->
+	</div>
+</div>

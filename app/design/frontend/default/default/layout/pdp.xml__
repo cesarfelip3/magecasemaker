@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+        <reference name="head" >
+			<!-- <action method="addItem"><type>js_css</type><name>mst/ps3/css/ui/jquery.ui.all.css</name></action>
+            <action method="addItem"><type>js</type><name>mst/ps3/js/jquery-1.9.1.js</name></action> -->
+            <action method="addItem" ifconfig="pdp/setting/enable" ><type>js</type><name>pdp/js/ui/jquery-1.7.2.min.js</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable" ><type>js</type><name>pdp/js/html2canvas.min.js</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable" ><type>js</type><name>pdp/js/ui/colorpicker.js</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable" ><type>js</type><name>pdp/js/ui/eye.js</name></action>
+            <action method="addItem" ifconfig="pdp/setting/enable" ><type>js</type><name>pdp/js/ui/jquery-ui.js</name></action>
+            <action method="addItem" ifconfig="pdp/setting/enable" ><type>js</type><name>pdp/js/ui/jquery.ui.touch.min.js</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable" ><type>js</type><name>pdp/js/ui/utils.js</name></action>
+
+			<action method="addItem" ifconfig="pdp/setting/enable" ><type>js</type><name>pdp/js/ui/jquery.ui.rotatable.js</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable" ><type>js</type><name>pdp/js/ui/jquery.ui.rotatabletext.js</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable" ><type>js</type><name>pdp/js/design.js</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable" ><type>js</type><name>pdp/js/jquery.colorbox.js</name></action>
+            <action method="addItem" ifconfig="pdp/setting/enable" ><type>js</type><name>pdp/js/makeparam.js</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable" ><type>js</type><name>pdp/js/facebook_connect.js</name></action>
+            <action method="addItem" ifconfig="pdp/setting/enable" ><type>js</type><name>pdp/js/cart.js</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable" ><type>js</type><name>pdp/js/paging.js</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable" ><type>js_css</type><name>pdp/css/jquery.ui.core.css</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable" ><type>js_css</type><name>pdp/css/colorpicker.css</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable" ><type>js_css</type><name>pdp/css/styles.css</name></action>
+            <action method="addItem" ifconfig="pdp/setting/enable" ><type>js_css</type><name>pdp/css/colorbox.css</name></action>
+		</reference>
+		<reference name="content">
+            <block type="core/template" name="default.setting" template="pdp/default_setting.phtml" />
+        </reference>
+    </default>
+	<pdp_view_index>
+		<label>Custom Design</label>
+		<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+			<action method="setHeaderTitle" translate="title" module="pdp"><title>Custom Design</title></action>
+		</reference>
+		<reference name="content">
+			<block type="pdp/pdp" name="pdp_custom_design" template="pdp/t-shirt.phtml" />
+		</reference>
+	</pdp_view_index>
+	<pdp_view_finaldesign>
+		<reference name="content">
+			<block type="core/template" name="root" template="pdp/view/finaldesign.phtml" />
+		</reference>
+	</pdp_view_finaldesign>
+    <sales_order_view>
+		<reference name="head">
+			<action method="addItem" ifconfig="pdp/setting/enable" ><type>js</type><name>pdp/js/jquery-latest.js</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable" ><type>js</type><name>pdp/js/customorder.js</name></action>
+		</reference>
+    </sales_order_view>
+
+    <pdp_pdptemplate_view>
+		<update handle="customer_account"/>
+		<reference name="content">
+			<block type="pdp/pdptemplate" name="view.pdptemplate" template="pdp/pdptemplate/view.phtml"/>
+		</reference>
+    </pdp_pdptemplate_view>
+	<catalog_product_view>
+		<reference name="product.info">
+			<action method="setTemplate"><template>pdp/product/pdp_view.phtml</template></action>
+		</reference>
+	</catalog_product_view>
+	<catalog_category_layered>
+		<reference name="product_list">
+			<action method="setTemplate"><template>pdp/product/pdp_list.phtml</template></action>
+		</reference>
+	</catalog_category_layered>
+</layout>   

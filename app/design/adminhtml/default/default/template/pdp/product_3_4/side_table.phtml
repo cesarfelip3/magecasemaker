@@ -1,0 +1,67 @@
+<?php
+$productId = $this->getData('product_id');
+$getCurrentSetup = Mage::getModel('pdp/pdp')->getDesignSides($productId);
+$_sides = array();
+if ($getCurrentSetup->count() > 0) {
+	foreach ($getCurrentSetup as $side) {
+		$_sides[] = $side->getSideId();
+	}
+}
+?>
+<?php $designAreas = Mage::getModel('pdp/designarea')->getDesignAreas($productId); ?>
+<script src="<?php echo $this->getJsUrl('pdp/js/backend/pdpdesign.js') ?>"></script>
+<?php if ($designAreas->count()) : ?>
+	<style>
+		.design-area-table {width: 100%;border-collapse: collapse;}
+		.design-area-table td, .design-area-table th {
+            border: 1px solid #CCCCCC;
+            padding: 10px;
+            text-align: center;
+            vertical-align: middle;
+        }
+	</style>
+	<table class="design-area-table">
+		<tr>
+			<th>Area Name</th>
+			<th>Setup Design Area</th>
+			<!--<th>Design Colors</th>-->
+			<th>Status</th>
+			<th>Create Sample Design</th>
+            <th>Design Templates</th>
+			<!--<th>Preview</th>-->
+		</tr>
+        <?php $rowCounter = 0; ?>
+		<?php foreach ($designAreas as $area) : ?>
+        <?php $rowCounter++; ?>
+		<tr>
+			<td><?php echo $area->getLabel() ?></td>
+			<td><button class="setup-btn" id="setup_btn_<?php echo $area->getId() ?>" type="button">Setup</button></td>
+			<!--<td><button class="addstyle-btn" id="addstyle_btn_<?php// echo $area->getId() ?>" type="button">Design Colors</button></td>-->
+			<td>
+				<span id="status_<?php echo $area->getId() ?>">
+				<?php
+				if (in_array($area->getId(), $_sides)) {
+					echo "Active";
+				} else {
+					echo "Inactive";
+				}
+				?>
+				</span>
+			</td>
+            <?php if ($rowCounter == 1) : ?>
+			<td rowspan="<?php echo $designAreas->count() ?>">
+				<button id="sample_btn_<?php echo $area->getId() ?>" type="button" class="create-sample-btn <?php echo (count($_sides) > 0) ? '': 'disabled';?>">Design Sample</button>
+			</td>
+            <?php endif; ?>
+            <?php if ($rowCounter == 1) : ?>
+                <td rowspan="<?php echo $designAreas->count() ?>">
+                    <button type="button" class="view-design-btn">View Templates</button>
+                </td>
+            <?php endif; ?>
+			<!--<td><button class="preview-item" id="preview_btn_<?php //echo $area->getId() ?>" type="button" class="">Preview</button></td>-->
+		</tr>
+		<?php endforeach; ?>
+	</table>
+<?php else : ?>
+	<p><?php echo $this->__("No side found. Please add new designing side!") ?></p>
+<?php endif; ?>

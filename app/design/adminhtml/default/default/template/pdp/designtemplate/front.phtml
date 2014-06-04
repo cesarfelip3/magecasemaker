@@ -1,0 +1,44 @@
+<?php
+	//$baseUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
+    $mediaUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+	//$skinPath = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);
+    $noImagePath = $mediaUrl . 'pdp/images/no_image.jpg';
+	$iW = $iH = $iL = $iT = $imgPath = $id = "";
+	if (Mage::registry('design')) {
+		$frontInfo = Mage::registry('design')->getFrontInfo();
+		if ($frontInfo['id'] != "") {
+			$id = $frontInfo['id'];
+			$iW = $frontInfo['canvas_w'];
+			$iH = $frontInfo['canvas_h'];
+			$iT = $frontInfo['canvas_t'];
+			$iL = $frontInfo['canvas_l'];
+			$imgPath = $mediaUrl . 'pdp/images/' . $frontInfo['filename'];
+		}
+	}
+	
+?>
+<div id="design-info-form">
+	<div id="designForm">
+		<div class="modal-body"> 
+			<div id="print_area">
+				<div class="img_area">
+					<div class="inlay_area"></div>
+					<img id="designImage" src="<?php echo $imgPath == '' ? $noImagePath : $imgPath ?>" alt="Main image" />
+				</div>
+				<div class="browse-image">
+					<input type="file" id='filename' name="filename" <?php echo ($imgPath == "") ? "class='required-entry'" : ""; ?> onchange="Tshirt.previewImage(this)" />
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class="inlay-info">
+				<div><a href="#" target="_blank" class="btn btn-info" title="What is 'Front Preview'?">Help(s)</a></div>
+				<input type="hidden" name="front_image_id" value="<?php echo $id; ?>"/>
+				<div><span>Width:</span> <input id="iwidth" name="iwidth" type="text" class="span3 " value="<?php echo $iW==''?'170':$iW; ?>" /></div>
+				<div><span>Height:</span> <input id="iheight" name="iheight" type="text" class="span3 " value="<?php echo $iH==''?'270':$iH; ?>"/></div>
+				<div><span>Top:</span> <input id="itop" name="itop" type="text" class="span3 " value="<?php echo $iT==''?'50':$iT; ?>"/></div>
+				<div><span>Left:</span> <input id="ileft" name="ileft" type="text" class="span3 " value="<?php echo $iL==''?'20':$iL; ?>"/></div>
+			</div>
+		</div>
+	</div>
+</div>

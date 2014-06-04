@@ -1,0 +1,269 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <default>
+		<!--adminhtml_sales_order_view-->
+        <reference name="head">
+			<action method="addItem"><type>js</type><name>pdp/js/jquery-1.7.2.min.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/backend/customorder.js</name></action>
+			<action method="addCss"><type>js_css</type><name>pdp/css/customorder.css</name></action>
+        </reference>
+        <reference name="content">
+        	<block type="core/template" name="set_base_url" template="pdp/baseurl.phtml" />
+        </reference>
+    </default>
+    <adminhtml_catalog_product_edit>
+		<reference name="head">
+			<!-- <action method="addItem" ifconfig="pdp/setting/enable"><type>js</type><name>pdp/js/backend/pdpdesign.js</name></action> -->
+			<!-- <action method="addItem" ifconfig="pdp/setting/enable"><type>js</type><name>pdp/js/ui/jquery-1.7.2.min.js</name></action> -->
+			<!-- <action method="addItem" ifconfig="pdp/setting/enable"><type>js</type><name>pdp/js/ui/colorpicker.js</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable"><type>js</type><name>pdp/js/ui/eye.js</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable"><type>js</type><name>pdp/js/ui/jquery-ui.js</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable"><type>js</type><name>pdp/js/ui/jquery.ui.touch.min.js</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable"><type>js</type><name>pdp/js/ui/utils.js</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable"><type>js</type><name>pdp/js/ui/jquery.ui.rotatable.js</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable"><type>js</type><name>pdp/js/ui/jquery.ui.rotatabletext.js</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable"><type>js</type><name>pdp/js/html2canvas.min.js</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable"><type>js</type><name>pdp/js/jquery.colorbox.js</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable"><type>js</type><name>pdp/js/paging.js</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable"><type>js</type><name>pdp/js/design.js</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable"><type>js</type><name>pdp/js/facebook_connect.js</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable" ><type>js_css</type><name>pdp/css/jquery.ui.core.css</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable" ><type>js_css</type><name>pdp/css/colorpicker.css</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable" ><type>js_css</type><name>pdp/css/styles.css</name></action>
+			<action method="addItem" ifconfig="pdp/setting/enable" ><type>js_css</type><name>pdp/css/colorbox.css</name></action> -->
+        </reference>
+	</adminhtml_catalog_product_edit>
+	<pdp_adminhtml_group_edit>
+		<update handle="editor"/>
+	</pdp_adminhtml_group_edit>
+	<pdp_adminhtml_pdp_image>
+		<reference name="head">
+			<action method="addItem"><type>js</type><name>pdp/js/ui/jquery.min.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/bootstrap.min.js</name></action>
+            <action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.core.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.widget.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.mouse.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.resizable.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.draggable.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/backend/action.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/backend/image.js</name></action>
+            <action method="addItem"><type>js</type><name>pdp/js/backend/upload.js</name></action>
+			<!-- Color Picker -->
+			<action method="addItem"><type>js</type><name>pdp/js/colorpicker.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/eye.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/layout.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/utils.js</name></action>
+			<!-- Color Picker -->
+			<action method="addItem"><type>js_css</type><name>pdp/css/bootstrap.min.css</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/bootstrap.css</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/idesign.css</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/multiupload.css</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/colorpicker.css</name></action>
+		</reference>
+		<reference name="content">
+            <block type="pdp/adminhtml_pdp" name="pdp_image_form" template="pdp/image.phtml"/>
+        </reference>
+	</pdp_adminhtml_pdp_image>
+	<pdp_adminhtml_pdp_font>
+		<reference name="head">
+			<action method="addItem"><type>js</type><name>pdp/js/jquery.min.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/bootstrap.min.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/backend/action.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/backend/font.js</name></action>
+            <action method="addItem"><type>js</type><name>pdp/js/backend/upload.js</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/bootstrap.min.css</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/bootstrap.css</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/idesign.css</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/multiupload.css</name></action>
+		</reference>
+		<reference name="content">
+            <block type="pdp/adminhtml_pdp" name="pdp_image_form" template="pdp/font.phtml"/>
+        </reference>
+	</pdp_adminhtml_pdp_font>
+    <pdp_adminhtml_pdp_design>
+		<reference name="head">
+			<action method="addItem"><type>js</type><name>pdp/js/jquery.min.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/bootstrap.min.js</name></action>
+            <action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.core.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.widget.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.mouse.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.resizable.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.draggable.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/backend/design.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/backend/printarea.js</name></action>
+			
+			<action method="addItem"><type>js_css</type><name>pdp/css/bootstrap.min.css</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/bootstrap.css</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/jquery.ui.all.css</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/jquery.ui.resizable.css</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/idesign.css</name></action>
+		</reference>
+		<reference name="content">
+            <block type="pdp/adminhtml_pdp" name="pdp_printarea_form" template="pdp/design.phtml"/>
+        </reference>
+	</pdp_adminhtml_pdp_design>
+	<pdp_adminhtml_pdp_upload>
+        <reference name="head">
+			<action method="addItem"><type>js_css</type><name>pdp/css/bootstrap.min.css</name></action>
+			<!-- Multiupload -->
+			<action method="addItem"><type>js_css</type><name>pdp/css/multiupload.css</name></action>
+			<!-- Multiupload -->
+			<action method="addItem"><type>js</type><name>pdp/js/jquery.min.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/backend/upload.js</name></action>
+		</reference>
+		<reference name="content">
+            <block type="pdp/adminhtml_pdp" name="upload_form" template="pdp/upload.phtml"/>
+        </reference>
+	</pdp_adminhtml_pdp_upload>
+	
+	<pdp_adminhtml_designtemplate_tshirt_index>
+		<reference name="head">
+			<action method="addItem"><type>js</type><name>pdp/js/jquery.min.js</name></action>
+			
+			<action method="addItem"><type>js</type><name>pdp/js/jquery.min.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/bootstrap.min.js</name></action>
+            <action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.core.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.widget.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.mouse.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.resizable.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.draggable.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/backend/tshirt.js</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/bootstrap.min.css</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/bootstrap.css</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/jquery.ui.all.css</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/jquery.ui.resizable.css</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/idesign.css</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/tshirt.css</name></action>
+		</reference>
+		<reference name="content">
+            <block type="pdp/adminhtml_designtemplate_tshirt" name="tshirt" template="pdp/designtemplate/tshirt.phtml"/>
+        </reference>
+	</pdp_adminhtml_designtemplate_tshirt_index>
+	<pdp_adminhtml_pdp_artworkcolor>
+		<reference name="head">
+			<action method="addItem"><type>js</type><name>pdp/js/jquery.min.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/bootstrap.min.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/backend/multicolor.js</name></action>
+			<!-- Color Picker -->
+			<action method="addItem"><type>js</type><name>pdp/js/colorpicker.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/eye.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/layout.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/utils.js</name></action>
+			<!-- Color Picker -->
+			<action method="addItem"><type>js_css</type><name>pdp/css/bootstrap.min.css</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/bootstrap.css</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/tshirt.css</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/colorpicker.css</name></action>
+		</reference>
+		<reference name="content">
+            <block type="pdp/adminhtml_artworkcolor" name="artworkcolor" template="pdp/artworkcolor.phtml"/>
+        </reference>
+	</pdp_adminhtml_pdp_artworkcolor>
+	<pdp_adminhtml_designtemplate_tshirt_color>
+		<reference name="head">
+			<action method="addItem"><type>js</type><name>pdp/js/jquery.min.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/ui/jquery.min.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/bootstrap.min.js</name></action>
+            <action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.core.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.widget.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.mouse.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.resizable.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.draggable.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/backend/tshirt.js</name></action>
+			<!-- Color Picker -->
+			<action method="addItem"><type>js</type><name>pdp/js/colorpicker.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/eye.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/layout.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/utils.js</name></action>
+			<!-- Color Picker -->
+			<action method="addItem"><type>js_css</type><name>pdp/css/bootstrap.min.css</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/bootstrap.css</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/jquery.ui.all.css</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/jquery.ui.resizable.css</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/tshirt.css</name></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/colorpicker.css</name></action>
+		</reference>
+		<reference name="content">
+            <block type="pdp/adminhtml_designtemplate_tshirt" name="tshirt" template="pdp/designtemplate/tshirt_color.phtml"/>
+        </reference>
+	</pdp_adminhtml_designtemplate_tshirt_color>
+	<pdp_adminhtml_artworkcate_image>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="pdp/adminhtml_artworkcate_edit_tab_artwork" name="artwork_grid"/>
+			<block type="adminhtml/widget_grid_serializer" name="artwork_serializer">
+				<reference name="artwork_serializer">
+					<action method="initSerializerBlock">
+						<grid_block_name>artwork_grid</grid_block_name>
+						<data_callback>getSelectedImages</data_callback>
+						<hidden_input_name>links[images]</hidden_input_name>
+						<reload_param_name>images</reload_param_name>
+					</action>
+					<action method="addColumnInputName">
+                       <input_name>position</input_name>
+					</action>
+				</reference>
+			</block>
+		</block>
+   </pdp_adminhtml_artworkcate_image>
+   <pdp_adminhtml_artworkcate_imagegrid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="pdp/adminhtml_artworkcate_edit_tab_artwork" name="artwork_grid"/>
+		</block>
+	</pdp_adminhtml_artworkcate_imagegrid>
+	
+	<pdp_adminhtml_group_pdp>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="pdp/adminhtml_group_edit_tab_pdp" name="pdp_grid"/>
+			<block type="adminhtml/widget_grid_serializer" name="pdp_serializer">
+				<reference name="pdp_serializer">
+					<action method="initSerializerBlock">
+						<grid_block_name>pdp_grid</grid_block_name>
+						<data_callback>getSelectedPdp</data_callback>
+						<hidden_input_name>links[pdp]</hidden_input_name>
+						<reload_param_name>pdp</reload_param_name>
+					</action>
+					<action method="addColumnInputName">
+                       <input_name>position</input_name>
+					</action>
+				</reference>
+			</block>
+		</block>
+   </pdp_adminhtml_group_pdp>
+   <pdp_adminhtml_group_pdpgrid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="pdp/adminhtml_group_edit_tab_pdp" name="pdp_grid"/>
+		</block>
+	</pdp_adminhtml_group_pdpgrid>
+	<pdp_adminhtml_color_new>
+		<reference name="head">
+			<!-- <action method="addItem"><type>js</type><name>pdp/js/jquery.min.js</name></action> -->
+			<action method="addItem"><type>js</type><name>pdp/js/backend/multicolor.js</name></action>
+			<!-- Color Picker -->
+			<action method="addItem"><type>js</type><name>pdp/js/colorpicker.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/eye.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/layout.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/utils.js</name></action>
+			<!-- Color Picker -->
+			<action method="addItem"><type>js_css</type><name>pdp/css/colorpicker.css</name></action>
+		</reference>
+	</pdp_adminhtml_color_new>
+	<!--
+	<pdp_adminhtml_designarea_addnewside>
+		<reference name="head">
+			<action method="addCss"><script>css/boxes.css</script></action>
+			<action method="addItem"><type>js_css</type><name>pdp/css/jquery.ui.resizable.css</name></action>
+			<action method="addItem"><type>js</type><name>varien/form.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/jquery-1.7.2.min.js</name></action>
+            <action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.core.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.widget.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.mouse.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.resizable.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/ui/jquery.ui.draggable.js</name></action>
+			<action method="addItem"><type>js</type><name>pdp/js/backend/designarea.js</name></action>
+		</reference>
+		<reference name="content">
+			<block type="core/template" name="add_new_side" template="pdp/product/new_side.phtml"/>
+		</reference>
+	</pdp_adminhtml_designarea_addnewside>
+	-->
+</layout> 

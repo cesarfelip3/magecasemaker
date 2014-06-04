@@ -1,0 +1,29 @@
+<?php 
+$inlayInfo = $this->getData('inlay_info');
+//Zend_Debug::dump($inlayInfo);
+echo $this->getMessagesBlock()->toHtml();
+?>
+<script src="<?php echo $this->getJSUrl('pdp/js/jquery-1.10.2.min.js') ?>"></script>
+<script src="<?php echo $this->getJSUrl('pdp/js/backend/pdpdesign.js') ?>"></script>
+<form id="add_design_color_form" method="POST" action="<?php echo Mage::helper("adminhtml")->getUrl("pdp/adminhtml_designarea/savedesigncolor/"); ?>" enctype="multipart/form-data">
+	<input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>" />
+	<input type="hidden" name="inlay_id" value="<?php echo $inlayInfo['id'] ?>" />
+	<input type="hidden" name="base_filename" value="<?php echo $inlayInfo['filename'] ?>" />
+	<input type="hidden" id="row_counter" value="2" />
+	<button type="button" id="add_more_design_color">+ Add More</button>
+	<button type="button" id="save_color_form">Save</button>
+	<table id="add_design_color_table" border="1">
+		<tr>
+			<th>Color Name</th>
+			<th>File</th>
+			<th>Position</th>
+			<th>Action</th>
+		</tr>
+		<tr>
+			<td><input type='text' name="color_name[1]"/></td>
+			<td><input type='file' name="filename_1"/></td>
+			<td><input type='text' name="position[1]"/></td>
+			<td><button class="remove-color-row" type="button">Remove</button></td>
+		</tr>
+	</table>
+</form>	

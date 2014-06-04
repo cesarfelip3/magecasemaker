@@ -1,0 +1,65 @@
+<?php 
+	$mediaUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) .'pdp/images/';
+	$baseUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
+	$collection = Mage::getModel('pdp/pdpgroup')->getCollection();
+?>
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<div id="group-manage">
+				<div class="btn-group-top">
+					<h3><span class="title">Manage T-Shirt Groups</span></h3>
+				</div>
+				<div class="action-panel">
+					<div class="btn-group">
+						<?php $addUrl = Mage::helper("adminhtml")->getUrl("pdp/adminhtml_group/add/"); ?>
+						<button type="button" onclick="setLocation('<?php echo $addUrl ?>')" class="btn"><span>Add New Group</span></button>
+					</div>
+					<div class="btn-group">
+						<input type="hidden" name="base_url" id="base_url" value="<?php echo $baseUrl ?>"/>
+						<input type="hidden" name="media_url" id="media_url" value="<?php echo $mediaUrl ?>"/>
+						<button class="btn">Action</button>
+						<button class="btn dropdown-toggle" data-toggle="dropdown">
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a href="#" id="disable_item">Disable Selected Item(s)</a></li>
+							<li><a href="#" id="enable_item">Enable Selected Item(s)</a></li>
+							<li class="divider"></li>
+							<li><a href="#" id="delete_item">Delete Selected Item(s)</a></li>
+						</ul>
+					</div>
+				</div>
+				<table class='table table-bordered list_design'>
+					<tr class="thead">
+						<th></th>
+						<th>Title</th>
+						<th>Position</th>
+						<th>Status</th>
+						<th>Action</th>
+					</tr>
+					<?php foreach ($collection as $design) :?>
+					<tr class="<?php echo($design->getStatus() == 1) ? 'enable-item' : 'disable-item'; ?>">
+						<td><input type='checkbox' class='pdp-group-item' name='designids[]' id="designid_<?php echo $design->getId() ?>"/></td>
+						<td>
+							<?php echo $design->getTitle() ?>
+						</td>
+						<td>
+							<?php echo $design->getPosition() ?>
+						</td>
+						<td>
+							<?php echo ($design->getStatus() == 1) ? 'Enable' : 'Disable'; ?>
+						</td>
+						<?php $editUrl = Mage::helper("adminhtml")->getUrl("pdp/adminhtml_group/add/",array("id"=> $design->getId())); ?>
+						<td>
+							<a href="<?php echo $editUrl ?>"> Edit </a>
+						</td>
+					</tr>
+					<?php endforeach; ?>
+				</table>
+			</div>
+		
+		</div>
+	</div>
+</div>
+

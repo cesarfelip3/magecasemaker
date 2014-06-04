@@ -1,0 +1,34 @@
+<textarea placeholder="<?php echo $this->__('Add text...'); ?>"  maxlength="100" id="add_text_input"></textarea>
+<div class="clear"></div>
+<div id="add_text_action" title="Add text">
+	<span><?php echo $this->__('Add Text'); ?></span>
+</div>
+<div class="clear"></div>
+   <?php
+      $texts = Mage::getModel('pdp/text')->getCollection();
+    ?>
+<div class="pdp_text_key">
+	<label><?php echo $this->__('Popular Tags:'); ?></label>
+	<ul class="pdp_text_tag">
+     <li class="all_tag"><?php echo $this->__('Show all'); ?></li>
+    <?php $arra_tags = array();
+     foreach($texts as $textTag) {
+        if(!array_key_exists($textTag->getTags(),$arra_tags))
+        {
+            $arra_tags[$textTag->getTags()] = $textTag->getTags();
+        }
+     }
+      ?>
+       <?php foreach($arra_tags as $k_tag => $v_tag) : ?>
+       	<li class="<?php echo $v_tag; ?>"><?php echo $v_tag; ?></li>
+       <?php endforeach; ?>
+	</ul>
+</div>
+
+<div class="pdp_text_list">
+	<ul>
+     <?php foreach($texts as $text)  : ?>
+     	<li class="<?php echo $text->getTags(); ?>"><?php echo $text->getText(); ?></li>
+     <?php endforeach; ?>
+	</ul>
+</div>

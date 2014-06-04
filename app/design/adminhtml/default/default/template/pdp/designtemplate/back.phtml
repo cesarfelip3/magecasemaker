@@ -1,0 +1,45 @@
+<?php
+	//$baseUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
+    $mediaUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);
+	//$skinPath = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN);
+    $noImagePath = $mediaUrl . 'pdp/images/no_image.jpg';
+	
+	$iW = $iH = $iL = $iT = $imgPath = $id = "";
+	if (Mage::registry('design')) {
+		$backInfo = Mage::registry('design')->getBackInfo();
+		if ($backInfo['id'] != "") {
+			$id = $backInfo['id'];
+			$iW = $backInfo['canvas_w'];
+			$iH = $backInfo['canvas_h'];
+			$iT = $backInfo['canvas_t'];
+			$iL = $backInfo['canvas_l'];
+			$imgPath = $mediaUrl . 'pdp/images/' . $backInfo['filename'];
+		}
+	}
+?>
+
+<div id="design-info-form-back">
+	<div id="designFormBack">
+		<div class="modal-body"> 
+			<div id="print_area_back">
+				<div class="img_area_back">
+					<div class="inlay_area_back"></div>
+					<img id="designImageBack" src="<?php echo $imgPath == ''? $noImagePath : $imgPath ?>" alt="Main image" />
+				</div>
+				<div class="browse-image">
+					<input type="file" name="filename_back" onchange="Tshirt.previewImageBack(this)" />
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class="inlay-info">
+				<div><a href="#" target="_blank" class="btn btn-info" title="What is 'Back Preview'?">Help(s)</a></div>
+				<input type="hidden" name="back_image_id" value="<?php echo $id; ?>"/>
+				<div><span>Width:</span> <input id="iwidth_back" name="iwidth_back" type="text" class="span3 " value="<?php echo $iW==''?'170':$iW; ?>" /></div>
+				<div><span>Height:</span> <input id="iheight_back" name="iheight_back" type="text" class="span3 " value="<?php echo $iH==''?'270':$iH; ?>"/></div>
+				<div><span>Top:</span> <input id="itop_back" name="itop_back" type="text" class="span3 " value="<?php echo $iT==''?'50':$iT; ?>"/></div>
+				<div><span>Left:</span> <input id="ileft_back" name="ileft_back" type="text" class="span3 " value="<?php echo $iL==''?'20':$iL; ?>"/></div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,121 @@
+<?php 
+	$templates = $this->getCustomerDesignTemplates();
+	if (count($templates) > 0) {
+		?>
+		<script type="text/javascript" src="<?php echo $this->getSkinUrl('pdp/js/account_list.js') ?>"></script>
+		<input type="hidden" value="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK); ?>" id="base_url" name="base_url" />
+		<input type="hidden" value="<?php echo Mage::getStoreConfig('pdp/setting/productid'); ?>" id="product_id" name="product_id" />
+		<h2>Your Wishlist T-shirts</h2>
+		<table class='table data-table t-shirt-table'>
+			<tr>
+				<th></th>
+				<th>Design Info</th>
+				<th>Price</th>
+				<th>Status</th>
+				<th colspan='2'></th>
+			</tr>
+			<?php foreach ($templates as $template) : ?>
+				<tr>
+					<th><a class="img_view" id="click_<?php echo $template->getId(); ?>">&nbsp;</a>
+                        <a class="no-display" id="click_b_<?php echo $template->getId(); ?>">&nbsp;</a>
+                        <div id="view_<?php echo $template->getId(); ?>" class="no-display"></div>
+                    </th>
+					<td class="no-display"><input type='hidden' value='<?php echo $template->getPdpDesign(); ?>' class='design-option' iid="<?php echo $template->getId(); ?>" id="pdptemplate-<?php echo $template->getId(); ?>" /></td>
+                    <td>
+                        <div id="info_size_<?php echo $template->getId(); ?>"></div>
+                    </td>
+					<td><div id="price_<?php echo $template->getId(); ?>"></div></td>
+					<td>
+						<select class='pdptemplate-status' id='pdptemplatestatus_<?php echo $template->getId() ?>'>
+							<option <?php echo ($template->getStatus() == 1) ? "selected='selected'" : ""; ?> value='1'>Public</option>
+							<option <?php echo ($template->getStatus() == 2) ? "selected='selected'" : ""; ?> value='2'>Private</option>
+						</select>
+					</td>
+					<td>
+						<a href='<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK).Mage::getStoreConfig('pdp/setting/urlkey'); ?>?wid=<?php echo $template->getId(); ?>'>Edit</a> |
+						<a class='remove-pdptemplate' id='removetemplate_<?php echo $template->getId() ?>' href='#'>Remove</a>
+					</td>
+					<td>
+						<a class='add-pdptemplate' id='addtemplate_<?php echo $template->getId() ?>' href='#'>Add To Cart</a>
+					</td>
+				</tr>
+			<?php endforeach; ?>
+		</table>
+		<script type="text/javascript">
+			pdptemplate = jQuery.noConflict();
+			pdptemplate(function($){
+				PDPTem = {
+					baseUrl : $("#base_url").val(),
+					addToCart : function() {
+						$(".add-pdptemplate").click(function() {
+							var id = $(this).attr('id').split('_')[1];
+							var option = $("#pdptemplate-" + id).val();
+							var productId = $("#product_id").val();
+							$.ajax({
+								url: PDPTem.baseUrl + 'pdp/index/addToCart',
+								type: 'POST',
+								data: {
+									product_id: productId,
+									qty: 1,
+									option: option,
+								},
+								beforeSend: function () {
+									$('.pdploading').show()
+								},
+								success: function (a) {
+									$('.pdploading').hide();
+									if (a == "") {
+										window.location = PDPTem.baseUrl + 'checkout/cart'
+									} else {
+										console.log(a)
+									}
+								}
+							});
+						});
+					},
+					editTemplate : function(action, id) {
+						$.ajax({
+							type : "POST",
+							url : this.baseUrl + "pdp/pdptemplate/updatePdptemplate",
+							data: { action: action, id: id},
+							beforeSend: function() {
+								$('.pdploading').show()
+							},
+							error: function() {
+							
+							},
+							success: function(response) {
+								if (response == "") {
+									$('.pdploading').hide();
+								} else {
+									$('.pdploading').hide();
+									window.location.reload();
+								}
+							}
+						});
+					},
+					changeStatus : function() {
+						$(".pdptemplate-status").change(function(){
+							var id = $(this).attr('id').split('_')[1];
+							PDPTem.editTemplate('status', id);
+						});
+					},
+					removeTemplate : function() {
+						$(".remove-pdptemplate").click(function(){
+							var id = $(this).attr('id').split('_')[1];
+							if (!confirm("Are you sure?")) {
+								return false;
+							}
+							PDPTem.editTemplate('remove', id);
+						});
+					}
+				}
+				PDPTem.changeStatus();
+				PDPTem.removeTemplate();
+				PDPTem.addToCart();
+			});
+		</script>
+		<?php
+	} else {
+		echo "<h2>You have no design yet.</h2>";
+	}

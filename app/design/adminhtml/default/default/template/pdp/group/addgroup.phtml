@@ -1,0 +1,112 @@
+<?php 
+	$groupId = Mage::app()->getRequest()->getParam('id');
+	$title = $status = $position = $description = "";
+	$headerTitle = "Add New PDP Group";
+	if ($groupId != NULL) {
+		$groupInfo = Mage::getModel('pdp/pdpgroup')->load($groupId)->getData();
+		$title = $groupInfo['title'];
+		$status = $groupInfo['status'];
+		$position = $groupInfo['position'];
+		$description = $groupInfo['description'];
+		$headerTitle = "Edit group '" . $title . "'";
+	}
+?>
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12 add-newgroup-area">	
+			<div class="btn-group-top">
+				<h3><span class="title"><?php echo $headerTitle ?></span></h3>
+			</div>
+			<div class="action-panel">
+				<div class="btn-group">
+					<button onclick="history.back();" type="button" class="btn"><span>Back</span></button>
+				</div>
+				<div class="btn-group">
+					<button onclick="location.reload()" type="button" class="btn"><span>Reset</span></button>
+				</div>
+				<div class="btn-group">
+					<button onclick="pdp.validForm();" class="btn" type="button"><span>Save Group</span></button>
+				</div>
+				<div class="btn-group">
+					<button onclick="pdp.saveAndContinueEdit()" class="btn" type="button"><span>Save And Continue Edit</span></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<form class="form-horizontal" id="add_group_form" name="add_group_form" method="POST" action="<?php echo Mage::helper("adminhtml")->getUrl("pdp/adminhtml_group/save/"); ?>" enctype="multipart/form-data">
+	<input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>" />
+	<input type="hidden" name="group_id" value="<?php echo $groupId ?>" />
+	<div id='tshirt'>
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="tabbable">
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#general" data-toggle="tab">General</a></li>
+							<li class=""><a href="#assign_pdp" data-toggle="tab">Manage T-Shirt Templates</a></li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane active" id="general">
+								<div class="control-group">
+									<label class="control-label" for="title">Title <span class="required">*</span></label>
+									<div class="controls">
+										<input type="text" name="title" value="<?php echo $title ?>" id="title" class="required-entry" placeholder="Enter title here">
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label" for="position">Position</label>
+									<div class="controls">
+										<input type="text" class="validate-digits" name="position" value="<?php echo $position ?>" id="position">
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label" for="status">Status</label>
+									<div class="controls">
+										<select name="status">
+											<option <?php echo ($status == 1) ? 'selected="selected"' : ''; ?> value='1'>Enable</option>
+											<option <?php echo ($status == 2) ? 'selected="selected"' : ''; ?> value='2'>Disable</option>
+										</select>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label" for="description">Description</label>
+									<div class="controls">
+										<textarea id="description" name="description"><?php echo $description ?></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane" id="assign_pdp">
+								<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('pdp/group/assign_pdp.phtml')->toHtml(); ?>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<script type="text/javascript">
+	var pdpForm = new varienForm('add_group_form', '');
+	var pdpFormValid = jQuery.noConflict();
+	pdpFormValid(function($){
+		pdp = {
+			validForm : function() {
+				if(pdpForm.validator.validate()){
+					pdpForm.submit();
+					return false;
+				}
+			},
+			saveAndContinueEdit : function () {
+				if(pdpForm.validator.validate()) {
+					var saveAndEdit = "<input type='hidden' value='Yes' name='save_and_continue_edit' />";
+					$('#add_group_form').append(saveAndEdit);
+					pdpForm.submit();
+					return false;
+				} else {
+					pdp.validForm();
+				}
+			}
+		}
+	});
+</script>

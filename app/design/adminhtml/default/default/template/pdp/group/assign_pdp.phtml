@@ -1,0 +1,50 @@
+<?php
+	$groupId = Mage::app()->getRequest()->getParam('id');
+	$mediaUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) .'pdp/images/';
+	$baseUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK);
+	$collection = Mage::getModel('pdp/pdp')->getDesignCollection();
+?>
+<div class="row">
+	<div class="span4 offset8">
+		<div class='group-filter'>
+			<button id='pdp_reset_filter' type='button'>Reset Filter</button>
+			<select id='pdp_group_filter'>
+				<option value='all_item'>All Item</option>
+				<option value='checked_item'>Selected Item</option>
+				<option value='unchecked_item'>Unselected Item</option>
+			</select>
+		</div>
+	</div>
+</div>
+<table id='pdp_group_item' class='table table-bordered list_design'>
+	<tr class="thead">
+		<th><!--<input type='checkbox' name='checkall' value="uncheck"/>--></th>
+		<th>Title</th>
+		<th>Price</th>
+		<th>Front</th>
+		<th>Back</th>
+		<th>Status</th>
+	</tr>
+	<?php foreach ($collection as $design) :?>
+	<?php $designGroup = $design->getPdpgroup(); ?>
+	<tr class="<?php echo($designGroup == $groupId) ? 'checked-item' : 'unchecked-item';?>">
+		<td><input <?php echo($designGroup == $groupId) ? 'checked="checked"' : '';?> type='checkbox' class='design-item' name='designids[<?php echo $design->getId() ?>]'/></td>
+		<td>
+			<?php echo $design->getTitle() ?>
+		</td>
+		<td>
+			<span class="price"><?php echo Mage::helper('core')->currency($design->getPrice(), true, false);?></span>
+		</td>
+		<td>
+			<img src="<?php echo $mediaUrl . $design->getFilename() ?>" width="100" />
+		</td>
+		<td>
+			<img src="<?php echo $mediaUrl . $design->getFilenameBack() ?>" width="100"/>
+		</td>
+		<td>
+			<?php echo ($design->getStatus() == 1) ? 'Enable' : 'Disable'; ?>
+		</td>
+	</tr>
+	<?php endforeach; ?>
+</table>
+

@@ -1,0 +1,151 @@
+<?php 
+	$design = Mage::registry('design');
+	$title = $price = $productId = $id = $group = $position = "";
+	$headerTitle = "Add PDP Template";
+	if ($design != "") {
+		$id = $design->getId();
+		$group = $design->getPdpgroup();
+		$title = $design->getTitle();
+		$price = $design->getPrice();
+		$position = $design->getPosition();
+		$productId = $design->getProductId();
+		$headerTitle = "Edit '" . $title . "'";
+	}
+?>
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span6">	
+			<div class="btn-group-top">
+				<span class="title"><?php echo $headerTitle ?></span>
+			</div>
+		</div>
+		<div class="span6">	
+			<div class="action-panel">
+				<div class="btn-group">
+					<button class="btn" type="button" onclick="history.back();" class="btn"><span>Back</span></button>
+				</div>
+				<div class="btn-group">
+					<button class="btn" type="button" onclick="location.reload()" class="btn"><span>Reset</span></button>
+				</div>
+				<div class="btn-group">
+					<button type="button" class="btn" onclick="pdp.validForm()" class="btn"><span>Save Design</span></button>
+				</div>
+				<div class="btn-group">
+					<button type="button" class="btn" onclick="pdp.saveAndContinueEdit()" class="btn"><span>Save And Continue Edit</span></button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<form class="form-horizontal" id="pdp_form" method="POST" action="<?php echo Mage::helper("adminhtml")->getUrl("pdp/adminhtml_pdp/save/"); ?>" enctype="multipart/form-data">
+	<input type="hidden" name="form_key" value="<?php echo Mage::getSingleton('core/session')->getFormKey(); ?>" />
+	<input type="hidden" name="design_id" value="<?php echo $id ?>" />
+	<input type="hidden" name="product_id" value="1" />
+	<div id='tshirt'>
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span12">
+					<div class="tabbable tabs-left">
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#tinfo" data-toggle="tab" class="tab-item-link-tinfo">General Information</a></li>
+							<li class=""><a href="#front" data-toggle="tab" class="tab-item-link-front">Front Preview <i class="icon-eye-open"></i></a></li>
+							<li><a href="#back" data-toggle="tab" class="tab-item-link-back">Back Preview <i class="icon-eye-open"></i></a></li>
+							<li><a href="#options" data-toggle="tab" class="tab-item-link-options">Advanced Options</a></li>
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane active" id="tinfo">
+								<div class="control-group">
+									<label for="pdpgroup" class="control-label">Select T-Shirt Groups <span class="required">*</span></label>
+									<div class="controls">
+										<?php $pdpGroups = Mage::getModel('pdp/pdpgroup')->getPdpGroup() ?>
+										<select id="pdpgroup" name="group" class="validate-select">
+											<option value=''>--Please select--</option>
+											<?php foreach ($pdpGroups as $groupItem) : ?>
+											<?php $groupId = $groupItem->getId(); ?>
+											<option value='<?php echo $groupId ?>' <?php echo ($group == $groupId) ? 'selected="selected"' : ''; ?>><?php echo $groupItem->getTitle(); ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label" for="title">Title <span class="required">*</span></label>
+									<div class="controls">
+										<input class="required-entry" type="text" name="title" value="<?php echo $title ?>" id="title"  placeholder="Enter title here">
+									</div>
+								</div>
+								<!--
+<div class="control-group">
+									<label class="control-label" for="price">Price <span class="required">*</span></label>
+									<div class="controls">
+										<input type="text" class="required-entry validate-number" id="price"  value="<?php echo $price ?>" name="price"  placeholder="Enter price here">
+									</div>
+								</div>
+-->
+								<div class="control-group">
+									<label class="control-label" for="position">Position</label>
+									<div class="controls">
+										<input type="text" class="validate-digits" id="position" value="<?php echo $position ?>" name="position">
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane" id="front">
+								<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('pdp/designtemplate/front.phtml')->toHtml(); ?>
+							</div>
+							<div class="tab-pane" id="back">
+								<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('pdp/designtemplate/back.phtml')->toHtml(); ?>
+							</div>
+							<div class="tab-pane" id="options">
+								<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('pdp/designtemplate/options.phtml')->toHtml(); ?>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+<script type="text/javascript">
+	var pdpForm = new varienForm('pdp_form', '');
+	var pdpFormValid = jQuery.noConflict();
+	var validFields = ["tinfo", "front", "options"];
+	pdpFormValid(function($){
+		pdp = {
+			validForm : function() {
+				if(pdpForm.validator.validate()){
+					for (var i = 0; i < validFields.length; i++) {
+						$(".tab-item-link-" + validFields[i]).removeAttr("style");
+					}
+					//console.log("Submit");
+					pdpForm.submit();
+					return false;
+				}else{
+					//If form not valid, then show red border
+					var i, errorNum;
+					for (i = 0; i < validFields.length; i++) {
+						errorNum = $("#" + validFields[i] + " .validation-failed").length;
+						if (errorNum > 0) {
+							$(".tab-item-link-" + validFields[i]).css({"border" : "1px solid #ED4B4B"});
+							return false;
+						} else {
+							$(".tab-item-link-" + validFields[i]).removeAttr("style");
+						}
+					}
+					return false;
+				}
+			},
+			saveAndContinueEdit : function () {
+				if(pdpForm.validator.validate()) {
+					for (var i = 0; i < validFields.length; i++) {
+						$(".tab-item-link-" + validFields[i]).removeAttr("style");
+					}
+					var saveAndEdit = "<input type='hidden' value='Yes' name='save_and_continue_edit' />";
+					$('#pdp_form').append(saveAndEdit);
+					pdpForm.submit();
+					return false;
+				} else {
+					pdp.validForm();
+				}
+			}
+		}
+	});
+</script>
