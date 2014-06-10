@@ -1,0 +1,40 @@
+<?php
+$helper = Mage::helper('pdp');
+$fonts = $helper->getFonts();
+?>
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type='text/javascript' src='<?php echo $this->getSkinUrl('pdp/js/jquery-latest.js') ?>'></script>
+		<script type='text/javascript' src='<?php echo $this->getSkinUrl('pdp/js/viewfinaldesign.js') ?>'></script>
+		<title>Final Design Review</title>
+		<style type="text/css">
+			<?php foreach ( $fonts as $font) { ?>
+			@font-face {
+				font-family: '<?php echo $font->getName() ?>';
+				src: url('<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>pdp/fonts/<?php echo $font->getName() ?>.<?php echo $font->getExt() ?>');
+			}
+			<?php } ?>
+		</style>
+	</head>
+	<body>
+		<div id='wrapper'>
+			<div id='final_design'>
+			<?php
+				$designs = Mage::getModel('pdp/pdptemplate')->getCollection()->setOrder('update_time', 'DESC');
+				$customer = Mage::getModel('customer/customer');
+				foreach ($designs as $item){
+					$customerInfo = $customer->load($item->getCustomerId())->getData();
+					$customerName = $customerInfo['firstname'] . ' ' . $customerInfo['lastname'];
+					//echo "<h3>{$customerName}</h3>";
+					if($item->getPdpDesign() != "") {
+						echo "<input type='hidden' value='" . $item->getPdpDesign() . "' name='option[]' class='design-option' />";
+					}
+					
+				}
+			?>
+			</div>
+			<div id='design_result' style='float: left;'></div>
+		</div>
+	</body>
+</html>
