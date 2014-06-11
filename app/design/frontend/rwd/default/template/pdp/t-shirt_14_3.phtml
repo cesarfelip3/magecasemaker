@@ -1,0 +1,475 @@
+<?php
+	if (Mage::getStoreConfig('pdp/setting/enable') == 0) {
+		echo "<h3>PDP module is disabled. Please enable PDP to use it's features!</h3>";
+		return false;
+	}
+    //if(($_REQUEST['id']=='')||(!isset($_REQUEST['id']))){
+    //    echo "<h3>PDP module is enable. But you need to go from product page! How can you get this URL?</h3>";
+	//	return false;
+    //}
+    $helper = Mage::helper('pdp');
+    $imagePath = $helper->getImagePath();
+    $fontPath = $helper->getFontPath();
+    $baseImagePath = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'pdp/images/';
+    $fonts = $helper->getFonts();
+    $designs = $helper->getDesignCollection();
+    
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+    $productId = $_REQUEST['id'];
+    $product = Mage::getModel('catalog/product')->load($productId);
+    $price = $product->getPrice();
+    $title = $product->getName();
+    $shortDes = $product->getShortDescription();
+    $fullDes = $product->getDescription();
+    $_helper = $this->helper('catalog/output');
+
+?>
+<div class="wrapper_pdp">
+    <!--h2 class="product-title"><?php echo $title ?></h2-->
+    <div class="wrap_pdp_design">
+        <div id="design_control"> 
+            <div class="control_tab">
+                <div class="control_tab_wrap">
+                    <div id="rotate-180"><a  title="Choice other side"><i class="pi pi-retweet"></i><?php echo $this->__("Rotate") ?><i class="pi pi-angle-down"></i></a></div>
+                    <div class="add_text">
+                        <a data-tooltip="pdptt_add_text"><i class="pi pi-font"></i><?php echo $this->__("Text") ?><i class="pi pi-angle-down"></i></a>
+                    </div>
+                    <div class="add_artwork">
+                        <a data-tooltip="pdptt_add_images"><i class="pi pi-picture-o"></i><?php echo $this->__("Images"); ?><i class="pi pi-angle-down"></i></a>
+                    </div>
+                    <div id="pdp_question"><a data-tooltip="pdptt_questions" title="Frequently Asked Questions" ><i class="pi pi-question-circle"></i></a></div>
+                    <div id="save_design"><a  title="Login to save your design"><i class="pi pi-floppy-o"></i><?php echo $this->__('Save'); ?></a></div>
+                </div>
+            </div>
+            <div id="pdp_rotate_item" class="no-display tab_content">
+                <div class="p_rotate_wrap">
+                    <h3 class="pdp_side_title"><?php echo $this->__('Select side '); ?>
+                        <span class="pi pi-times-circle-o  pdp_close"></span>
+                    </h3>
+                    <div id="pdp_side_items">
+                        <ul>
+                            <li class="active pdp_side_item_content" tab="front" inlay="247,384,81,136">
+                                <img id="pdp_front_view_item" width="50" src="http://productsdesignerpro.com/2014/js/pdp/images/sideview/Front.jpg" />
+                                <label><?php echo $this->__('Front'); ?></label>
+                            </li>
+                            <li class="pdp_side_item_content" tab="back" inlay="257,428,57,128">
+                                <img id="pdp_back_view_item" width="50" src="http://productsdesignerpro.com/2014/js/pdp/images/sideview/Back.jpg" />
+                                <label><?php echo $this->__('Back'); ?></label>
+                            </li>
+                            <li class="pdp_side_item_content" tab="left" inlay="205,286,61,155">
+                                <img id="pdp_left_view_item" width="50" src="http://productsdesignerpro.com/2014/js/pdp/images/sideview/left.png" />
+                                <label><?php echo $this->__('Left'); ?></label>
+                            </li>
+                            <li class="pdp_side_item_content" tab="right" inlay="208,284,61,151">
+                                <img id="pdp_right_view_item" width="50" src="http://productsdesignerpro.com/2014/js/pdp/images/sideview/right.png" />
+                                <label><?php echo $this->__('Right'); ?></label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="select_phone_type" class="t_shirt tab_content">
+                <div class="wrap_product_type">
+                    <h3 class="product-type-title numbers first"><?php echo $this->__("Select Item Type") ?></h3>
+            		<select id="t-shirt-type">
+                        <?php 
+                            $group_items = Mage::getModel( 'pdp/pdpgroup' )->getPdpGroup();
+                            foreach ($group_items as $group_item ){ ?>
+                                <option value='<?php echo $group_item->getId() ?>' <?php if($dt_ts[0]==$group_item->getId()) echo 'selected="selected"'; ?>><?php echo $group_item->getTitle() ?></option>
+                            <?php }
+                        ?>
+                    </select>
+                </div>
+        		<div class="color_wrap no-display">
+                    <h3 class="color-option"><?php echo $this->__("Select Item") ?></h3>
+            		<div color="list" id="list_color">
+            			<ul>
+            			<?php $img_all = ''; $fi=0; foreach ($designs as $design) {
+            			     if($dt_ts[4]==''){
+            			         if($fi++==0){
+                			         //$f_img_act = 'class="active"';
+                			     }else{
+                			         $f_img_act = '';
+                                 }
+            			     }else{
+            			         if($dt_ts[4]==$design->getId()){
+            			             $f_img_act = 'class="active"';
+            			         }else{
+                			         $f_img_act = '';
+            			         }
+            			     }
+            				$option = unserialize($design->getOptions());
+            				$frontInlay = $helper->getInlayInfoByFilename($design->getFilename());
+            				$backInlay = $helper->getInlayInfoByFilename($design->getFilenameBack());
+            				$leftInlay = '198,259,87,160';
+            				$rightInlay = '195,263,80,158';
+                            //$img_all .= '<img src="'.Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'pdp/images/'.$design->getFilenameBack().'" /><img src="'.Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'pdp/images/'.$design->getFilename().'" />';
+            				echo '<li '.$f_img_act.' did="'.$design->getId().'" inlay="'.$frontInlay . '-' . $backInlay .'-'.$leftInlay . '-' . $rightInlay.'" relf="'. $design->getFilename().'" relb="' . $design->getFilenameBack() .'" rell="left.png" relr="right.png" tt="'. $design->getPdpgroup() .'" price="'.$design->getPrice().'" ><img src="'.Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'pdp/images/'.$design->getFilename().'" /></li>';
+            			} ?>
+            			</ul>
+            		</div>
+        			<div class='design-color-image'>
+        				<?php $colorList = Mage::getModel('pdp/pdp')->getDesignStyles(); ?>
+                        <h3 class="color-option"><?php echo $this->__("Choose Style:") ?>
+                            <span class="color_name">&nbsp;</span><span class="color_price">&nbsp;</span>
+                        </h3>
+        				<ul>
+        					<?php 
+        					foreach ($colorList as $color) {
+        						$images = $color->getFilename() . ',' . $color->getFilenameBack();
+        						$hexcode = $color->getHexcode();
+        						$designId = $color->getDesignId();
+								$styleImage = $color->getStyleImage();
+                                if($color->getPrice()==''){
+                                    $colorprice = 0;
+                                }else{
+                                    $colorprice= $color->getPrice();
+                                }
+                                if($dt_ts[5]=='cl_'.$color->getId()){
+                                    $color_act = ' class="active"';
+                                }else{
+                                    $color_act = '';
+                                } 
+								if ($styleImage != "") {
+									echo '<li name="'.$color->getColorName().'" price="'.number_format($colorprice,2).'" id="cl_'.$color->getId().'" design="'.$designId.'" relf="'. $color->getFilename() .'" '.$color_act.'  relb="'. $color->getFilenameBack() .'" color="'. $hexcode .'" styleimage="'. $hexcode .'"><img src="'. $baseImagePath . $styleImage  .'" /></li>';
+								} else {
+									echo '<li name="'.$color->getColorName().'" price="'.number_format($colorprice,2).'" id="cl_'.$color->getId().'" design="'.$designId.'" relf="'. $color->getFilename() .'" '.$color_act.'  relb="'. $color->getFilenameBack() .'" color="'. $hexcode .'" style="background:#'. $hexcode .'"></li>';
+                                }
+								$img_all .= '<img src="'.$baseImagePath . $color->getFilenameBack().'" /><img src="'.$baseImagePath . $color->getFilename().'" />';
+        					} 
+        					?>
+        				</ul>
+        			</div>
+                </div>
+                <div class="no-display" id="all_img_cache">
+                <?php //echo $img_all; ?>
+                </div>
+            </div>
+            <div id="select_image" class="tab_content add_artwork no-display">
+                <div class="wrap_addwork">
+                    <h3 class="phone-type-title numbers third">
+                        <?php echo $this->__("Select a clipart from Cliparts or Upload your photo from PC or social network") ?>
+                        <span class="pi pi-times-circle-o  pdp_close"></span>
+                    </h3>
+                    <div class="tab_design_image">
+                        <a  title="Clipart library" tab-content="content_designs" class="active design"><?php echo $this->__("Cliparts") ?></a>
+                        <a  title="Upload from PC" tab-content="content_upload" class="upload"><?php echo $this->__('Upload'); ?></a>
+                        <a  title="Get facebook photo" tab-content="content_facebook" class="facebook_api"><?php echo $this->__('Facebook'); ?></a>
+                    </div>
+                    <div class="content_tab">
+                        <div class="content_designs">
+            				<?php $categoryOptions = Mage::getModel('pdp/artworkcate')->getCategoryOptions(); ?>
+                            <label class="design_label"><?php echo $this->__('Photo category:'); ?><span class="pdp_selected_category"></span><span class="pi pdp_parent">&#xf078;</span></label>
+            				<ul id='image_category_list'>
+            					<?php 
+            					$options = $categoryOptions;
+                                $check_first = 0;
+            					foreach ($options as $key => $value) {
+            					    if($check_first++==0){$act='class="active cat_loaded" cr_act="2"';}else{$act='';}
+            						echo "<li ".$act."> <span id='". $key ."'>{$value}</span></li>";
+            					}
+            					?>
+            				</ul>
+            				<ul id="icon_list">
+    							<?php $defaultArtCate = Mage::getModel('pdp/artworkcate')->getDefaultArtCate() ?>
+            					<?php   foreach ($this->pagingCollection(1, $defaultArtCate, $this->_default_page_size) as $image) : ?>
+            					<li cat="<?php echo $image->getCategory(); ?>">
+                                    <a rel="clover" class="selection_img">
+            							<?php $colorImg = Mage::getModel('pdp/pdp')->getColorImageFrontend($image->getId()); ?>
+                                        <img src="<?php echo $imagePath . $image->getFilename()  ?>" id="img<?php echo $image->getId(); ?>" color="<?php echo $colorImg ?>" />
+                                    </a>
+                                </li>
+            					<?php endforeach;   ?>
+            				</ul>
+            				<div class="add-more">
+            					<input type="hidden" value='<?php echo $this->_default_page_size ?>' name='default_page_size' id="default_page_size" />
+            					<button class="btn" id="load_more_image" type="button">Load More Image</button>
+            				</div>
+                        </div>
+                        <div class="content_upload no-display">
+                            <input type="file" id="files_upload" name="imgfiles[]" multiple="" />
+                            <div id="lists_img_upload"></div>
+                        </div>
+                        <div class="content_facebook no-display">
+                              <div id="fb-root"></div>
+                              <div id="user-info"></div>
+                              <div id="photos_album">Login to facebook to get photos from your albums</div>
+                              <button id="fb-auth" class="login"></button> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="add_text" class="tab_content add_text">
+                <div class="wrap_pdp_text">
+                    <div class="pdp_text_title numbers first">
+                        <input type="text" id="pdp_search_text" placeholder="<?php echo $this->__('Search Text'); ?>" />
+                        <span class="pi pi-times-circle-o pdp_close"></span>
+                    </div>
+                    <div class="add_text_field">
+						<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('pdp/text.phtml')->toHtml(); ?> 
+                    </div>
+                </div>        
+            </div>
+            <div class="add_to_box">
+				<?php $pdpOption = Mage::getModel('pdp/pdpgroup')->getPdpOptions(); ?>
+				<div class='tshirt-size'>
+					<h1 class="size-options"><?php echo $this->__("Select Options") ?></h1>
+                    <?php 
+                        $total_each_qty = count($dt_ts); 
+                    ?>
+					<ul>
+					<?php 
+						foreach ($designs as $design) {
+							$designId = $design->getId();
+							$pdpOptions = Mage::getModel('pdp/pdpoption')->getPdpOptions($designId);
+							foreach ($pdpOptions as $option) {
+								?>
+								<li class='size_option_<?php echo $designId ?>'>
+                                    <?php 
+                        			     $size_val = 0;
+                                    ?>
+									<label><?php echo $option->getOptionLabel(); ?></label>
+									<input type='hidden' class="price_size" value='<?php echo ($option->getPrice() == "") ? '0' : $option->getPrice(); ?>' id='<?php echo $option->getId() . '_' . $designId ?>' />
+									<input type="text" class="size_qty" value="" id='qty_<?php echo $option->getId() . '_' . $designId ?>' />
+                                    <span> + $<?php echo ($option->getPrice() == "") ? '0' : $option->getPrice(); ?> <?php echo $this->__('per item'); ?> </span>
+								</li>
+								<?php
+							}
+						}
+					?>
+					</ul>
+				</div>
+                <input type="hidden" class="input-text" size="1" name="qty" id="qty" value="1"/>
+                <div class="add-to-cart">
+                    <button class="btn-cart" type="button"><?php if(isset($_REQUEST['id'])&&($_REQUEST['id']!='')){ echo $this->__("Update Cart"); }else{ echo $this->__("Add To Cart");} ?></button>
+                </div>
+                <div class="price"><?php echo  Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); ?><span class="price_val"><?php echo round($price,2); ?></span></div>
+            </div>
+        </div>
+        <div class="product-img-box">
+            <div class="canvas_slider">
+                <div class="product-image act" id="product-image-wrap">
+                    <div class="wrap_inlay_center" tab="front">
+                        <div id="wrap_inlay" class="wrap_inlay">
+                            <canvas id="canvas_area"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="color_att"></ul>
+        </div>
+        <div id="pdp_opacity_item" class="no-display pdp_extra_item">
+            <label><?php echo $this->__('Move to change opacity of item'); ?>: </label>
+            <span>0</span>
+            <div id="pdp_opacity_input"></div>
+            <span>1</span>
+        </div>
+        <div id="pdp_edit_text" class="no-display pdp_extra_item">
+            <div id="pdp_edit_text_tab">
+                <a tab="pdp_edit_text_tab_content" class="active"><i class="pi pi-font"></i> Text</a>
+                <a tab="pdp_edit_font"><i class="pi pi-text-height"></i> Font</a>
+                <a tab="pdp_edit_font_color"><i class="pi pi-filter"></i> Color</a>
+                <a tab="pdp_edit_text_size"><i class="pi pi-text-width"></i> Style</a>
+                <a tab="pdp_edit_text_style"><i class="pi pi-align-center"></i> Alignment</a>
+            </div>
+            <div id="pdp_edit_text_content">
+                <div id="pdp_edit_text_tab_content" class="pdp_edit_text_tab_content">
+                    <!--
+                    <input type="text" id="pdp_edit_text_input" value="" />
+                    -->
+                    <textarea id="pdp_edit_text_input"></textarea>
+                </div>
+				<!-- Font Family -->
+                <div id="pdp_edit_font" class="no-display pdp_edit_text_tab_content">
+                    <ul id="select_font">
+                        <li class="active" rel="<?php echo $this->__("Arial") ?>"><?php echo $this->__("Font") ?></li>
+                        <?php foreach ( $fonts as $font) : ?>
+                        <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName() ?><?php echo $this->__('Font'); ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+				<!-- Text Fill -->
+                <div id="pdp_edit_font_color" class="no-display pdp_edit_text_tab_content">
+                    <div id="pdp_color_text">
+                        <?php echo $this->getLayout()->createBlock('core/template')->setTemplate('pdp/color.phtml')->toHtml(); ?>
+                    </div>
+                </div>
+				<!-- Font Style -->
+                <div id="pdp_edit_text_size" class="no-display pdp_edit_text_tab_content">
+					<div class="pdp_edit_font_style">
+						<ul>
+							<li><a class="text bold"><i class="pi pi-bold"></i></a></li>
+							<li><a class="text italic"><i class="pi pi-italic"></i></a></li>
+							<li><a class="text underline"><i class="pi pi-underline"></i></a></li>
+							<li><a class="text overline"><i class="pi pi-flag-o pi-rotate-90"></i></a></li>
+							<li><a class="text line-through"><i class="pi pi-strikethrough"></i></a></li>
+						</ul>
+					</div>
+                    <div class="pdp_edit_text_font_size">
+                        <label><?php echo $this->__('Font Size'); ?></label>
+                        <div id="pdp_font_size_input"></div>
+                        <span id="pdp_font_size_value">20px</span>
+                    </div>
+                    <div class="pdp_edit_text_line_height">
+                        <label><?php echo $this->__('Line Height'); ?></label>   
+                        <div id="pdp_edit_text_line_height_input"></div>
+                    </div>
+                 </div>
+				<!-- Alignment -->
+                <div id="pdp_edit_text_style" class="no-display pdp_edit_text_tab_content">
+                    <ul>
+                        <li><a class="align align_left active"><i class="pi pi-align-left"></i></a></li>
+                        <li><a class="align align_center"><i class="pi pi-align-center"></i></a></li>
+                        <li><a class="align align_right"><i class="pi pi-align-right"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="pdp_color_fill" class="no-display pdp_extra_item">
+            <div id="pdp_color_item">
+                <?php echo $this->getLayout()->createBlock('core/template')->setTemplate('pdp/color.phtml')->toHtml(); ?>
+            </div>
+        </div>
+        <div id="pdp_flip_item" class="pdp_extra_item no-display">
+            <div id="pdp_flip_x"><a>Flip X</a></div>
+            <div id="pdp_flip_y"><a>Flip Y</a></div>
+        </div>
+        <div id="pdp_shadow_item" class="no-display pdp_extra_item">
+            <div class="font_outline_color">
+                <div class="use_shadow">
+                    <span id="use_shadow"></span>
+                    <label for="use_shadow"><?php echo $this->__('Use Shadow'); ?></label>
+                </div>
+                <div class="h-shadow no-display">
+                    <label>Offset Y</label> 
+                    <div id="h-shadow"></div>
+                </div>
+                <div class="v-shadow no-display">
+                    <label>Offset X</label> 
+                    <div id="v-shadow"></div>
+                </div>
+                <div class="blur no-display">
+                    <label>Blur</label> 
+                    <div id="t-blur"></div>
+                </div>
+                <div class="color no-display">
+                    <label>Color</label>
+                    <div id="font_outline_color">
+                        <input type="text" id="font_outline_color_value" name="font_outline_color" value="#FFFFFF" />
+                    </div>
+                    <div id="font_outline_colorpicker"></div>
+                </div>
+            </div>
+        </div>
+        <div class="pdp_bottom_action">
+            <!-- edit ---------------->
+            <div id="edit_item_wrap">
+                <div id="delete_item" class="item">
+                    <label class="pi pi-trash-o"></label>
+                    <span><?php echo $this->__('Delete'); ?></span>
+                </div>
+                <div id="move_to_front" class="item">
+                    <label class="pi "></label>
+                    <span class="move_to_front"><?php echo $this->__('Bring front'); ?></span>
+                </div>
+                <div id="move_to_back" class="item">
+                    <label class="pi"></label>
+                    <span class="move_to_back"><?php echo $this->__('Move back'); ?></span>
+                </div>
+                <div id="edit_text" tab="pdp_edit_text" class="text_edit item no-display">
+                    <label class="pi pi-pencil"></label>
+                    <span><?php echo $this->__('Edit Text'); ?></span>
+                </div>
+                <div id="shadow_item" tab="pdp_shadow_item" class="item">
+                    <label class="pi"></label>
+                    <span><?php echo $this->__('Shadow'); ?></span>
+                </div>
+                <div id="opacity_item" data-tooltip="pdptt_opacity" tab="pdp_opacity_item" class="item">
+                    <label class="pi"></label>
+                    <span><?php echo $this->__('Opacity'); ?></span>
+                </div>
+                <div id="color_item" tab="pdp_color_fill" class="image_edit item">
+                    <label class="pi pi-fire-extinguisher"></label>
+                    <span><?php echo $this->__('Color Fill'); ?></span>
+                </div>
+                <div id="flip_item" tab="pdp_flip_item" class="image_edit item">
+                    <label class="pi pi-retweet"></label>
+                    <span><?php echo $this->__('Flip'); ?></span>
+                </div>
+                <!--
+                <div id="duplicate_item" class="item">
+                    <label class="pi">&#xf057;</label>
+                    <span><?php echo $this->__('Duplicate'); ?></span>
+                </div>
+                -->
+            </div>
+            <div class="pdp_add_to_cart">
+                <a  title="Saved and back to product page"><i class="pi pi-shopping-cart"></i><span class="pdp_continue"><i class="pi pi-angle-double-right"></i>Continue</span></a>
+            </div>
+        </div>
+    </div>
+    <?php   
+    if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+        /* Get the customer data */
+        $customer = Mage::getSingleton('customer/session')->getCustomer();
+        /* Get the customer's email address */
+        $email = $customer->getEmail();
+        $customerType = 0;
+        if($email=='daovanchung.ictu@gmail.com'){
+            $customerType = 1;
+    ?>
+    <div class='save-design'>
+		<?php $customerId = Mage::getSingleton('customer/session')->getCustomer()->getId(); 
+        ?>
+        <input type="hidden" id="customer_group_id" value="<?php echo $customerType; ?>" />
+		<input type="hidden" name="customer_id" id="customer_id" value="<?php echo $customerId; ?>" />
+	</div>
+    <?php         
+        }
+    }
+    ?>
+	<?php //endif; ?>
+    <div class="product-info">
+        <div class="sort_des">
+            <?php $gi = 0;  foreach ($group_items as $group_item ){  ?>
+                <div class="group-des gdes_<?php echo $group_item->getId(); if($dt_ts[0]==$group_item->getId()) {}elseif(++$gi!=1){ echo ' no-display';} ?>">
+            <?php
+				$_cmsHelper = Mage::helper('cms');
+				$_process = $_cmsHelper->getBlockTemplateProcessor();
+				//echo $_process->filter($group_item['description']);
+                //echo $group_item->getDescription();
+                //break;
+            ?>
+            </div>
+            <?php } ?>
+        </div>   
+        <div class="full_des">
+            <?php //echo $_helper->productAttribute($_product, nl2br($product->getDescription()), 'description') ?>
+            <?php //echo $fullDes ?>
+        </div> 
+    </div>
+    <div id="img_sessiton" class="no-display">
+        <?php //for($i=1;$i<count($data);$i++){ 
+            //$datass= explode(';',$data[$i]);
+        ?> 
+        <?php //} ?>
+    </div>
+    <div class="no-display">
+        <input type="hidden" value="<?php echo $_REQUEST['fb'] ?>" id="fb_get_id" />
+        <input type="hidden" value="<?php echo $product->getProductUrl(); ?>" id="current_url" />
+        <input type="hidden" value="<?php echo $wid; ?>" id="wid" />
+        <input type="hidden" value="<?php echo $cid ?>" id="cid" />
+        <input type="hidden" value="<?php echo $_REQUEST['eid'] ?>" id="edit_id" />
+        <input type="hidden" id="product_id" name="product_id" value="<?php echo $productId; ?>" />
+    </div>
+</div>
+<div class="clear"></div>
+<script type="text/javascript">
+(function() {
+  var e = document.createElement('script'); e.async = true;
+  e.src = document.location.protocol 
+    + '//connect.facebook.net/en_US/all.js';
+  document.getElementById('fb-root').appendChild(e);
+}());
+
+</script>

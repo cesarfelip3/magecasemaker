@@ -1,0 +1,9 @@
+<?php 
+	$outermostItemClass = $this->getOutermostItemClass();
+	$active = $this->getActive();
+	$pdpUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK) . Mage::getStoreConfig('pdp/setting/urlkey');
+	$pdpTitle = Mage::getStoreConfig('pdp/setting/headertitle');
+?>
+<li class="<?php echo $outermostItemClass ?> <?php echo $active ?>">
+	<a class="<?php echo $outermostItemClass ?>" href="<?php echo $pdpUrl ?>"><span><?php echo $this->escapeHtml($this->__($pdpTitle)) ?></span></a>
+</li>

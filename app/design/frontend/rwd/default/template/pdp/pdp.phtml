@@ -1,0 +1,185 @@
+<?php 
+    $helper = Mage::helper('designpro');
+    $imagePath = $helper->getImagePath();
+    $fontPath = $helper->getFontPath();
+    
+    $customImages = $helper->getCustomImages();
+    $woodImages = $helper->getWoodImages();
+    $fonts = $helper->getFonts();
+    $designs = $helper->getDesignCollection();
+    
+?>
+<div class="product-info">
+    <?php
+        $productId = 2;
+        $product = Mage::getModel('catalog/product')->load($productId);
+        /**
+         * $optionId = NULL;
+         *         $options = $product->getOptions();
+         * 		foreach ($options as $option) {
+         * 			if($option->getData('default_title') || $option->getData('type') == 'field') {
+         * 			 $optionId = $option->getData('option_id');
+         * 			}
+         * 		}
+         */
+        //$curencySymbol = Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol();
+        $price = Mage::helper('core')->currency($product->getPrice(),true,false);
+        $title = $product->getName();
+        $shortDes = $product->getShortDescription();
+        $fullDes = $product->getDescription();
+    ?>
+    
+    <span class="price"><?php echo $price ?></span>
+    <span class="product-title"><?php echo $title ?></span>
+    <div><?php echo $fullDes ?></div>
+    <div class="add-to-cart">
+        Quantity: <input type="text" class="input-text" size="1" name="qty" id="qty" value="1"/>
+        <button class="btn-cart" type="button">Add To Cart</button>
+    </div>
+    <div><?php echo $shortDes ?></div>    
+</div>
+<div id="design_control">
+    <div id="select_phone_type">
+            <?php $i_=0; foreach($designs as $design) { ?> 
+                <input type="hidden" id="height<?php echo $design->getId() ?>" value="<?php echo $design->getCanvasH(); ?>" />
+                <input type="hidden" id="width<?php echo $design->getId() ?>" value="<?php echo $design->getCanvasW(); ?>" />
+                <input type="hidden" id="top<?php echo $design->getId() ?>" value="<?php echo $design->getCanvasT(); ?>" />
+                <input type="hidden" id="left<?php echo $design->getId() ?>" value="<?php echo $design->getCanvasL(); ?>" />
+                <?php if($i_++==0){ ?>
+                    <input type="hidden" id="ip_id" value="<?php echo $design->getId() ?>" />
+                <?php } ?>
+            <?php } ?>
+        <h3 class="phone-type-title numbers first"><span>1</span>Select Your Phone Type</h3>
+        <select id="toolbox-phone-select">
+            <?php foreach($designs as $design) : ?>
+        	<option ip_id="<?php echo $design->getId() ?>" value="<?php echo $design->getFilename() ?>"><?php echo $design->getTitle(); ?></option>
+            <?php endforeach; ?>
+        </select>
+    </div>
+    <div id="select_wood_type">
+        <h3 class="swatch-title numbers second"><span>2</span>Select Wood Type</h3>
+        <ul class="text-swatches">
+            <?php foreach ($woodImages as $image) :?>
+        	<li>
+                <a rel="<?php echo $image->getFilename() ?>" class="selection is-tooltip" title="" id="<?php echo "swatch" . $image->getImageId(); ?>">
+                    <img src="<?php echo $imagePath . $image->getFilename() ?>"/>
+                </a>
+            </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+    <div id="select_image">
+        <h3 class="phone-type-title numbers third"><span>3</span>Choose image or text type</h3>
+        <div id="choose_type_design">
+            <ul>
+                <li><input type="radio" name="choose_type_design" value="1" id="choose_type_design_1" checked="" /><label for="choose_type_design_1">Engraved</label></li>
+                <li><input type="radio" name="choose_type_design" value="0" id="choose_type_design_2" /><label for="choose_type_design_2">Inlay</label></li>
+            </ul>
+        </div>
+        <div class="tab_design_image">
+            <a class="active design">Designs</a>
+            <a class="upload">Uploads</a>
+        </div>
+        <div class="content_tab">
+            <div class="content_designs">
+                <ul>
+                    <?php foreach($customImages as $image) : ?>
+                    <li>
+                        <a rel="clover" class="selection_img">
+                            <img src="<?php echo $imagePath . $image->getFilename()  ?>" />
+                        </a>
+                    </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <div class="content_upload no-display">
+                <input type="file" id="files_upload" name="imgfiles[]" multiple="" />
+                <span>Upload a .png image file with transparent background. Please see video for further explanation</span>
+                <div id="lists_img_upload"></div>
+            </div>
+        </div>
+    </div>
+    <div id="add_text">
+        <h3 class="phone-text-title numbers"><span>4</span>Add Text</h3>
+        <div class="add_text_field">
+            <label class="full-arrow">Enter Text</label>
+            <!--
+<textarea placeholder="Add text..." id="add_text_input"></textarea>
+-->
+            <input placeholder="Add text..." id="add_text_input"/>
+            <div id="change_text_type">
+                <ul>
+                    <li><a class="text bold">B</a></li>
+                    <li><a class="text italic">I</a></li>
+                    <li><a class="text underline">U</a></li>
+                    <li><a class="align align_left">L</a></li>
+                    <li><a class="align align_center">C</a></li>
+                    <li><a class="align align_right">R</a></li>
+                    <li><a class="align align_justify">J</a></li>
+                </ul>
+            </div>
+            <div class="change_font">
+                <div class="box_text">
+                    <label>Text Font</label>
+                    <select id="select_font">
+                        <option>Arial</option>
+                        <?php foreach ( $fonts as $font) : ?>
+                        <option><?php echo $font->getName() ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+               <!--
+ <div class="box_size">
+                    <label>Font Size</label>
+                    <select id="select_font_size">
+                    <?php for($_i=7;$_i<51;$_i++){ ?> 
+                        <option <?php if($_i==20){ echo 'selected="selected"';} ?> ><?php echo $_i.'px'; ?></option>
+                    <?php } ?>
+                    </select>
+                </div>
+-->
+                <div class="box_color">
+                    <label>Font Color</label>
+                    <div id="font_color_div"><div style="background-color: #444444"></div></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <div id="add_text_action" title="Add text">
+                <span>Add Text</span>
+            </div>
+            <div id="edit_text_action" class="no-display" title="Edit text">
+                <span>Edit Text</span>
+            </div>
+            
+        </div>        
+    </div>
+</div>
+<div class="product-img-box">
+    <div class="product-image" id="product-image-wrap">
+        
+    </div>
+</div>
+<input type="hidden" id="product_id" name="product_id" value="<?php echo $productId; ?>" />
+<input type="hidden" id="base_dir" name="base_dir" value="<?php echo Mage::getBaseDir(); ?>" />
+<input type="hidden" value="<?php echo Mage::getStoreConfig('web/unsecure/base_url');?>" id="url_site" />
+<input type="hidden" value="<?php echo $this->getSkinUrl('designpro/') ?>" id="skin_url" />
+<style type="text/css">
+    <?php foreach ( $fonts as $font) { ?>
+    @font-face {
+        font-family: '<?php echo $font->getName() ?>';
+        src: url('<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>designpro/fonts/<?php echo $font->getName() ?>.<?php echo $font->getExt() ?>');
+    }
+    <?php } ?>
+    .product-info span.price, span.product-title {
+        display: block;
+        font-size: 25px;
+    }
+    .add-to-cart .btn-cart {
+        background: none repeat scroll 0 0 #B75959;
+        color: #FFFFFF;
+        cursor: pointer;
+        font-weight: bold;
+        padding: 5px;
+        display: block;
+    }
+</style>
