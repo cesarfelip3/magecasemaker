@@ -8,7 +8,7 @@ media/.htaccess
 media/import/
 media/xmlconnect/
 media/catalog/product/cache/
-media/pdp/
+#media/pdp/
 sellvana/
 v1/
 working/
