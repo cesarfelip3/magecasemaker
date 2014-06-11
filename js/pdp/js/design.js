@@ -69,12 +69,12 @@ mst(document).ready(function($) {
     //$('#product-image-wrap-back .wrap_inlay_center').append('<img id="main_image_back" src="' + m + 'media/pdp/images/no_image.jpg" />');
     //if ($('#list_color li').length > 0) {
     //var inlay = first_item.attr("inlay").split(",");
-
-    $('#main_image').attr("src", first_item.find('img').attr("src"));
+    var mainImage = $('#main_image');
+    mainImage.attr("src", first_item.find('img').attr("src"));
     console.log(first_item);
-    var w_img_f = $('#main_image').width();
-    var h_img_f = $('#main_image').height();
-
+    var w_img_f = mainImage.width();
+    var h_img_f = mainImage.height();
+    console.log(w_img_f + ' : ' + h_img_f);
     var inlay = w_img_f + ',' + h_img_f + ',0,0';
     //var inlay = first_item.attr('inlay');
     inlay = inlay.split(',');
