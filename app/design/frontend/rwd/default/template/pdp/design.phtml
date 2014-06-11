@@ -51,7 +51,7 @@ $_helper = $this->helper('catalog/output');
                         <div id="save_sample_design"><a  title="Save Sample"><i class="pi pi-floppy-o"></i><?php echo $this->__('Save Sample'); ?></a></div>
                     <?php else : ?>
                         <div id="save_design"><a  title="Login to save your design"><i class="pi pi-floppy-o"></i><?php echo $this->__('Save'); ?></a></div>
-<?php endif; ?>
+                    <?php endif; ?>
                 </div>
             </div>
             <div id="pdp_rotate_item" class="no-display">
@@ -60,25 +60,25 @@ $_helper = $this->helper('catalog/output');
                         <span class="pi pi-times-circle-o  pdp_close"></span>
                     </h3>
                     <div id="pdp_side_items">
-<?php echo $sidesHtml = Mage::helper('pdp')->getDesignSides($productId); ?>
-<!--                        <ul>
-                            <li class="active pdp_side_item_content" tab="front" side_img="Front.jpg" inlay="247,384,81,136">
-                                <img id="pdp_front_view_item" width="120" src="<?php /* echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS); */ ?>pdp/images/sideview/Front.jpg" />
-                                <label><?php /* echo $this->__('Front'); */ ?></label>
-                            </li>
-                            <li class="pdp_side_item_content" tab="back" side_img="Back.jpg" inlay="257,428,57,128">
-                                <img id="pdp_back_view_item" width="120" src="<?php /* echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS); */ ?>pdp/images/sideview/Back.jpg" />
-                                <label><?php /* echo $this->__('Back'); */ ?></label>
-                            </li>
-                            <li class="pdp_side_item_content" tab="left" side_img="left.png" inlay="205,286,61,155">
-                                <img id="pdp_left_view_item" width="120" src="<?php /* echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS); */ ?>pdp/images/sideview/left.png" />
-                                <label><?php /* echo $this->__('Left'); */ ?></label>
-                            </li>
-                            <li class="pdp_side_item_content" tab="right" side_img="right.png" inlay="208,284,61,151">
-                                <img id="pdp_right_view_item" width="120" src="<?php /* echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS); */ ?>pdp/images/sideview/right.png" />
-                                <label><?php /* echo $this->__('Right'); */ ?></label>
-                            </li>
-                        </ul>-->
+                        <?php echo $sidesHtml = Mage::helper('pdp')->getDesignSides($productId); ?>
+                        <!--                        <ul>
+                                                    <li class="active pdp_side_item_content" tab="front" side_img="Front.jpg" inlay="247,384,81,136">
+                                                        <img id="pdp_front_view_item" width="120" src="<?php /* echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS); */ ?>pdp/images/sideview/Front.jpg" />
+                                                        <label><?php /* echo $this->__('Front'); */ ?></label>
+                                                    </li>
+                                                    <li class="pdp_side_item_content" tab="back" side_img="Back.jpg" inlay="257,428,57,128">
+                                                        <img id="pdp_back_view_item" width="120" src="<?php /* echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS); */ ?>pdp/images/sideview/Back.jpg" />
+                                                        <label><?php /* echo $this->__('Back'); */ ?></label>
+                                                    </li>
+                                                    <li class="pdp_side_item_content" tab="left" side_img="left.png" inlay="205,286,61,155">
+                                                        <img id="pdp_left_view_item" width="120" src="<?php /* echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS); */ ?>pdp/images/sideview/left.png" />
+                                                        <label><?php /* echo $this->__('Left'); */ ?></label>
+                                                    </li>
+                                                    <li class="pdp_side_item_content" tab="right" side_img="right.png" inlay="208,284,61,151">
+                                                        <img id="pdp_right_view_item" width="120" src="<?php /* echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_JS); */ ?>pdp/images/sideview/right.png" />
+                                                        <label><?php /* echo $this->__('Right'); */ ?></label>
+                                                    </li>
+                                                </ul>-->
                     </div>
                 </div>
             </div>
@@ -132,13 +132,13 @@ $_helper = $this->helper('catalog/output');
                     </div>
                 </div>
                 <div class="no-display" id="all_img_cache">
-<?php //echo $img_all;   ?>
+                    <?php //echo $img_all;   ?>
                 </div>
             </div>
-            <div id="select_image" class="tab_content add_artwork no-display">
+            <div id="select_image" class="tab_content add_artwork">
                 <div class="wrap_addwork">
                     <h3 class="phone-type-title numbers third">
-<?php echo $this->__("Select a clipart from Cliparts or Upload your photo from PC or social network") ?>
+                        <?php echo $this->__("Select a clipart from Cliparts or Upload your photo from PC or social network") ?>
                         <span class="pi pi-times-circle-o  pdp_close"></span>
                     </h3>
                     <div class="tab_design_image">
@@ -148,7 +148,7 @@ $_helper = $this->helper('catalog/output');
                     </div>
                     <div class="content_tab">
                         <div class="content_designs">
-<?php $categoryOptions = Mage::getModel('pdp/artworkcate')->getCategoryOptions(); ?>
+                            <?php $categoryOptions = Mage::getModel('pdp/artworkcate')->getCategoryOptions(); ?>
                             <label class="design_label"><?php echo $this->__('Photo category:'); ?><span class="pdp_selected_category"></span><span class="pi pdp_parent">&#xf078;</span></label>
                             <ul id='image_category_list'>
                                 <?php
@@ -167,14 +167,14 @@ $_helper = $this->helper('catalog/output');
                             </ul>
                             <ul id="icon_list">
                                 <?php $defaultArtCate = Mage::getModel('pdp/artworkcate')->getDefaultArtCate() ?>
-<?php foreach ($this->pagingCollection(1, $defaultArtCate, $this->_default_page_size) as $image) : ?>
+                                <?php foreach ($this->pagingCollection(1, $defaultArtCate, $this->_default_page_size) as $image) : ?>
                                     <li cat="<?php echo $image->getCategory(); ?>">
                                         <a rel="clover" class="selection_img">
-    <?php $colorImg = Mage::getModel('pdp/pdp')->getColorImageFrontend($image->getId()); ?>
+                                            <?php $colorImg = Mage::getModel('pdp/pdp')->getColorImageFrontend($image->getId()); ?>
                                             <img src="<?php echo $imagePath . $image->getFilename() ?>" id="img<?php echo $image->getId(); ?>" color="<?php echo $colorImg ?>" />
                                         </a>
                                     </li>
-<?php endforeach; ?>
+                                <?php endforeach; ?>
                             </ul>
                             <div class="add-more">
                                 <input type="hidden" value='<?php echo $this->_default_page_size ?>' name='default_page_size' id="default_page_size" />
@@ -201,12 +201,12 @@ $_helper = $this->helper('catalog/output');
                         <span class="pi pi-times-circle-o pdp_close"></span>
                     </div>
                     <div class="add_text_field">
-<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('pdp/text.phtml')->toHtml(); ?> 
+                        <?php echo $this->getLayout()->createBlock('core/template')->setTemplate('pdp/text.phtml')->toHtml(); ?> 
                     </div>
                 </div>        
             </div>
             <div class="add_to_box">
-<?php $pdpOption = Mage::getModel('pdp/pdpgroup')->getPdpOptions(); ?>
+                <?php $pdpOption = Mage::getModel('pdp/pdpgroup')->getPdpOptions(); ?>
                 <div class='tshirt-size'>
                     <h1 class="size-options"><?php echo $this->__("Select Options") ?></h1>
                     <?php
@@ -285,15 +285,15 @@ $_helper = $this->helper('catalog/output');
                 <div id="pdp_edit_font" class="no-display pdp_edit_text_tab_content">
                     <ul id="select_font">
                         <li class="active" rel="<?php echo $this->__("Arial") ?>"><?php echo $this->__("Font") ?></li>
-<?php foreach ($fonts as $font) : ?>
-                            <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName()   ?><?php echo $this->__('Font'); ?></li>
-<?php endforeach; ?>
+                        <?php foreach ($fonts as $font) : ?>
+                            <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName()    ?><?php echo $this->__('Font'); ?></li>
+                        <?php endforeach; ?>
                     </ul>
                 </div>
                 <!-- Text Fill -->
                 <div id="pdp_edit_font_color" class="no-display pdp_edit_text_tab_content">
                     <div id="pdp_color_text">
-<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('pdp/color.phtml')->toHtml(); ?>
+                        <?php echo $this->getLayout()->createBlock('core/template')->setTemplate('pdp/color.phtml')->toHtml(); ?>
                     </div>
                 </div>
                 <!-- Font Style -->
@@ -329,7 +329,7 @@ $_helper = $this->helper('catalog/output');
         </div>
         <div id="pdp_color_fill" class="no-display pdp_extra_item">
             <div id="pdp_color_item">
-<?php echo $this->getLayout()->createBlock('core/template')->setTemplate('pdp/color.phtml')->toHtml(); ?>
+                <?php echo $this->getLayout()->createBlock('core/template')->setTemplate('pdp/color.phtml')->toHtml(); ?>
             </div>
         </div>
         <div id="pdp_flip_item" class="pdp_extra_item no-display">
@@ -425,8 +425,8 @@ $_helper = $this->helper('catalog/output');
             $customerType = 1;
             ?>
             <div class='save-design'>
-        <?php $customerId = Mage::getSingleton('customer/session')->getCustomer()->getId();
-        ?>
+                <?php $customerId = Mage::getSingleton('customer/session')->getCustomer()->getId();
+                ?>
                 <input type="hidden" id="customer_group_id" value="<?php echo $customerType; ?>" />
                 <input type="hidden" name="customer_id" id="customer_id" value="<?php echo $customerId; ?>" />
             </div>
@@ -434,10 +434,11 @@ $_helper = $this->helper('catalog/output');
         }
     }
     ?>
-            <?php //endif;  ?>
+    <?php //endif;  ?>
     <div class="product-info">
         <div class="sort_des">
-            <?php $gi = 0;
+            <?php
+            $gi = 0;
             foreach ($group_items as $group_item) {
                 ?>
                 <div class="group-des gdes_<?php
@@ -460,16 +461,16 @@ $_helper = $this->helper('catalog/output');
 <?php } ?>
         </div>   
         <div class="full_des">
-        <?php //echo $_helper->productAttribute($_product, nl2br($product->getDescription()), 'description')  ?>
-        <?php //echo $fullDes  ?>
+            <?php //echo $_helper->productAttribute($_product, nl2br($product->getDescription()), 'description')  ?>
+<?php //echo $fullDes   ?>
         </div> 
     </div>
     <div id="img_sessiton" class="no-display">
-<?php
+        <?php
 //for($i=1;$i<count($data);$i++){ 
 //$datass= explode(';',$data[$i]);
-?> 
-<?php //}   ?>
+        ?> 
+<?php //}    ?>
     </div>
     <div class="no-display">
         <input type="hidden" value="<?php echo $_REQUEST['fb'] ?>" id="fb_get_id" />
