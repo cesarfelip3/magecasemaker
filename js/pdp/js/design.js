@@ -18,8 +18,11 @@ mst(document).ready(function($) {
         first_item = $('#pdp_side_items li.active');
     }
     first_item.addClass("active");
-        
+
     $('.wrap_inlay_center').append('<img id="main_image" src="' + m + 'media/pdp/images/no_image.jpg" />');
+
+    var mainImage = $('#main_image');
+    mainImage.attr("src", first_item.find('img').attr("src"));
 
 
 
@@ -71,8 +74,6 @@ mst(document).ready(function($) {
     //$('#product-image-wrap-back .wrap_inlay_center').append('<img id="main_image_back" src="' + m + 'media/pdp/images/no_image.jpg" />');
     //if ($('#list_color li').length > 0) {
     //var inlay = first_item.attr("inlay").split(",");
-    var mainImage = $('#main_image');
-    mainImage.attr("src", first_item.find('img').attr("src"));
     console.log(first_item);
     var w_img_f = mainImage.width();
     var h_img_f = mainImage.height();
