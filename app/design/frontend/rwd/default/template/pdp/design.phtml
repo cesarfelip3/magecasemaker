@@ -521,7 +521,7 @@ $_helper = $this->helper('catalog/output');
                         function(response) {
                             if (response && !response.error) {
                                 var images;
-                                $.each(obj, function(key, value) {
+                                $.each(response, function(key, value) {
                                     console.log(value.picture);
                                 });
                             }
