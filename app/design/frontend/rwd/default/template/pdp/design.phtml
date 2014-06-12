@@ -515,9 +515,11 @@ $_helper = $this->helper('catalog/output');
                 });
             },
             fbPhotos: function() {
+                console.log('debugging photos');
                 FB.api(
                         "/me/photos",
                         function(response) {
+                            console.log(response);
                             if (response && !response.error) {
                                 /* handle the result */
                                 console.log(response);
