@@ -9,6 +9,8 @@ media/import/
 media/xmlconnect/
 media/catalog/product/cache/
 #media/pdp/
+media/pdp/design/tmp/
+media/pdp/design/checkout/
 sellvana/
 v1/
 working/
