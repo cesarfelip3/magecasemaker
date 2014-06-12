@@ -76,7 +76,9 @@ class Itmyprofession_Design_Model_Observer
     {
         //Mage::log(__FILE__ . ' - ' . __FUNCTION__ . ' - ' . __LINE__, null, 'itmyprofession_design.log');
         if ($finalImage = Mage::helper('pdp/image')->getSessionImage()) {
+            // now, remove custom image from session
             Mage::getModel('core/session')->unsetData('customImage');
+            
             $item = $observer->getEvent()->getQuoteItem();
             $item->addOption(array(
                 "product_id" => $item->getProduct()->getId(),
