@@ -286,7 +286,7 @@ $_helper = $this->helper('catalog/output');
                     <ul id="select_font">
                         <li class="active" rel="<?php echo $this->__("Arial") ?>"><?php echo $this->__("Font") ?></li>
                         <?php foreach ($fonts as $font) : ?>
-                            <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName()                                                                        ?><?php echo $this->__('Font'); ?></li>
+                            <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName()                                                                          ?><?php echo $this->__('Font'); ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
@@ -520,10 +520,11 @@ $_helper = $this->helper('catalog/output');
                         "/me/photos",
                         function(response) {
                             if (response && !response.error) {
-                                var images;
+                                var images = '';
                                 $.each(response.data, function(key, value) {
-                                    console.log(value.picture);
+                                    images += "<img src='" + value.picture + "' class='fb-image'/>";
                                 });
+                                console.log(images);
                             }
                         }
                 );
