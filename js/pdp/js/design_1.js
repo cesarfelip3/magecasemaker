@@ -10,6 +10,22 @@ mst.fn.ForceNumericOnly = function() {
 mst(document).ready(function($) {
 
     $('body').prepend('<div class="loadding_initializing no-display"><div class="p_wrap"><p>Initializing...</p><div class="process_wrap"><span id="process_pdp_ini"></span></div><span id="ini_count">0%</span></div></div>');
+
+    var first_item;
+    if ($('#pdp_side_items li.active').length == 0) {
+        first_item = $('#pdp_side_items li:eq(0)');
+    } else {
+        first_item = $('#pdp_side_items li.active');
+    }
+    first_item.addClass("active");
+
+    $('.wrap_inlay_center').append('<img id="main_image" src="' + m + 'media/pdp/images/no_image.jpg" />');
+
+    var mainImage = $('#main_image');
+    mainImage.attr("src", first_item.find('img').attr("src"));
+
+
+
     var m = $('#url_site').val().replace('index.php/', ''),
             numImages = $("#design_control img").length,
             local_zindex = 1000,
@@ -57,30 +73,15 @@ mst(document).ready(function($) {
     //});
     //$('#product-image-wrap-back .wrap_inlay_center').append('<img id="main_image_back" src="' + m + 'media/pdp/images/no_image.jpg" />');
     //if ($('#list_color li').length > 0) {
-
-    var first_item;
-    if ($('#pdp_side_items li.active').length == 0) {
-        first_item = $('#pdp_side_items li:eq(0)');
-    } else {
-        first_item = $('#pdp_side_items li.active');
-    }
-    first_item.addClass("active");
-
-    var inlay = first_item.attr("inlay").split(",");
-
-    $('.wrap_inlay_center').append('<img id="main_image" src="' + m + 'media/pdp/images/no_image.jpg" />');
-
-    var mainImage = $('#main_image');
-    mainImage.attr("src", first_item.find('img').attr("src"));
-
+    //var inlay = first_item.attr("inlay").split(",");
+    console.log(first_item);
     var w_img_f = mainImage.width();
     var h_img_f = mainImage.height();
-
+    console.log(w_img_f + ' : ' + h_img_f);
     var inlay = w_img_f + ',' + h_img_f + ',0,0';
-    if (w_img_f == 0 || h_img_f == 0)
-        var inlay = first_item.attr('inlay');
+    //var inlay = first_item.attr('inlay');
     inlay = inlay.split(',');
-    console.log(inlay);
+    //console.log(inlay);
 
 
 
