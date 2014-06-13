@@ -60,7 +60,7 @@ $_helper = $this->helper('catalog/output');
                         <span class="pi pi-times-circle-o  pdp_close"></span>
                     </h3>
                     <div id="pdp_side_items">
-                        
+
                         <?php echo $sidesHtml = Mage::helper('pdp')->getDesignSides($productId); ?>
                         <!--                        <ul>
                                                     <li class="active pdp_side_item_content" tab="front" side_img="Front.jpg" inlay="247,384,81,136">
@@ -287,7 +287,7 @@ $_helper = $this->helper('catalog/output');
                     <ul id="select_font">
                         <li class="active" rel="<?php echo $this->__("Arial") ?>"><?php echo $this->__("Font") ?></li>
                         <?php foreach ($fonts as $font) : ?>
-                            <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName()                                                                           ?><?php echo $this->__('Font'); ?></li>
+                            <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName()                                                                             ?><?php echo $this->__('Font'); ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
@@ -516,15 +516,15 @@ $_helper = $this->helper('catalog/output');
                 });
             },
             fbPhotos: function() {
-                console.log('debugging photos');
                 FB.api(
                         "/me/photos",
                         function(response) {
                             if (response && !response.error) {
-                                var images = '';
+                                var images = '<ul>';
                                 $.each(response.data, function(key, value) {
-                                    images += "<span><img src='" + value.picture + "' class='fb-image'/></span>";
+                                    images += "<li><img src='" + value.picture + "' class='fb-image'/></li>";
                                 });
+                                images += '</ul>';
                                 $('#photos_album').html(images);
                             }
                         }
