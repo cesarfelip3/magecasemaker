@@ -300,6 +300,20 @@ mst(document).ready(function($) {
         $('#font_outline_colorpicker').hide();
     });
 
+    $('.use_shadow').click(function() {
+        // $('#use_shadow','#shadow_item').click(function() {
+        if (!$(this).hasClass('active')) {
+            $('.font_outline_color > div').show();
+            canvasEvents.addShadowItem();
+            $(this).addClass("active");
+        } else {
+            $('.font_outline_color > div:not(.use_shadow)').hide();
+            canvasEvents.removeShadow();
+            $(this).removeClass("active");
+        }
+        $('#font_outline_colorpicker').hide();
+    });
+
     $('.tshirt-size .next_t').click(function() {
         var a = $(this).parent().children('.size_qty').val();
         $(this).parent().children('.size_qty').val(parseInt(a) + 1);
