@@ -3,7 +3,7 @@ if (Mage::getStoreConfig('pdp/setting/enable') == 0) {
     echo "<h3>PDP module is disabled. Please enable PDP to use it's features!</h3>";
     return false;
 }
-//if(($_REQUEST['id']=='')||(!isset($_REQUEST['id']))){
+//if(($_REQUEST['id']=='')||(!isspdp_shadow_itemet($_REQUEST['id']))){
 //    echo "<h3>PDP module is enable. But you need to go from product page! How can you get this URL?</h3>";
 //	return false;
 //}
@@ -383,10 +383,10 @@ $_helper = $this->helper('catalog/output');
                     <label class="pi pi-pencil"></label>
                     <span><?php echo $this->__('Edit Text'); ?></span>
                 </div>
-                <div id="shadow_item" tab="pdp_shadow_item" class="item">
+<!--                <div id="shadow_item" tab="pdp_shadow_item" class="item">
                     <label class="pi"></label>
                     <span><?php echo $this->__('Shadow'); ?></span>
-                </div>
+                </div>-->
                 <div id="opacity_item" data-tooltip="pdptt_opacity" tab="pdp_opacity_item" class="item">
                     <label class="pi"></label>
                     <span><?php echo $this->__('Opacity'); ?></span>
