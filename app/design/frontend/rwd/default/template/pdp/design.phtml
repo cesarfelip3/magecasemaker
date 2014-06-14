@@ -287,7 +287,7 @@ $_helper = $this->helper('catalog/output');
                     <ul id="select_font">
                         <li class="active" rel="<?php echo $this->__("Arial") ?>"><?php echo $this->__("Font") ?></li>
                         <?php foreach ($fonts as $font) : ?>
-                            <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName()                                                                             ?><?php echo $this->__('Font'); ?></li>
+                            <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName()                                                                              ?><?php echo $this->__('Font'); ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
@@ -337,25 +337,25 @@ $_helper = $this->helper('catalog/output');
             <div id="pdp_flip_x"><a>Flip X</a></div>
             <div id="pdp_flip_y"><a>Flip Y</a></div>
         </div>
-        <div id="pdp_shadow_item" class="xno-display pdp_extra_item">
+        <div id="pdp_shadow_item" class="xno-display pdp_extra_item" style="display:none">
             <div class="font_outline_color">
-                <div class="use_shadow">
+                <div class="use_shadow" style="display:none">
                     <span id="use_shadow"></span>
                     <label for="use_shadow"><?php echo $this->__('Use Shadow'); ?></label>
                 </div>
-                <div class="h-shadow xno-display">
+                <div class="h-shadow xno-display"  style="display:none">
                     <label>Offset Y</label> 
                     <div id="h-shadow"></div>
                 </div>
-                <div class="v-shadow xno-display">
+                <div class="v-shadow xno-display" style="display:none">
                     <label>Offset X</label> 
                     <div id="v-shadow"></div>
                 </div>
-                <div class="blur xno-display">
+                <div class="blur xno-display" style="display:none">
                     <label>Blur</label> 
                     <div id="t-blur"></div>
                 </div>
-                <div class="color xno-display">
+                <div class="color xno-display" style="display:none">
                     <label>Color</label>
                     <div id="font_outline_color">
                         <input type="text" id="font_outline_color_value" name="font_outline_color" value="#FFFFFF" />
