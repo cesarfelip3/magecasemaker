@@ -284,13 +284,19 @@ class MST_Pdp_Helper_Data extends Mage_Core_Helper_Abstract
         $baseImageUrl = $this->getImagePath();
         foreach ($collection as $side) {
             //Zend_Debug::dump($side->getData());
-            list($width, $height) = getimagesize(self::$_imgPath. $side->getFilename());
+            //Mage::log(print_r($side->getData(), true), null, 'debugging.log');
+            //list($width, $height) = getimagesize(self::$_imgPath . $side->getFilename());
             //Mage::log($width . $height, null, 'debugging.log');
             //$width = imagesx(self::$_imgPath . $side->getFilename());
             //$side->getInlayW();
             //$height = imagesy(self::$_imgPath . $side->getFilename()); //$side->getInlayH();
-            $top = 0; //$side->getInlayT();
-            $left = 0; //$side->getInlayL();
+            //$top = 0; //$side->getInlayT();
+            //$left = 0; //$side->getInlayL();
+
+            $width = $side->getInlayW();
+            $height = $side->getInlayH();
+            $top = $side->getInlayT();
+            $left = $side->getInlayL();
             $inlayString = "$width,$height,$top,$left";
             $list .= "<li class='pdp_side_item_content' inlay='" . $inlayString . "' tab='side_" . $side->getId() .
                     "' side_img='" . $side->getFilename() . "' label='" . $side->getLabel() . "' title='" . $side->getLabel() . "'>";

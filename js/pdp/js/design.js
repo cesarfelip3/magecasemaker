@@ -76,14 +76,10 @@ mst(document).ready(function($) {
     var w_img_f = mainImage.width();
     var h_img_f = mainImage.height();
 
-    var inlay = w_img_f + ',' + h_img_f + ',0,0';
-    if (w_img_f == 0 || h_img_f == 0)
-        var inlay = first_item.attr('inlay');
-    inlay = inlay.split(',');
-    console.log(inlay);
-
-
-
+//    var inlay = w_img_f + ',' + h_img_f + ',0,0';
+//    if (w_img_f == 0 || h_img_f == 0)
+//        var inlay = first_item.attr('inlay');
+//    inlay = inlay.split(',');
 
     //$('#main_image_front,#main_image_back').hide();
     $('#wrap_inlay').css({
@@ -101,13 +97,6 @@ mst(document).ready(function($) {
 
     var canvas = new fabric.Canvas('canvas_area', {
     });
-    var img_bg = m + 'media/pdp/images/' + $('#pdp_side_items li.active').attr('side_img');
-    var mainImage = fabric.Image.fromURL(img_bg, function(img) {
-        // disable image selection
-        img.set('selectable', false);
-        canvas.add(img);
-    });
-
     $('#pdp_side_items li').each(function() {
         $('.wrapper_pdp').append($(this).children('img').clone().addClass('pdp_img_session_' + $(this).index()).removeAttr('width').hide());
         pdp_history[$(this).index()] = JSON.stringify(canvas);
@@ -1413,6 +1402,13 @@ mst(document).ready(function($) {
                 alert('This browser doesn\'t provide means to serialize canvas to an image');
             } else {
                 var img_bg = m + 'media/pdp/images/' + $('#pdp_side_items li.active').attr('side_img');
+                var img_bg = m + 'media/pdp/images/' + $('#pdp_side_items li.active').attr('side_img');
+                var mainImage = fabric.Image.fromURL(img_bg, function(img) {
+                    // disable image selection
+                    img.set('selectable', false);
+                    canvas.add(img);
+                });
+
                 //alert(img_bg);
                 //canvas.setBackgroundImage(img_bg, canvas.renderAll.bind(canvas));
                 //remove border, selection while saving
