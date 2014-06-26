@@ -73,13 +73,14 @@ mst(document).ready(function($) {
     var mainImage = $('#main_image');
     mainImage.attr("src", first_item.find('img').attr("src"));
 
+    var w_img_f = mainImage.width();
+    var h_img_f = mainImage.height();
     // Delay for .5 seconds
     setTimeout(function() {
         //just delay so image gets loaded
+        w_img_f = mainImage.width();
+        h_img_f = mainImage.height();
     }, 500);
-
-    var w_img_f = mainImage.width();
-    var h_img_f = mainImage.height();
 
 //    var inlay = w_img_f + ',' + h_img_f + ',0,0';
 //    if (w_img_f == 0 || h_img_f == 0)
