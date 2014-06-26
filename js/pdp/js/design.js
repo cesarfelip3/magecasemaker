@@ -72,7 +72,12 @@ mst(document).ready(function($) {
 
     var mainImage = $('#main_image');
     mainImage.attr("src", first_item.find('img').attr("src"));
-
+    
+    // Delay for .5 seconds
+    setTimeOut(function() {
+        console.log(mainImage);
+    }, 500);
+    
     var w_img_f = mainImage.width();
     var h_img_f = mainImage.height();
 
