@@ -1410,13 +1410,10 @@ mst(document).ready(function($) {
             } else {
                 // Clear canvas
                 canvasEvents.clearSelected();
-
                 // Background imageF
                 var img_bg = m + 'media/pdp/images/' + $('#pdp_side_items li.active').attr('side_img');
                 var inlay = $('#pdp_side_items li.active').attr('inlay');
-
                 var inlay_info = inlay.split(',');
-
                 // Create new canvas for export purpose
                 $('#pdp_canvas_result').html('<canvas id="canvas_export"></canvas>');
                 $('#canvas_export').attr({
@@ -1424,10 +1421,14 @@ mst(document).ready(function($) {
                     'height': canvas.height
                 });
                 var canvas_export = new fabric.Canvas('canvas_export', {opacity: 1});
-
                 // Add background image
-                canvas_export.setBackgroundImage(img_bg, canvas_export.renderAll.bind(canvas_export));
-
+                canvas_export.setBackgroundImage(img_bg, canvas_export.renderAll.bind(canvas_export), {
+                    width: canvas_export.width,
+                    height: canvas_export.height,
+                    // Needed to position backgroundImage at 0/0
+                    originX: 'left',
+                    originY: 'top'
+                });
                 // Add added image from another canvas
                 fabric.Image.fromURL(canvas.toDataURL('png'), function(image) {
                     image.set({
@@ -1443,9 +1444,8 @@ mst(document).ready(function($) {
                     image.scale(1).setCoords();
                     canvas_export.add(image);
                 });
-
                 canvas_export.renderAll();
-
+                
                 // Save image and fix to load background and images
                 setTimeout(function() {
                     //console.log(canvas_export.toDataURL({format: 'png', quality: 1}));
