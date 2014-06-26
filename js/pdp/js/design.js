@@ -80,6 +80,7 @@ mst(document).ready(function($) {
 //    if (w_img_f == 0 || h_img_f == 0)
 //        var inlay = first_item.attr('inlay');
 //    inlay = inlay.split(',');
+//    console.log(inlay);
 
     //$('#main_image_front,#main_image_back').hide();
     $('#wrap_inlay').css({
@@ -91,12 +92,18 @@ mst(document).ready(function($) {
 
     /////////////////////////////////Setup the first Canvas//////////////////////////
     $('#canvas_area').attr({
-        'width': inlay[0],
-        'height': inlay[1]
+        'width': w_img_f,
+        'height': h_img_f
     });
 
     var canvas = new fabric.Canvas('canvas_area', {
     });
+    var img_bg = m + 'media/pdp/images/' + $('#pdp_side_items li.active').attr('side_img');
+//    var mainImage = fabric.Image.fromURL(img_bg, function(img) {
+//        // disable image selection
+//        img.set('selectable', false);
+//        canvas.add(img);
+//    });
     $('#pdp_side_items li').each(function() {
         $('.wrapper_pdp').append($(this).children('img').clone().addClass('pdp_img_session_' + $(this).index()).removeAttr('width').hide());
         pdp_history[$(this).index()] = JSON.stringify(canvas);
@@ -1401,33 +1408,63 @@ mst(document).ready(function($) {
             if (!fabric.Canvas.supports('toDataURL')) {
                 alert('This browser doesn\'t provide means to serialize canvas to an image');
             } else {
+                // Clear canvas
+                canvasEvents.clearSelected();
+
+                // Background imageF
                 var img_bg = m + 'media/pdp/images/' + $('#pdp_side_items li.active').attr('side_img');
-                var img_bg = m + 'media/pdp/images/' + $('#pdp_side_items li.active').attr('side_img');
-                var mainImage = fabric.Image.fromURL(img_bg, function(img) {
-                    // disable image selection
-                    img.set('selectable', false);
-                    canvas.add(img);
+                var inlay = $('#pdp_side_items li.active').attr('inlay');
+
+                var inlay_info = inlay.split(',');
+
+                // Create new canvas for export purpose
+                $('#pdp_canvas_result').html('<canvas id="canvas_export"></canvas>');
+                $('#canvas_export').attr({
+                    'width': canvas.width,
+                    'height': canvas.height
+                });
+                var canvas_export = new fabric.Canvas('canvas_export', {opacity: 1});
+
+                // Add background image
+                canvas_export.setBackgroundImage(img_bg, canvas_export.renderAll.bind(canvas));
+
+                // Add added image from another canvas
+                fabric.Image.fromURL(canvas.toDataURL('png'), function(image) {
+                    image.set({
+                        //left: canvas_export_info.left_f,
+                        //top: canvas_export_info.top_f,
+                        left: parseFloat(inlay_info[3]),
+                        top: parseFloat(inlay_info[2]),
+                        width: inlay_info[0],
+                        height: inlay_info[1],
+                        angle: 0,
+                        selectable: false
+                    });
+                    image.transparentCorners = true;
+                    image.cornerSize = 10;
+                    image.scale(1).setCoords();
+                    canvas_export.add(image);
                 });
 
-                //alert(img_bg);
-                //canvas.setBackgroundImage(img_bg, canvas.renderAll.bind(canvas));
-                //remove border, selection while saving
-                canvas.deactivateAll().renderAll();
-                console.log(canvas.toDataURL('png'));
+                canvas_export.renderAll();
 
-                // save custom image
-                jQuery.ajax({
-                    type: 'POST',
-                    url: $("#url_site").val() + "/pdp/view/saveCustomImage",
-                    data: {img: canvas.toDataURL({format: 'png', quality: 1})},
-                    success: function(response) {
-                        return;
-                        if (!response.success) {
-                            alert('Error!');
+                // Save image and fix to load background and images
+                setTimeout(function() {
+                    console.log(canvas_export.toDataURL("png"));
+                    return;
+                    jQuery.ajax({
+                        type: 'POST',
+                        url: $("#url_site").val() + "/pdp/view/saveCustomImage",
+                        data: {img: canvas.toDataURL({format: 'png', quality: 1})},
+                        success: function(response) {
                             return;
+                            if (!response.success) {
+                                alert('Error!');
+                                return;
+                            }
                         }
-                    }
-                });
+                    });
+                }, 1000);
             }
         }
     }
