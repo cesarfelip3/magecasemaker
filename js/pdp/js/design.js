@@ -525,9 +525,7 @@ mst(document).ready(function($) {
     });
 
     jQuery('.pdp_add_to_cart').on('click', function() {
-        canvasEvents.save_design($('#pdp_side_items li.active').index(), $('#main_image').width(), $('#main_image').height());
-        $('#pdp_popup').hide();
-
+        //canvasEvents.save_design($('#pdp_side_items li.active').index(), $('#main_image').width(), $('#main_image').height());
         // save image
         canvasEvents.saveCustomImage();
 
@@ -1468,6 +1466,7 @@ mst(document).ready(function($) {
                                 return;
                             }
                             else {
+                                jQuery('#pdp_popup').hide();
                                 jQuery('.product-img-box').show();
                                 jQuery('.product-image').show();
                                 jQuery('.product-image img').attr('src', canvas_export.toDataURL('png'));
