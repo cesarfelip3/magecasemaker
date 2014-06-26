@@ -75,7 +75,7 @@ mst(document).ready(function($) {
 
     // Delay for .5 seconds
     setTimeout(function() {
-        console.log(mainImage);
+        //just delay so image gets loaded
     }, 500);
 
     var w_img_f = mainImage.width();
