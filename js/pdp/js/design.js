@@ -1445,16 +1445,18 @@ mst(document).ready(function($) {
                     canvas_export.add(image);
                 });
                 canvas_export.renderAll();
-                
+
                 // Save image and fix to load background and images
                 setTimeout(function() {
-                    //console.log(canvas_export.toDataURL({format: 'png', quality: 1}));
+                    console.log(canvas_export.toDataURL({format: 'png', quality: 1}));
                     jQuery.ajax({
                         type: 'POST',
                         url: $("#url_site").val() + "/pdp/view/saveCustomImage",
                         data: {img: canvas_export.toDataURL({format: 'png', quality: 1})},
                         dataType: 'json',
                         success: function(response) {
+                            console.log(reponse);
+                            console.log(reponse.status);
                             if (response.status !== 'success') {
                                 alert('Error!');
                                 return;
