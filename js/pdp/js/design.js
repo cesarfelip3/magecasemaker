@@ -1455,8 +1455,8 @@ mst(document).ready(function($) {
                         data: {img: canvas_export.toDataURL({format: 'png', quality: 1})},
                         dataType: 'json',
                         success: function(response) {
-                            console.log(reponse);
-                            console.log(reponse.status);
+                            console.log(response);
+                            console.log(response.status);
                             if (response.status !== 'success') {
                                 alert('Error!');
                                 return;
