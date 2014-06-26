@@ -525,13 +525,13 @@ mst(document).ready(function($) {
         // save image
         canvasEvents.saveCustomImage();
 
-        jQuery('.product-img-box').show();
-        jQuery('.product-image').show();
-
-        var img_bg = m + 'media/pdp/images/' + $('#pdp_side_items li.active').attr('side_img');
-        canvas.setBackgroundImage(img_bg, canvas.renderAll.bind(canvas));
-
-        jQuery('.product-image img').attr('src', canvas.toDataURL('png'));
+//        jQuery('.product-img-box').show();
+//        jQuery('.product-image').show();
+//
+//        var img_bg = m + 'media/pdp/images/' + $('#pdp_side_items li.active').attr('side_img');
+//        canvas.setBackgroundImage(img_bg, canvas.renderAll.bind(canvas));
+//
+//        jQuery('.product-image img').attr('src', canvas.toDataURL('png'));
         //window.location = m + 'index.php/checkout/cart/';
     });
 
@@ -1426,13 +1426,11 @@ mst(document).ready(function($) {
                 var canvas_export = new fabric.Canvas('canvas_export', {opacity: 1});
 
                 // Add background image
-                canvas_export.setBackgroundImage(img_bg, canvas_export.renderAll.bind(canvas));
+                canvas_export.setBackgroundImage(img_bg, canvas_export.renderAll.bind(canvas_export));
 
                 // Add added image from another canvas
                 fabric.Image.fromURL(canvas.toDataURL('png'), function(image) {
                     image.set({
-                        //left: canvas_export_info.left_f,
-                        //top: canvas_export_info.top_f,
                         left: parseFloat(inlay_info[3]),
                         top: parseFloat(inlay_info[2]),
                         width: inlay_info[0],
@@ -1450,17 +1448,21 @@ mst(document).ready(function($) {
 
                 // Save image and fix to load background and images
                 setTimeout(function() {
-                    console.log(canvas_export.toDataURL("png"));
-                    return;
+                    //console.log(canvas_export.toDataURL({format: 'png', quality: 1}));
                     jQuery.ajax({
                         type: 'POST',
                         url: $("#url_site").val() + "/pdp/view/saveCustomImage",
-                        data: {img: canvas.toDataURL({format: 'png', quality: 1})},
+                        data: {img: canvas_export.toDataURL({format: 'png', quality: 1})},
+                        dataType: 'json',
                         success: function(response) {
-                            return;
-                            if (!response.success) {
+                            if (response.status !== 'success') {
                                 alert('Error!');
                                 return;
+                            }
+                            else {
+                                jQuery('.product-img-box').show();
+                                jQuery('.product-image').show();
+                                jQuery('.product-image img').attr('src', canvas_export.toDataURL('png'));
                             }
                         }
                     });
