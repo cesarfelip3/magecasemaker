@@ -80,10 +80,13 @@ mst(document).ready(function($) {
     // Delay for .5 seconds
     setTimeout(function() {
         //just delay so image gets loaded
-        w_img_f = mainImage.width();
-        h_img_f = mainImage.height();
-    }, 500);
-    console.log(mainImage);
+    }, 1000);
+    
+    if (w_img_f == 0 || h_img_f == 0) {
+        w_img_f = inlay[0];
+        h_img_f = inlay[1];
+    }
+    //console.log(mainImage);
 //    var inlay = w_img_f + ',' + h_img_f + ',0,0';
 //    if (w_img_f == 0 || h_img_f == 0)
 //        var inlay = first_item.attr('inlay');
@@ -91,12 +94,12 @@ mst(document).ready(function($) {
 //    console.log(inlay);
 
     //$('#main_image_front,#main_image_back').hide();
-    $('#wrap_inlay').css({
-        "width": inlay[0] + 'px',
-        "height": inlay[1] + 'px',
-        "top": inlay[2] + 'px',
-        "left": inlay[3] + 'px'
-    });
+//    $('#wrap_inlay').css({
+//        "width": inlay[0] + 'px',
+//        "height": inlay[1] + 'px',
+//        "top": inlay[2] + 'px',
+//        "left": inlay[3] + 'px'
+//    });
 
     /////////////////////////////////Setup the first Canvas//////////////////////////
     $('#canvas_area').attr({
@@ -126,13 +129,9 @@ mst(document).ready(function($) {
         originX: 'left',
         originY: 'top',
     };
-    console.log(backgroundOptions);
+    //console.log(backgroundOptions);
     var backgroundImg = m + 'media/test/iphone4_bg.png';
     canvas.setBackgroundImage(backgroundImg, canvas.renderAll.bind(canvas), backgroundOptions);
-
-    setTimeout(function() {
-        console.log(canvas.toDataURL());
-    }, 1000)
 //    var mainImage = fabric.Image.fromURL(img_bg, function(img) {
 //        // disable image selection
 //        img.set('selectable', false);
