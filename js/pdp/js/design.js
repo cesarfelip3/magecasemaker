@@ -68,7 +68,9 @@ mst(document).ready(function($) {
 
     var inlay = first_item.attr("inlay").split(",");
 
-    $('.wrap_inlay_center').append('<img id="main_image" src="' + m + 'media/pdp/images/no_image.jpg" />');
+    $('.wrap_inlay_center').append('<img id="main_image" src="' + m + 'media/pdp/images/no_image.jpg" style="display:none;" />');
+
+//    $('.wrap_inlay_center').append('<img id="main_image" src="' + first_item.find('img').attr("src") + '" />');
 
     var mainImage = $('#main_image');
     mainImage.attr("src", first_item.find('img').attr("src"));
@@ -81,7 +83,7 @@ mst(document).ready(function($) {
         w_img_f = mainImage.width();
         h_img_f = mainImage.height();
     }, 500);
-
+    console.log(mainImage);
 //    var inlay = w_img_f + ',' + h_img_f + ',0,0';
 //    if (w_img_f == 0 || h_img_f == 0)
 //        var inlay = first_item.attr('inlay');
@@ -103,8 +105,34 @@ mst(document).ready(function($) {
     });
 
     var canvas = new fabric.Canvas('canvas_area', {
+        'opacity': 1
     });
     var img_bg = m + 'media/pdp/images/' + $('#pdp_side_items li.active').attr('side_img');
+
+    var overlayImg = m + 'media/test/iphone4_fg.png';
+
+    canvas.setOverlayImage(overlayImg, canvas.renderAll.bind(canvas), {
+        // Needed to position overlayImage at 0/0
+        width: canvas.width,
+        height: canvas.height,
+        originX: 'left',
+        originY: 'top',
+    });
+    //Set background image
+    var backgroundOptions = {
+        width: canvas.width,
+        height: canvas.height,
+        // Needed to position backgroundImage at 0/0
+        originX: 'left',
+        originY: 'top',
+    };
+    console.log(backgroundOptions);
+    var backgroundImg = m + 'media/test/iphone4_bg.png';
+    canvas.setBackgroundImage(backgroundImg, canvas.renderAll.bind(canvas), backgroundOptions);
+
+    setTimeout(function() {
+        console.log(canvas.toDataURL());
+    }, 1000)
 //    var mainImage = fabric.Image.fromURL(img_bg, function(img) {
 //        // disable image selection
 //        img.set('selectable', false);
@@ -1418,31 +1446,52 @@ mst(document).ready(function($) {
                 var img_bg = m + 'media/pdp/images/' + $('#pdp_side_items li.active').attr('side_img');
                 var inlay = $('#pdp_side_items li.active').attr('inlay');
                 var inlay_info = inlay.split(',');
+
+                console.log(canvas.width + ':' + canvas.height);
+
                 // Create new canvas for export purpose
                 $('#pdp_canvas_result').html('<canvas id="canvas_export"></canvas>');
                 $('#canvas_export').attr({
-                    'width': canvas.width,
-                    'height': canvas.height
+                    width: canvas.width,
+                    height: canvas.height,
                 });
-                var canvas_export = new fabric.Canvas('canvas_export', {opacity: 1});
-                // Add background image
-                canvas_export.setBackgroundImage(img_bg, canvas_export.renderAll.bind(canvas_export), {
-                    width: canvas_export.width,
-                    height: canvas_export.height,
-                    // Needed to position backgroundImage at 0/0
-                    originX: 'left',
-                    originY: 'top'
+
+                var canvas_export = new fabric.Canvas('canvas_export', {
+                    opacity: 1
                 });
+
+                //Set background image
+                /*
+                 var backgroundOptions = {
+                 width: canvas.width,
+                 height: canvas.height,
+                 // Needed to position backgroundImage at 0/0
+                 originX: 'left',
+                 originY: 'top',
+                 };
+                 
+                 canvas_export.setBackgroundImage(backgroundImg, canvas.renderAll.bind(canvas_export), backgroundOptions);*/
+
                 // Add added image from another canvas
                 fabric.Image.fromURL(canvas.toDataURL('png'), function(image) {
+//                    image.set({
+//                        left: parseFloat(inlay_info[3]),
+//                        top: parseFloat(inlay_info[2]),
+//                        width: inlay_info[0],
+//                        height: inlay_info[1],
+//                        angle: 0,
+//                        selectable: false
+//                    });
+
                     image.set({
-                        left: parseFloat(inlay_info[3]),
-                        top: parseFloat(inlay_info[2]),
-                        width: inlay_info[0],
-                        height: inlay_info[1],
+                        left: 0,
+                        top: 0,
+                        width: canvas.width,
+                        height: canvas.height,
                         angle: 0,
                         selectable: false
                     });
+
                     image.transparentCorners = true;
                     image.cornerSize = 10;
                     image.scale(1).setCoords();

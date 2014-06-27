@@ -250,14 +250,17 @@ $_helper = $this->helper('catalog/output');
             </div>
         </div>
         <div class="product-img-box">
-            <div class="canvas_slider">
-                <div class="product-image act" id="product-image-wrap">
-                    <div class="wrap_inlay_center" tab="front">
-                        <div id="wrap_inlay" class="wrap_inlay">
-                            <canvas id="canvas_area"></canvas>
-                        </div>
-                    </div>
-                </div>
+            <!--            <div class="canvas_slider">
+                            <div class="product-image act" id="product-image-wrap">
+                                <div class="wrap_inlay_center" tab="front">
+                                    <div id="wrap_inlay" class="wrap_inlay">
+                                        <canvas id="canvas_area"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
+            <div class="wrap_inlay_center" tab="front">
+                <canvas id="canvas_area"></canvas>
             </div>
             <ul class="color_att"></ul>
         </div>
@@ -287,7 +290,7 @@ $_helper = $this->helper('catalog/output');
                     <ul id="select_font">
                         <li class="active" rel="<?php echo $this->__("Arial") ?>"><?php echo $this->__("Font") ?></li>
                         <?php foreach ($fonts as $font) : ?>
-                            <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName()                                                                             ?><?php echo $this->__('Font'); ?></li>
+                            <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName()                                                                               ?><?php echo $this->__('Font'); ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
@@ -383,10 +386,10 @@ $_helper = $this->helper('catalog/output');
                     <label class="pi pi-pencil"></label>
                     <span><?php echo $this->__('Edit Text'); ?></span>
                 </div>
-<!--                <div id="shadow_item" tab="pdp_shadow_item" class="item">
-                    <label class="pi"></label>
-                    <span><?php echo $this->__('Shadow'); ?></span>
-                </div>-->
+                <!--                <div id="shadow_item" tab="pdp_shadow_item" class="item">
+                                    <label class="pi"></label>
+                                    <span><?php echo $this->__('Shadow'); ?></span>
+                                </div>-->
                 <div id="opacity_item" data-tooltip="pdptt_opacity" tab="pdp_opacity_item" class="item">
                     <label class="pi"></label>
                     <span><?php echo $this->__('Opacity'); ?></span>
