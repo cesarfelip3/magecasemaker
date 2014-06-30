@@ -35,50 +35,6 @@
 class Mage_Sales_Model_Order_Pdf_Order extends Mage_Sales_Model_Order_Pdf_Abstract
 {
 
-    /**
-     * Draw table header for product items
-     *
-     * @param  Zend_Pdf_Page $page
-     * @return void
-     */
-    protected function _drawHeader(Zend_Pdf_Page $page)
-    {
-        /* Add table head */
-        $this->_setFontRegular($page, 10);
-        $page->setFillColor(new Zend_Pdf_Color_RGB(0.93, 0.92, 0.92));
-        $page->setLineColor(new Zend_Pdf_Color_GrayScale(0.5));
-        $page->setLineWidth(0.5);
-        $page->drawRectangle(25, $this->y, 570, $this->y - 15);
-        $this->y -= 10;
-        $page->setFillColor(new Zend_Pdf_Color_RGB(0, 0, 0));
-
-        //columns headers
-        $lines[0][] = array(
-            'text' => Mage::helper('sales')->__('Products'),
-            'feed' => 100,
-        );
-
-        $lines[0][] = array(
-            'text' => Mage::helper('sales')->__('Qty'),
-            'feed' => 35
-        );
-
-        $lines[0][] = array(
-            'text' => Mage::helper('sales')->__('SKU'),
-            'feed' => 565,
-            'align' => 'right'
-        );
-
-        $lineBlock = array(
-            'lines' => $lines,
-            'height' => 10
-        );
-
-        $this->drawLineBlocks($page, array($lineBlock), array('table_header' => true));
-        $page->setFillColor(new Zend_Pdf_Color_GrayScale(0));
-        $this->y -= 20;
-    }
-
     protected function insertImage($image, $x1, $y1, $x2, $y2, $width, $height, &$page)
     {
         if (!is_null($image)) {
@@ -101,7 +57,7 @@ class Mage_Sales_Model_Order_Pdf_Order extends Mage_Sales_Model_Order_Pdf_Abstra
      * @param  array $shipments
      * @return Zend_Pdf
      */
-    public function getPdf($invoices = array())
+    public function getPdf($order = array())
     {
         $width = 1000;
         $height = 1000;
@@ -113,17 +69,17 @@ class Mage_Sales_Model_Order_Pdf_Order extends Mage_Sales_Model_Order_Pdf_Abstra
         $style = new Zend_Pdf_Style();
         $this->_setFontBold($style, 10);
 
-        foreach ($invoices as $invoice) {
-            if ($invoice->getStoreId()) {
-                Mage::app()->getLocale()->emulate($invoice->getStoreId());
-                Mage::app()->setCurrentStore($invoice->getStoreId());
-            }
             $page = $this->newPage();
-            $order = $invoice->getOrder();
+
+            if ($order->getStore()->getId()) {
+                Mage::app()->getLocale()->emulate($order->getStore()->getId());
+                Mage::app()->setCurrentStore($order->getStore()->getId());
+            }
+            //$page = $this->newPage();
             /* Add image */
-            $this->insertLogo($page, $invoice->getStore());
+            $this->insertLogo($page, $order->getStore());
             /* Add address */
-            $this->insertAddress($page, $invoice->getStore());
+            $this->insertAddress($page, $order->getStore());
             /* Add head */
             $this->insertOrder(
                     $page, $order, Mage::getStoreConfigFlag(self::XML_PATH_SALES_PDF_INVOICE_PUT_ORDER_ID, $order->getStoreId())
@@ -132,30 +88,28 @@ class Mage_Sales_Model_Order_Pdf_Order extends Mage_Sales_Model_Order_Pdf_Abstra
             $this->insertDocumentNumber(
                     $page, Mage::helper('sales')->__('Order # ') . $order->getIncrementId()
             );
-            /* Add table */
-            $this->_drawHeader($page);
             /* Add body */
-            foreach ($invoice->getAllItems() as $item) {
-                if ($item->getOrderItem()->getParentItem()) {
-                    continue;
-                }
-                /* Draw item */
-                $this->_drawItem($item, $page, $order);
+            foreach ($order->getAllItems() as $item) {
 
-                /* Draw product image */
-                $_item = $item->getOrderItem();
-//                $productId = $item->getOrderItem()->getProductId();
-//                $image = Mage::getModel('catalog/product')->load($productId);
-                $this->insertImage($_item->getFinalImage(), 245, (int) ($this->y + 15), 310, (int) ($this->y + 65), $width, $height, $page);
+                $page = $this->newPage();
+
+                // Create new image object 
+                $imageLocation = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . 'pdp/design/checkout/' . $item->getFinalImage();
+                $image = Zend_Pdf_Image::imageWithPath($imageLocation);
+
+                // Draw part of the image within a circle 
+                $page->saveGS(); 
+                $page->drawImage($image, 100, 200, 387, 707);
+                $page->restoreGS();
 
                 $page = end($pdf->pages);
             }
             /* Add totals */
-            //$this->insertTotals($page, $order);
-            if ($invoice->getStoreId()) {
+            //$this->insertTotals($page, $invoice);
+            if ($order->getStore()->getStoreId()) {
                 Mage::app()->getLocale()->revert();
             }
-        }
+
         $this->_afterGetPdf();
         return $pdf;
     }

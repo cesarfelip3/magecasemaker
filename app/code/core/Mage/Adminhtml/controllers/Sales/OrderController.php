@@ -807,12 +807,8 @@ class Mage_Adminhtml_Sales_OrderController extends Mage_Adminhtml_Controller_Act
 
     public function pdfAction()
     {
-        $_order = $this->_initOrder();
-        $invoices = Mage::getResourceModel('sales/order_invoice_collection')
-                ->setOrderFilter($_order->getId())
-                ->load();
-        
-        $pdf = Mage::getModel('sales/order_pdf_order')->getPdf($invoices);
+        $_order = $this->_initOrder();        
+        $pdf = Mage::getModel('sales/order_pdf_order')->getPdf($_order);
         return $this->_prepareDownloadResponse(
                         'invoice' . Mage::getSingleton('core/date')->date('Y-m-d_H-i-s') . '.pdf', $pdf->render(), 'application/pdf'
         );
