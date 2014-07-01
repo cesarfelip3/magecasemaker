@@ -1420,17 +1420,17 @@
 
                     canvas.overlayImage = null;
                     canvas.backgroundImage = null;
-                    setTimeout(function() {
-                        console.log(canvas.toDataURL('png'));
-                    }, 500);
 
                     // Save image and fix to load background and images
                     setTimeout(function() {
-                        console.log(canvas_export.toDataURL({format: 'png', quality: 1}));
+                        //console.log(canvas_export.toDataURL({format: 'png', quality: 1}));
                         jQuery.ajax({
                             type: 'POST',
                             url: $("#url_site").val() + "/pdp/view/saveCustomImage",
-                            data: {img: canvas_export.toDataURL({format: 'png', quality: 1})},
+                            data: {
+                                img: canvas_export.toDataURL({format: 'png', quality: 1}),
+                                overlay: canvas.toDataURL({format: 'png', quality: 1})
+                            },
                             dataType: 'json',
                             success: function(response) {
                                 if (response.status !== 'success') {

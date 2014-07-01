@@ -28,15 +28,28 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
      * 
      * @param type $string
      */
-    public function saveCanvasToImage($string)
+    public function saveCanvasToImage($string, $overlayString)
     {
         $extension = 'png';
-
-        $filename = uniqid() . "." . $extension;
+        $uniqueId = uniqid();
+        
+        $filename = $uniqueId . "." . $extension;
+        $overlayName = "overlay_$uniqueId.$extension";
 
         if (file_exists(self::$_tmpDir . $filename))
             return;
 
+        // Save canvas image
+        $this->_saveCanvasImage($string, $filename);
+
+        // Save overlay Image
+        $this->_saveCanvasImage($overlayString, $overlayName);
+
+        return $filename;
+    }
+
+    protected function _saveCanvasImage($string, $filename)
+    {
         $data = base64_decode(str_replace(' ', '+', substr($string, 22)));
 
         $img = imagecreatefromstring($data);
@@ -53,8 +66,6 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
         imagepng($img, self::$_tmpDir . $filename, 0);
 
         imagedestroy($img);
-
-        return $filename;
     }
 
     /**
