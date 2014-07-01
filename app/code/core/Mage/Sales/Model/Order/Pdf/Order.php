@@ -95,10 +95,10 @@ class Mage_Sales_Model_Order_Pdf_Order extends Mage_Sales_Model_Order_Pdf_Abstra
             if (file_exists($imageLocation)) {
                 $page = $this->newPage();
                 $image = Zend_Pdf_Image::imageWithPath($imageLocation);
-
+                list($width, $height) = getimagesize($imageLocation);
                 // Draw part of the image within a circle 
                 $page->saveGS();
-                $page->drawImage($image, 100, 200, 387, 707);
+                $page->drawImage($image, 0, 100, $width, 100 + $height);
                 $page->restoreGS();
             }
 
@@ -108,9 +108,10 @@ class Mage_Sales_Model_Order_Pdf_Order extends Mage_Sales_Model_Order_Pdf_Abstra
                 $page = $this->newPage();
                 $overlay = Zend_Pdf_Image::imageWithPath($overlayLocation);
 
+                list($width, $height) = getimagesize($overlayLocation);
                 // Draw part of the image within a circle 
                 $page->saveGS();
-                $page->drawImage($overlay, 100, 200, 387, 707);
+                $page->drawImage($overlay, -100, 100, $width, 100 + $height);
                 $page->restoreGS();
             }
 
