@@ -69,46 +69,58 @@ class Mage_Sales_Model_Order_Pdf_Order extends Mage_Sales_Model_Order_Pdf_Abstra
         $style = new Zend_Pdf_Style();
         $this->_setFontBold($style, 10);
 
-            $page = $this->newPage();
+        $page = $this->newPage();
 
-            if ($order->getStore()->getId()) {
-                Mage::app()->getLocale()->emulate($order->getStore()->getId());
-                Mage::app()->setCurrentStore($order->getStore()->getId());
-            }
-            //$page = $this->newPage();
-            /* Add image */
-            $this->insertLogo($page, $order->getStore());
-            /* Add address */
-            $this->insertAddress($page, $order->getStore());
-            /* Add head */
-            $this->insertOrder(
-                    $page, $order, Mage::getStoreConfigFlag(self::XML_PATH_SALES_PDF_INVOICE_PUT_ORDER_ID, $order->getStoreId())
-            );
-            /* Add document text and number */
-            $this->insertDocumentNumber(
-                    $page, Mage::helper('sales')->__('Order # ') . $order->getIncrementId()
-            );
-            /* Add body */
-            foreach ($order->getAllItems() as $item) {
-
+        if ($order->getStore()->getId()) {
+            Mage::app()->getLocale()->emulate($order->getStore()->getId());
+            Mage::app()->setCurrentStore($order->getStore()->getId());
+        }
+        //$page = $this->newPage();
+        /* Add image */
+        $this->insertLogo($page, $order->getStore());
+        /* Add address */
+        $this->insertAddress($page, $order->getStore());
+        /* Add head */
+        $this->insertOrder(
+                $page, $order, Mage::getStoreConfigFlag(self::XML_PATH_SALES_PDF_INVOICE_PUT_ORDER_ID, $order->getStoreId())
+        );
+        /* Add document text and number */
+        $this->insertDocumentNumber(
+                $page, Mage::helper('sales')->__('Order # ') . $order->getIncrementId()
+        );
+        /* Add body */
+        foreach ($order->getAllItems() as $item) {
+            // Create new image object 
+            $imageLocation = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . 'pdp/design/checkout/' . $item->getFinalImage();
+            if (file_exists($imageLocation)) {
                 $page = $this->newPage();
-
-                // Create new image object 
-                $imageLocation = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . 'pdp/design/checkout/' . $item->getFinalImage();
                 $image = Zend_Pdf_Image::imageWithPath($imageLocation);
 
                 // Draw part of the image within a circle 
-                $page->saveGS(); 
+                $page->saveGS();
                 $page->drawImage($image, 100, 200, 387, 707);
                 $page->restoreGS();
+            }
 
-                $page = end($pdf->pages);
+            // Create new overlay image 
+            $overlayLocation = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . 'pdp/design/checkout/overlay_' . $item->getFinalImage();
+            if (file_exists($overlayLocation)) {
+                $page = $this->newPage();
+                $overlay = Zend_Pdf_Image::imageWithPath($overlayLocation);
+
+                // Draw part of the image within a circle 
+                $page->saveGS();
+                $page->drawImage($overlay, 100, 200, 387, 707);
+                $page->restoreGS();
             }
-            /* Add totals */
-            //$this->insertTotals($page, $invoice);
-            if ($order->getStore()->getStoreId()) {
-                Mage::app()->getLocale()->revert();
-            }
+
+            $page = end($pdf->pages);
+        }
+        /* Add totals */
+        //$this->insertTotals($page, $invoice);
+        if ($order->getStore()->getStoreId()) {
+            Mage::app()->getLocale()->revert();
+        }
 
         $this->_afterGetPdf();
         return $pdf;

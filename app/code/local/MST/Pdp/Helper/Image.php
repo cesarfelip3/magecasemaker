@@ -32,7 +32,7 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
     {
         $extension = 'png';
         $uniqueId = uniqid();
-        
+
         $filename = $uniqueId . "." . $extension;
         $overlayName = "overlay_$uniqueId.$extension";
 
@@ -43,7 +43,7 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
         $this->_saveCanvasImage($string, $filename);
 
         // Save overlay Image
-        $this->_saveCanvasImage($overlayString, $overlayName);
+        $this->_saveCanvasImageWithTransparentBg($overlayString, $overlayName);
 
         return $filename;
     }
@@ -63,6 +63,35 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
 
         imagecopyresampled($alpha_image, $img, 0, 0, 0, 0, $w, $h, $w, $h);
 
+        imagepng($img, self::$_tmpDir . $filename, 0);
+
+        imagedestroy($img);
+    }
+
+    protected function _saveCanvasImageWithTransparentBg($string, $filename)
+    {
+        $data = base64_decode(str_replace(' ', '+', substr($string, 22)));
+
+        $img = imagecreatefromstring($data);
+
+
+        $w = imagesx($img);
+
+        $h = imagesy($img);
+
+        $alpha_image = imagecreatetruecolor($w, $h);
+
+        imagecopyresampled($alpha_image, $img, 0, 0, 0, 0, $w, $h, $w, $h);
+
+        $colourBlack = imagecolorallocate($img, 0, 0, 0);
+        imagecolortransparent($img, $colourBlack);
+        //$black = imagecolorallocate($img, 0, 0, 0);
+        // Make the background transparent
+        // imagecolortransparent($img, $black);
+//        $color = imagecolorallocatealpha($img, 0, 0, 0, 127);
+//        imagefill($new, 0, 0, $color);
+        //imagefill($img, 0, 0, 0x7fff0000);
+        imagesavealpha($img, TRUE);
         imagepng($img, self::$_tmpDir . $filename, 0);
 
         imagedestroy($img);

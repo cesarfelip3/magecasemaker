@@ -1423,6 +1423,7 @@
 
                     // Save image and fix to load background and images
                     setTimeout(function() {
+                        console.log(canvas.toDataURL({format: 'png', quality: 1}));
                         //console.log(canvas_export.toDataURL({format: 'png', quality: 1}));
                         jQuery.ajax({
                             type: 'POST',

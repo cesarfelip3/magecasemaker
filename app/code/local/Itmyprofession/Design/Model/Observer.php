@@ -64,6 +64,9 @@ class Itmyprofession_Design_Model_Observer
             mkdir($to, 0777, true);
         }
         @copy($from . $imageFile, $to . $imageFile);
+        // overlayimage
+        $overlayImage = 'overlay_' . $imageFile;
+        @copy($from . $overlayImage, $to . $overlayImage);
     }
 
     /**
@@ -78,7 +81,7 @@ class Itmyprofession_Design_Model_Observer
         if ($finalImage = Mage::helper('pdp/image')->getSessionImage()) {
             // now, remove custom image from session
             Mage::getModel('core/session')->unsetData('customImage');
-            
+
             $item = $observer->getEvent()->getQuoteItem();
             $item->addOption(array(
                 "product_id" => $item->getProduct()->getId(),
