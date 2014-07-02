@@ -73,7 +73,7 @@
 
         var mainImage = $('#main_image');
         //mainImage.attr("src", first_item.find('img').attr("src"));
-        mainImage.attr("src", m + 'media/test/iphone4_bg.png');
+        mainImage.attr("src", $('#pdp_side_items li:eq(0)').find('img').attr('src'));
 
         var w_img_f = mainImage.width();
         var h_img_f = mainImage.height();
@@ -105,12 +105,12 @@
             originY: 'top',
         };
         //console.log(backgroundOptions);
-        var backgroundImg = m + 'media/test/iphone4_bg.png';
+        var backgroundImg = $('#pdp_side_items li:eq(0)').find('img').attr('src');
         canvas.setBackgroundImage(backgroundImg, canvas.renderAll.bind(canvas), backgroundOptions);
 
         //setTimeout(function() {
         // set overlay
-        var overlayImg = m + 'media/test/iphone4_fg.png';
+        var overlayImg = $('#pdp_side_items li:eq(1)').find('img').attr('src');
         canvas.setOverlayImage(overlayImg, canvas.renderAll.bind(canvas), {'originX': 'left', 'originY': 'top', 'left': 0, 'top': 0});
         //}, 500);
 
