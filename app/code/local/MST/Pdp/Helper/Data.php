@@ -282,9 +282,10 @@ class MST_Pdp_Helper_Data extends Mage_Core_Helper_Abstract
         $collection = $model->getActiveDesignSides($productId);
         $list = "<ul>";
         $baseImageUrl = $this->getImagePath();
+        Mage::log(self::$_imgPath,null, 'debugging.log');
         foreach ($collection as $side) {
             //Zend_Debug::dump($side->getData());
-            //Mage::log(print_r($side->getData(), true), null, 'debugging.log');
+            Mage::log(print_r($side->getData(), true), null, 'debugging.log');
             list($width, $height) = getimagesize(self::$_imgPath . $side->getFilename());
             //Mage::log($width . $height, null, 'debugging.log');
             //$width = imagesx(self::$_imgPath . $side->getFilename());
@@ -292,7 +293,6 @@ class MST_Pdp_Helper_Data extends Mage_Core_Helper_Abstract
             //$height = imagesy(self::$_imgPath . $side->getFilename()); //$side->getInlayH();
             //$top = 0; //$side->getInlayT();
             //$left = 0; //$side->getInlayL();
-
 //            $width = $side->getInlayW();
 //            $height = $side->getInlayH();
             $top = $side->getInlayT();

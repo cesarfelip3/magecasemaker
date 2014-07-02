@@ -32,6 +32,9 @@ $title = $product->getName();
 $shortDes = $product->getShortDescription();
 $fullDes = $product->getDescription();
 $_helper = $this->helper('catalog/output');
+
+//
+$dt_ts = array();
 ?>
 <div class="wrapper_pdp">
     <!--h2 class="product-title"><?php echo $title ?></h2-->
@@ -91,7 +94,7 @@ $_helper = $this->helper('catalog/output');
                         $group_items = Mage::getModel('pdp/pdpgroup')->getPdpGroup();
                         foreach ($group_items as $group_item) {
                             ?>
-                            <option value='<?php echo $group_item->getId() ?>' <?php if ($dt_ts[0] == $group_item->getId()) echo 'selected="selected"'; ?>><?php echo $group_item->getTitle() ?></option>
+                            <option value='<?php echo $group_item->getId() ?>' <?php if (isset($dt_ts[0]) && $dt_ts[0] == $group_item->getId()) echo 'selected="selected"'; ?>><?php echo $group_item->getTitle() ?></option>
                         <?php }
                         ?>
                     </select>
@@ -104,7 +107,7 @@ $_helper = $this->helper('catalog/output');
                             $img_all = '';
                             $fi = 0;
                             foreach ($designs as $design) {
-                                if ($dt_ts[4] == '') {
+                                if (isset($dt_ts[4]) && $dt_ts[4] == '') {
                                     if ($fi++ == 0) {
                                         //$f_img_act = 'class="active"';
                                     }
@@ -113,7 +116,7 @@ $_helper = $this->helper('catalog/output');
                                     }
                                 }
                                 else {
-                                    if ($dt_ts[4] == $design->getId()) {
+                                    if (isset($dt_ts[4]) && $dt_ts[4] == $design->getId()) {
                                         $f_img_act = 'class="active"';
                                     }
                                     else {
@@ -290,7 +293,7 @@ $_helper = $this->helper('catalog/output');
                     <ul id="select_font">
                         <li class="active" rel="<?php echo $this->__("Arial") ?>"><?php echo $this->__("Font") ?></li>
                         <?php foreach ($fonts as $font) : ?>
-                            <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName()                                                                                 ?><?php echo $this->__('Font'); ?></li>
+                            <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName()                                                                                      ?><?php echo $this->__('Font'); ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
@@ -447,7 +450,7 @@ $_helper = $this->helper('catalog/output');
                 ?>
                 <div class="group-des gdes_<?php
                 echo $group_item->getId();
-                if ($dt_ts[0] == $group_item->getId()) {
+                if (isset($dt_ts[0]) && $dt_ts[0] == $group_item->getId()) {
                     
                 }
                 elseif (++$gi != 1) {
@@ -477,11 +480,11 @@ $_helper = $this->helper('catalog/output');
         <?php //}    ?>
     </div>
     <div class="no-display">
-        <input type="hidden" value="<?php echo $_REQUEST['fb'] ?>" id="fb_get_id" />
+        <input type="hidden" value="<?php echo isset($_REQUEST['fb']) ? $_REQUEST['fb'] : '' ?>" id="fb_get_id" />
         <input type="hidden" value="<?php echo $product->getProductUrl(); ?>" id="current_url" />
-        <input type="hidden" value="<?php echo $wid; ?>" id="wid" />
-        <input type="hidden" value="<?php echo $cid ?>" id="cid" />
-        <input type="hidden" value="<?php echo $_REQUEST['eid'] ?>" id="edit_id" />
+        <input type="hidden" value="<?php echo isset($wid) ? $wid : ''; ?>" id="wid" />
+        <input type="hidden" value="<?php echo isset($cid) ? $cid : '' ?>" id="cid" />
+        <input type="hidden" value="<?php echo isset($_REQUEST['eid']) ? $_REQUEST['eid'] : '' ?>" id="edit_id" />
         <input type="hidden" id="product_id" name="product_id" value="<?php echo $productId; ?>" />
     </div>
 </div>
