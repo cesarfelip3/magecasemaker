@@ -106,12 +106,14 @@
         };
         //console.log(backgroundOptions);
         var backgroundImg = $('#pdp_side_items li:eq(0)').find('img').attr('src');
-        canvas.setBackgroundImage(backgroundImg, canvas.renderAll.bind(canvas), backgroundOptions);
+        canvas.setBackgroundImage(backgroundImg, function() {
+                mememaker.canvas.renderAll();
+            }, {'originX': 'left', 'originY': 'top', 'left': 0, 'top': 0});
 
         //setTimeout(function() {
         // set overlay
         var overlayImg = $('#pdp_side_items li:eq(1)').find('img').attr('src');
-        canvas.setOverlayImage(overlayImg, canvas.renderAll.bind(canvas), {'originX': 'left', 'originY': 'top', 'left': 0, 'top': 0});
+        canvas.setOverlayImage(overlayImg, canvas.renderAll.bind(canvas));
         //}, 500);
 
         $('#pdp_side_items li').each(function() {
