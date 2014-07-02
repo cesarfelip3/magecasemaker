@@ -14,7 +14,7 @@ $fontPath = $helper->getFontPath();
 $baseImagePath = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'pdp/images/';
 $fonts = $helper->getFonts();
 $designs = $helper->getDesignCollection();
-
+Mage::log('Designs : ' . print_r($designs->getData(), true), null, 'debugging.log');
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 if (Mage::registry('pdp_data')) {
     $pdpData = Mage::registry('pdp_data');
@@ -293,7 +293,7 @@ $dt_ts = array();
                     <ul id="select_font">
                         <li class="active" rel="<?php echo $this->__("Arial") ?>"><?php echo $this->__("Font") ?></li>
                         <?php foreach ($fonts as $font) : ?>
-                            <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName()                                                                                      ?><?php echo $this->__('Font'); ?></li>
+                            <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName()                                                                                       ?><?php echo $this->__('Font'); ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
