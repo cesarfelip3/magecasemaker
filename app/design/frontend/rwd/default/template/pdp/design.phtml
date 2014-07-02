@@ -14,6 +14,7 @@ $fontPath = $helper->getFontPath();
 $baseImagePath = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'pdp/images/';
 $fonts = $helper->getFonts();
 $designs = $helper->getDesignCollection();
+print_r($designs->getData());
 Mage::log('Designs : ' . print_r($designs->getData(), true), null, 'debugging.log');
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 if (Mage::registry('pdp_data')) {
