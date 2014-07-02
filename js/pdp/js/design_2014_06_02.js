@@ -1,16 +1,18 @@
 ;
 (function($, window, document, undefined) {
-    // Only numeric
-    $.fn.ForceNumericOnly = function() {
+    var mst = jQuery.noConflict();
+    mst.fn.ForceNumericOnly = function() {
         return this.each(function() {
-            $(this).keydown(function(e) {
+            mst(this).keydown(function(e) {
                 var a = e.charCode || e.keyCode || 0;
                 return (a == 8 || a == 9 || a == 46 || (a >= 37 && a <= 40) || (a >= 48 && a <= 57) || (a >= 96 && a <= 105))
             })
         })
     };
+    mst(document).ready(function($) {
 
-    $(document).ready(function($) {
+        $('body').prepend('<div class="loadding_initializing no-display"><div class="p_wrap"><p>Initializing...</p><div class="process_wrap"><span id="process_pdp_ini"></span></div><span id="ini_count">0%</span></div></div>');
+
         // Initialisation
         var m = $('#url_site').val().replace('index.php/', ''),
                 numImages = $("#design_control img").length,
@@ -85,6 +87,21 @@
             w_img_f = inlay[0];
             h_img_f = inlay[1];
         }
+//console.log(mainImage);
+//    var inlay = w_img_f + ',' + h_img_f + ',0,0';
+//    if (w_img_f == 0 || h_img_f == 0)
+//        var inlay = first_item.attr('inlay');
+//    inlay = inlay.split(',');
+//    console.log(inlay);
+
+//$('#main_image_front,#main_image_back').hide();
+//    $('#wrap_inlay').css({
+//        "width": inlay[0] + 'px',
+//        "height": inlay[1] + 'px',
+//        "top": inlay[2] + 'px',
+//        "left": inlay[3] + 'px'
+//    });
+
 /////////////////////////////////Setup the first Canvas//////////////////////////
         $('#canvas_area').attr({
             'width': w_img_f,
@@ -113,7 +130,11 @@
         var overlayImg = m + 'media/test/iphone4_fg.png';
         canvas.setOverlayImage(overlayImg, canvas.renderAll.bind(canvas), {'originX': 'left', 'originY': 'top', 'left': 0, 'top': 0});
         //}, 500);
-
+//        var mainImage = fabric.Image.fromURL(backgroundImg, function(img) {
+//            // disable image selection
+//            img.set('selectable', false);
+//            canvas.add(img);
+//        });
         $('#pdp_side_items li').each(function() {
             $('.wrapper_pdp').append($(this).children('img').clone().addClass('pdp_img_session_' + $(this).index()).removeAttr('width').hide());
             pdp_history[$(this).index()] = JSON.stringify(canvas);
@@ -121,6 +142,58 @@
         ////////////////////////No Group////////////////////////////////////
         //canvas.selection = false;
         //}
+
+        $('#edit_item_wrap').owlCarousel({
+            items: 7, //10 items above 1000px browser width
+            itemsDesktop: [1000, 7], //5 items between 1000px and 901px
+            itemsDesktopSmall: [900, 4], // betweem 900px and 601px
+            itemsTablet: [600, 2], //2 items between 600 and 0
+            itemsMobile: [340, 1], // itemsMobile disabled - inherit from itemsTablet option
+            lazyLoad: true,
+            navigation: true,
+            navigationText: ["&#xf053;", "&#xf054;"],
+        });
+        $('.pdp_color_list ul').owlCarousel({
+            items: 12, //10 items above 1000px browser width
+            itemsDesktop: [1000, 7], //5 items between 1000px and 901px
+            itemsDesktopSmall: [900, 4], // betweem 900px and 601px
+            itemsTablet: [600, 2], //2 items between 600 and 0
+            itemsMobile: [340, 1], // itemsMobile disabled - inherit from itemsTablet option
+            lazyLoad: true,
+            navigation: true,
+            navigationText: ["&#xf053;", "&#xf054;"],
+        });
+        $('#select_font').owlCarousel({
+            items: 10, //10 items above 1000px browser width
+            itemsDesktop: [1000, 7], //5 items between 1000px and 901px
+            itemsDesktopSmall: [900, 4], // betweem 900px and 601px
+            itemsTablet: [600, 2], //2 items between 600 and 0
+            itemsMobile: [340, 1], // itemsMobile disabled - inherit from itemsTablet option
+            lazyLoad: true,
+            navigation: true,
+            navigationText: ["&#xf053;", "&#xf054;"],
+        });
+        $('.add_artwork > a').on('click', function() {
+            $('.tab_content:not(#select_image)').slideUp(200);
+            $('#select_image').slideToggle(600);
+        });
+        $('.add_text > a').on('click', function() {
+            $('#add_text').slideToggle(600);
+            $('#font_outline_colorpicker').hide();
+            $('.tab_content:not(#add_text), .pdp_extra_item').slideUp(200);
+            $('.pdp_text_list li.active').removeClass("active");
+        });
+        $('.pdp_close').click(function() {
+            $(this).parent().parent().parent().slideUp(600);
+        });
+        $('.pdp_text_list ul li').click(function() {
+            $('.pdp_text_list ul li.active').removeClass("active");
+            $('#add_text_input').val($(this).text());
+            $(this).addClass("active");
+        });
+        $('.pdp_text_list ul li.active').click(function() {
+            $('#add_text_action').click();
+        });
         $('#pdp_side_items li').click(function() {
             canvasEvents.save_design($('#pdp_side_items li.active').index(), $('#main_image').width(), $('#main_image').height());
             $('#pdp_side_items li.active').removeClass("active");
@@ -136,11 +209,157 @@
                 //canvasEvents.clearSelected();
             }
         });
-
+        $('#rotate-180').click(function() {
+            $('#pdp_rotate_item').slideToggle(400);
+            $('.tab_content:not(#pdp_rotate_item)').slideUp(300);
+        });
         ///////////////////////////////Text tab///////////////////////////
+
+        $('#pdp_edit_text_tab a').click(function() {
+            $('#pdp_edit_text_tab a.active').removeClass("active");
+            $(this).addClass('active');
+            $('.pdp_edit_text_tab_content').slideUp(300);
+            $('#' + $(this).attr("tab")).slideDown(400);
+        });
+        $('.pdp_edit_font_style li a.text').click(function() {
+            $(this).toggleClass("active");
+            canvasEvents.editText();
+        });
+        $('#pdp_search_text').keyup(function() {
+            var key = $(this).val().toUpperCase();
+            $('.pdp_text_list li').each(function() {
+                if ($(this).text().toUpperCase().indexOf(key) >= 0) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+        $('#pdp_edit_text_style li a.align').click(function() {
+            $('#pdp_edit_text_style li a.align.active').removeClass("active");
+            $(this).addClass("active");
+            canvasEvents.editText();
+        });
+        $('#pdp_font_size_input').bind("slider:changed", function(event, data) {
+            $('#pdp_font_size_value').html($(this).val() + 'px');
+            var activeObject = canvas.getActiveObject();
+            if (!activeObject)
+                return;
+            canvasEvents.editText();
+        });
+        $('.wrapper_pdp .product-image').click(function() {
+            $('.wrapper_pdp .product-image.act').removeClass('act');
+            $(this).addClass('act');
+        });
+        $('.tshirt-size input').change(function() {
+            if (($(this).val() == '') || ($(this).val() < 0)) {
+                $(this).val(0)
+            }
+            ;
+            $(this).val(parseInt($(this).val()));
+        });
+        $('#design_control .control_tab .tab_main').click(function() {
+            var a = $(this).attr("tab");
+            $('#design_control .control_tab .tab_main.active').removeClass("active");
+            $(this).addClass("active");
+            $('.tab_content').hide();
+            $('.' + a).show()
+        });
+        $('.tab_design_image a').click(function() {
+            $('.tab_design_image .active').removeClass("active");
+            $(this).addClass("active");
+            var tab_act = $(this).attr("tab-content");
+            $('.content_tab > div').hide();
+            $('.content_tab .' + tab_act).show();
+        });
         //updat inlay option
         update_inlay_option();
-
+        $('#toolbox-phone-select').change(function() {
+            var a = $(this).val(),
+                    ip_id = $(this).find("option:selected").attr("ip_id");
+            $('#ip_id').val(ip_id);
+            update_inlay_option();
+            $('#main_image').attr("src", m + 'media/pdp/images/' + a)
+        });
+        $('#add_text_action').click(function() {
+            var text1 = $('#add_text_input').val(),
+                    text2 = $('.pdp_text_list li.active').text();
+            if (text2 != '') {
+                canvasEvents.addText(text2);
+            } else {
+                if (text1 != '') {
+                    canvasEvents.addText(text1);
+                }
+            }
+        });
+        $('#use_shadow', '#shadow_item').click(function() {
+// $('#use_shadow','#shadow_item').click(function() {
+            if (!$(this).hasClass('active')) {
+                $('.font_outline_color > div').show();
+                canvasEvents.addShadowItem();
+                $(this).addClass("active");
+            } else {
+                $('.font_outline_color > div:not(.use_shadow)').hide();
+                canvasEvents.removeShadow();
+                $(this).removeClass("active");
+            }
+            $('#font_outline_colorpicker').hide();
+        });
+        $('.use_shadow').click(function() {
+// $('#use_shadow','#shadow_item').click(function() {
+            if (!$(this).hasClass('active')) {
+                $('.font_outline_color > div').show();
+                canvasEvents.addShadowItem();
+                $(this).addClass("active");
+            } else {
+                $('.font_outline_color > div:not(.use_shadow)').hide();
+                canvasEvents.removeShadow();
+                $(this).removeClass("active");
+            }
+            $('#font_outline_colorpicker').hide();
+        });
+        $('.tshirt-size .next_t').click(function() {
+            var a = $(this).parent().children('.size_qty').val();
+            $(this).parent().children('.size_qty').val(parseInt(a) + 1);
+        });
+        $('.tshirt-size .prev_t').click(function() {
+            var a = $(this).parent().children('.size_qty').val();
+            if (a > 0) {
+                $(this).parent().children('.size_qty').val(parseInt(a) - 1);
+            }
+        });
+        $('.change_font .next_t').click(function() {
+            var a = $(this).prev().val();
+            $(this).prev().val(parseInt(a) + 1);
+            canvasEvents.editText();
+        });
+        $('.change_font .prev_t').click(function() {
+            var a = $(this).next().val();
+            if (($(this).next().attr("id") == 't-blur') && (a == 0)) {
+            } else {
+                if (($(this).next().attr("id") == 'select_font_size') && (a < 3)) {
+                } else {
+                    $(this).next().val(parseInt(a) - 1);
+                }
+            }
+            canvasEvents.editText();
+        });
+        $('#pdp_edit_text_input').keyup(function() {
+            canvasEvents.editText();
+        });
+        $('#image_category_list, #select_image').show();
+        var h_cate_list = $('#image_category_list').height();
+        $('#image_category_list, #select_image').hide();
+        $('.design_label span').click(function() {
+            $('#image_category_list').slideToggle(600);
+        });
+        $('#image_category_list').hover(function() {
+            $(this).stop(true, false).animate({'height': h_cate_list}, 600);
+        }, function() {
+            $(this).stop(true, false).animate({'height': '0px'}, 600, function() {
+                $(this).height(h_cate_list).hide();
+            });
+        });
         ////////////////////////////Change color function ///////////////////////////////
         function rgb2hex(rgb) {
             rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
@@ -148,7 +367,154 @@
                     ("0" + parseInt(rgb[2], 10).toString(16)).slice(-2) +
                     ("0" + parseInt(rgb[3], 10).toString(16)).slice(-2);
         }
+        $('#font_color_div1, #font_outline_color1, #color_item1').click(function() {
+            $(this).addClass("pdp_cr_color");
+            $('.color_content').show();
+            $('.color_display, .color_content li a.act').removeClass("act");
+            $(this).find('.color_display').addClass("act");
+            var current_color = $(this).find('.color_display').css("background-color");
+            $('.color_content li a').each(function() {
+                if ($(this).css('background-color') == current_color) {
+                    $(this).addClass("act");
+                    $('#selected_color').val(rgb2hex(current_color));
+                    $('a.selected_color').css("background-color", current_color);
+                }
+            });
+        });
+        $('#font_outline_color').click(function() {
+            $('#font_outline_colorpicker').slideToggle(300);
+        });
+        $('.inlay_div.color, .color_content_wrap .bt_done').click(function() {
+            $('.color_content').hide();
+            $('#pdp_color_text').removeClass('pdp_cr_color');
+            $('.color_display').removeClass("act");
+        });
+        $('#pdp_color_text li a').click(function() {
+            $('#pdp_color_text li a.active').removeClass("active");
+            $(this).addClass("active");
+            var color = $(this).css("background-color");
+            canvasEvents.changeColor(color);
+        });
+        $('#pdp_color_item li a').click(function() {
+            $('#pdp_color_item li a.active').removeClass("active");
+            $(this).addClass("active");
+            var color = $(this).css("background-color");
+            canvasEvents.changeColor(color);
+        });
+        $('.color_content li a:not(.selected_color, .bt_done)').click(function() {
+            $('.color_content li a.act').removeClass("act");
+            $(this).addClass("act");
+            var color;
+            if ($(this).hasClass("pdp_color_ori")) {
+                color = 'ori';
+                $('#selected_color').val('');
+                $('.color_display.act').css('background-color', '#FFF');
+            } else {
+                color = $(this).css("background-color");
+                $('#selected_color').val(rgb2hex(color));
+                $('.color_display.act').css('background-color', color);
+            }
+            $('a.selected_color').css("background-color", color);
+            var activeObject = canvas.getActiveObject();
+            if (!activeObject)
+                return;
+            if ($('#pdp_color_text').hasClass('pdp_cr_color')) {
+                $('#pdp_color_text input').val('#' + rgb2hex(color));
+            }
+            if (activeObject.text) {
+                canvasEvents.editText();
+            }
+            if ($('#use_shadow').hasClass("active")) {
+                canvasEvents.editShadowItem();
+            }
+            if ($('#color_item').hasClass("active")) {
+                canvasEvents.changeColor(color);
+            }
+        });
+        $('#selected_color').change(function() {
+            $('a.selected_color').css('background-color', '#' + $(this).val());
+        });
+        ////////////////////////////Change font color ///////////////////////////////
 
+        $('#select_font li').each(function() {
+            $(this).css('font-family', $(this).attr("rel"))
+        });
+        $('#select_font li').click(function() {
+            $('#select_font li.active').removeClass("active");
+            $(this).addClass("active");
+            //$('#select_font_span').css("font-family", $(this).attr("rel")).html($(this).attr("rel"));
+            canvasEvents.editText();
+        });
+        /////////////////////////////////Add item to canvas///////////////////////////////
+        $('#icon_list, #lists_img_upload, #photos_album').on('click', 'img', function() {
+            var url = $(this).attr("src"),
+                    type_img = url.split('.'),
+                    wimg = $(this).width(),
+                    himg = $(this).height();
+            //canvasEvents.clearSelected();
+            $('#design_control .tab_content').slideUp(200);
+            //$('#select_image').slideToggle(600);
+            if ((type_img[type_img.length - 1] != 'svg')) {
+                fabric.Image.fromURL(url, function(image) {
+                    image.set({
+                        left: 0,
+                        top: 0,
+                        angle: 0,
+                        width: wimg,
+                        height: himg,
+                        padding: setting.padding
+                    });
+                    image.transparentCorners = true;
+                    image.cornerSize = 10;
+                    image.scale(1).setCoords();
+                    canvas.add(image).setActiveObject(image);
+                    canvasEvents.centerX();
+                    canvasEvents.centerY();
+                    //pdp_history.push(JSON.stringify(canvas));
+                });
+            } else {
+                canvasEvents.addSvg(url);
+            }
+        });
+        $(".add-to-cartfefeefef .btn-cart").click(function() {
+            return false
+        });
+        $("#undo, #redo, #clear222").click(function() {
+            // undone[this.className]();
+            $.undone(this.id);
+        });
+        $(document).keydown(function(e) {
+            var key = e.which;
+            if (e.ctrlKey) { // ctrl
+                if (key === 90)
+                    $.undone("undo"); // z
+                if (key === 89)
+                    $.undone("redo"); // y
+            }
+        });
+        $(window).on("undone:change", function(e, name, undoLen, redoLen) {
+            $("#undo").prop("disabled", !undoLen);
+            $("#redo").prop("disabled", !redoLen);
+            //$("input").val(undoLen)
+        });
+        /*Save Design*/
+        $('#save_design').click(function() {
+            //canvasEvents.save_design_json();
+            canvasEvents.saveCustomImage();
+        });
+        jQuery('.pdp_add_to_cart').on('click', function() {
+            //canvasEvents.save_design($('#pdp_side_items li.active').index(), $('#main_image').width(), $('#main_image').height());
+            // save image
+            canvasEvents.saveCustomImage();
+//        jQuery('.product-img-box').show();
+//        jQuery('.product-image').show();
+//
+//        var img_bg = m + 'media/pdp/images/' + $('#pdp_side_items li.active').attr('side_img');
+//        canvas.setBackgroundImage(img_bg, canvas.renderAll.bind(canvas));
+//
+//        jQuery('.product-image img').attr('src', canvas.toDataURL('png'));
+            //window.location = m + 'index.php/checkout/cart/';
+        });
         function saveCustomerDesign(design) {
             //Check customer logged in or not
             var customerId = $("#customer_id").val();
@@ -251,427 +617,6 @@
                 $(this).attr("id", 'img_upload_' + a).attr("color", "")
             })
         });
-        /////////////////////// MagecaseMaker /////////////////////////////////////////////
-        var MagecaseMaker = {
-            utility: {},
-            initialize: function() {
-                this.loading();
-
-                // Owl carousel
-                this._initOwlCarousel();
-
-                //
-                this._build();
-            },
-            loading: function() {
-                $('body').prepend('<div class="loadding_initializing no-display"><div class="p_wrap"><p>Initializing...</p><div class="process_wrap"><span id="process_pdp_ini"></span></div><span id="ini_count">0%</span></div></div>');
-            },
-            _initOwlCarousel: function() {
-                // Edit item
-                this._editItem();
-
-                // Color List
-                this._colorList();
-
-                // select font
-                this._selectFont();
-            },
-            _editItem: function() {
-                $('#edit_item_wrap').owlCarousel({
-                    items: 7, //10 items above 1000px browser width
-                    itemsDesktop: [1000, 7], //5 items between 1000px and 901px
-                    itemsDesktopSmall: [900, 4], // betweem 900px and 601px
-                    itemsTablet: [600, 2], //2 items between 600 and 0
-                    itemsMobile: [340, 1], // itemsMobile disabled - inherit from itemsTablet option
-                    lazyLoad: true,
-                    navigation: true,
-                    navigationText: ["&#xf053;", "&#xf054;"],
-                });
-            },
-            _colorList: function() {
-                $('.pdp_color_list ul').owlCarousel({
-                    items: 12, //10 items above 1000px browser width
-                    itemsDesktop: [1000, 7], //5 items between 1000px and 901px
-                    itemsDesktopSmall: [900, 4], // betweem 900px and 601px
-                    itemsTablet: [600, 2], //2 items between 600 and 0
-                    itemsMobile: [340, 1], // itemsMobile disabled - inherit from itemsTablet option
-                    lazyLoad: true,
-                    navigation: true,
-                    navigationText: ["&#xf053;", "&#xf054;"],
-                });
-            },
-            _selectFont: function() {
-                $('#select_font').owlCarousel({
-                    items: 10, //10 items above 1000px browser width
-                    itemsDesktop: [1000, 7], //5 items between 1000px and 901px
-                    itemsDesktopSmall: [900, 4], // betweem 900px and 601px
-                    itemsTablet: [600, 2], //2 items between 600 and 0
-                    itemsMobile: [340, 1], // itemsMobile disabled - inherit from itemsTablet option
-                    lazyLoad: true,
-                    navigation: true,
-                    navigationText: ["&#xf053;", "&#xf054;"],
-                });
-
-
-                $('.change_font .next_t').click(function() {
-                    var a = $(this).prev().val();
-                    $(this).prev().val(parseInt(a) + 1);
-                    canvasEvents.editText();
-                });
-                $('.change_font .prev_t').click(function() {
-                    var a = $(this).next().val();
-                    if (($(this).next().attr("id") == 't-blur') && (a == 0)) {
-                    } else {
-                        if (($(this).next().attr("id") == 'select_font_size') && (a < 3)) {
-                        } else {
-                            $(this).next().val(parseInt(a) - 1);
-                        }
-                    }
-                    canvasEvents.editText();
-                });
-            },
-            _build: function() {
-                // Artwork
-                this._artwork();
-                // Text
-                this._pdpText();
-
-                // Tools
-                this._tools();
-
-                // colors
-                this._pdpColors();
-
-                // Add item to canvas
-                this._addItemToCanvas();
-
-                // Design
-                this._design();
-
-                // font
-                this._pdpFont();
-
-                // save image on checkout and save
-                this._saveImage();
-
-            },
-            _artwork: function() {
-                $('.add_artwork > a').on('click', function() {
-                    $('.tab_content:not(#select_image)').slideUp(200);
-                    $('#select_image').slideToggle(600);
-                });
-
-                $('#image_category_list, #select_image').show();
-                var h_cate_list = $('#image_category_list').height();
-                $('#image_category_list, #select_image').hide();
-                $('.design_label span').click(function() {
-                    $('#image_category_list').slideToggle(600);
-                });
-                $('#image_category_list').hover(function() {
-                    $(this).stop(true, false).animate({'height': h_cate_list}, 600);
-                }, function() {
-                    $(this).stop(true, false).animate({'height': '0px'}, 600, function() {
-                        $(this).height(h_cate_list).hide();
-                    });
-                });
-            },
-            _pdpText: function() {
-                $('.add_text > a').on('click', function() {
-                    $('#add_text').slideToggle(600);
-                    $('#font_outline_colorpicker').hide();
-                    $('.tab_content:not(#add_text), .pdp_extra_item').slideUp(200);
-                    $('.pdp_text_list li.active').removeClass("active");
-                });
-                $('.pdp_close').click(function() {
-                    $(this).parent().parent().parent().slideUp(600);
-                });
-                $('.pdp_text_list ul li').click(function() {
-                    $('.pdp_text_list ul li.active').removeClass("active");
-                    $('#add_text_input').val($(this).text());
-                    $(this).addClass("active");
-                });
-                $('.pdp_text_list ul li.active').click(function() {
-                    $('#add_text_action').click();
-                });
-
-                $('#pdp_edit_text_tab a').click(function() {
-                    $('#pdp_edit_text_tab a.active').removeClass("active");
-                    $(this).addClass('active');
-                    $('.pdp_edit_text_tab_content').slideUp(300);
-                    $('#' + $(this).attr("tab")).slideDown(400);
-                });
-                $('.pdp_edit_font_style li a.text').click(function() {
-                    $(this).toggleClass("active");
-                    canvasEvents.editText();
-                });
-                $('#pdp_search_text').keyup(function() {
-                    var key = $(this).val().toUpperCase();
-                    $('.pdp_text_list li').each(function() {
-                        if ($(this).text().toUpperCase().indexOf(key) >= 0) {
-                            $(this).show();
-                        } else {
-                            $(this).hide();
-                        }
-                    });
-                });
-                $('#pdp_edit_text_style li a.align').click(function() {
-                    $('#pdp_edit_text_style li a.align.active').removeClass("active");
-                    $(this).addClass("active");
-                    canvasEvents.editText();
-                });
-                $('#pdp_font_size_input').bind("slider:changed", function(event, data) {
-                    $('#pdp_font_size_value').html($(this).val() + 'px');
-                    var activeObject = canvas.getActiveObject();
-                    if (!activeObject)
-                        return;
-                    canvasEvents.editText();
-                });
-
-
-                $('#toolbox-phone-select').change(function() {
-                    var a = $(this).val(),
-                            ip_id = $(this).find("option:selected").attr("ip_id");
-                    $('#ip_id').val(ip_id);
-                    update_inlay_option();
-                    $('#main_image').attr("src", m + 'media/pdp/images/' + a)
-                });
-                $('#add_text_action').click(function() {
-                    var text1 = $('#add_text_input').val(),
-                            text2 = $('.pdp_text_list li.active').text();
-                    if (text2 != '') {
-                        canvasEvents.addText(text2);
-                    } else {
-                        if (text1 != '') {
-                            canvasEvents.addText(text1);
-                        }
-                    }
-                });
-
-                $('#pdp_edit_text_input').keyup(function() {
-                    canvasEvents.editText();
-                });
-            },
-            _design: function() {
-                $('.wrapper_pdp .product-image').click(function() {
-                    $('.wrapper_pdp .product-image.act').removeClass('act');
-                    $(this).addClass('act');
-                });
-
-                $('.tshirt-size input').change(function() {
-                    if (($(this).val() == '') || ($(this).val() < 0)) {
-                        $(this).val(0)
-                    }
-                    ;
-                    $(this).val(parseInt($(this).val()));
-                });
-
-                $('#design_control .control_tab .tab_main').click(function() {
-                    var a = $(this).attr("tab");
-                    $('#design_control .control_tab .tab_main.active').removeClass("active");
-                    $(this).addClass("active");
-                    $('.tab_content').hide();
-                    $('.' + a).show()
-                });
-
-                $('.tab_design_image a').click(function() {
-                    $('.tab_design_image .active').removeClass("active");
-                    $(this).addClass("active");
-                    var tab_act = $(this).attr("tab-content");
-                    $('.content_tab > div').hide();
-                    $('.content_tab .' + tab_act).show();
-                });
-
-
-                $('#use_shadow', '#shadow_item').click(function() {
-// $('#use_shadow','#shadow_item').click(function() {
-                    if (!$(this).hasClass('active')) {
-                        $('.font_outline_color > div').show();
-                        canvasEvents.addShadowItem();
-                        $(this).addClass("active");
-                    } else {
-                        $('.font_outline_color > div:not(.use_shadow)').hide();
-                        canvasEvents.removeShadow();
-                        $(this).removeClass("active");
-                    }
-                    $('#font_outline_colorpicker').hide();
-                });
-                $('.use_shadow').click(function() {
-// $('#use_shadow','#shadow_item').click(function() {
-                    if (!$(this).hasClass('active')) {
-                        $('.font_outline_color > div').show();
-                        canvasEvents.addShadowItem();
-                        $(this).addClass("active");
-                    } else {
-                        $('.font_outline_color > div:not(.use_shadow)').hide();
-                        canvasEvents.removeShadow();
-                        $(this).removeClass("active");
-                    }
-                    $('#font_outline_colorpicker').hide();
-                });
-                $('.tshirt-size .next_t').click(function() {
-                    var a = $(this).parent().children('.size_qty').val();
-                    $(this).parent().children('.size_qty').val(parseInt(a) + 1);
-                });
-                $('.tshirt-size .prev_t').click(function() {
-                    var a = $(this).parent().children('.size_qty').val();
-                    if (a > 0) {
-                        $(this).parent().children('.size_qty').val(parseInt(a) - 1);
-                    }
-                });
-            },
-            _pdpColors: function() {
-                $('#font_color_div1, #font_outline_color1, #color_item1').click(function() {
-                    $(this).addClass("pdp_cr_color");
-                    $('.color_content').show();
-                    $('.color_display, .color_content li a.act').removeClass("act");
-                    $(this).find('.color_display').addClass("act");
-                    var current_color = $(this).find('.color_display').css("background-color");
-                    $('.color_content li a').each(function() {
-                        if ($(this).css('background-color') == current_color) {
-                            $(this).addClass("act");
-                            $('#selected_color').val(rgb2hex(current_color));
-                            $('a.selected_color').css("background-color", current_color);
-                        }
-                    });
-                });
-                $('#font_outline_color').click(function() {
-                    $('#font_outline_colorpicker').slideToggle(300);
-                });
-                $('.inlay_div.color, .color_content_wrap .bt_done').click(function() {
-                    $('.color_content').hide();
-                    $('#pdp_color_text').removeClass('pdp_cr_color');
-                    $('.color_display').removeClass("act");
-                });
-                $('#pdp_color_text li a').click(function() {
-                    $('#pdp_color_text li a.active').removeClass("active");
-                    $(this).addClass("active");
-                    var color = $(this).css("background-color");
-                    canvasEvents.changeColor(color);
-                });
-                $('#pdp_color_item li a').click(function() {
-                    $('#pdp_color_item li a.active').removeClass("active");
-                    $(this).addClass("active");
-                    var color = $(this).css("background-color");
-                    canvasEvents.changeColor(color);
-                });
-                $('.color_content li a:not(.selected_color, .bt_done)').click(function() {
-                    $('.color_content li a.act').removeClass("act");
-                    $(this).addClass("act");
-                    var color;
-                    if ($(this).hasClass("pdp_color_ori")) {
-                        color = 'ori';
-                        $('#selected_color').val('');
-                        $('.color_display.act').css('background-color', '#FFF');
-                    } else {
-                        color = $(this).css("background-color");
-                        $('#selected_color').val(rgb2hex(color));
-                        $('.color_display.act').css('background-color', color);
-                    }
-                    $('a.selected_color').css("background-color", color);
-                    var activeObject = canvas.getActiveObject();
-                    if (!activeObject)
-                        return;
-                    if ($('#pdp_color_text').hasClass('pdp_cr_color')) {
-                        $('#pdp_color_text input').val('#' + rgb2hex(color));
-                    }
-                    if (activeObject.text) {
-                        canvasEvents.editText();
-                    }
-                    if ($('#use_shadow').hasClass("active")) {
-                        canvasEvents.editShadowItem();
-                    }
-                    if ($('#color_item').hasClass("active")) {
-                        canvasEvents.changeColor(color);
-                    }
-                });
-                $('#selected_color').change(function() {
-                    $('a.selected_color').css('background-color', '#' + $(this).val());
-                });
-            },
-            _pdpFont: function() {
-                $('#select_font li').each(function() {
-                    $(this).css('font-family', $(this).attr("rel"))
-                });
-                $('#select_font li').click(function() {
-                    $('#select_font li.active').removeClass("active");
-                    $(this).addClass("active");
-                    //$('#select_font_span').css("font-family", $(this).attr("rel")).html($(this).attr("rel"));
-                    canvasEvents.editText();
-                });
-            },
-            _tools: function() {
-                $('#rotate-180').click(function() {
-                    $('#pdp_rotate_item').slideToggle(400);
-                    $('.tab_content:not(#pdp_rotate_item)').slideUp(300);
-                });
-
-
-                $(".add-to-cartfefeefef .btn-cart").click(function() {
-                    return false
-                });
-                $("#undo, #redo, #clear222").click(function() {
-                    // undone[this.className]();
-                    $.undone(this.id);
-                });
-                $(document).keydown(function(e) {
-                    var key = e.which;
-                    if (e.ctrlKey) { // ctrl
-                        if (key === 90)
-                            $.undone("undo"); // z
-                        if (key === 89)
-                            $.undone("redo"); // y
-                    }
-                });
-                $(window).on("undone:change", function(e, name, undoLen, redoLen) {
-                    $("#undo").prop("disabled", !undoLen);
-                    $("#redo").prop("disabled", !redoLen);
-                    //$("input").val(undoLen)
-                });
-            },
-            _saveImage: function() {
-                /*Save Design*/
-                $('#save_design').click(function() {
-                    canvasEvents.saveCustomImage();
-                });
-                $('.pdp_add_to_cart').on('click', function() {
-                    // save image
-                    canvasEvents.saveCustomImage();
-                });
-            },
-            _addItemToCanvas: function() {
-                $('#icon_list, #lists_img_upload, #photos_album').on('click', 'img', function() {
-                    var url = $(this).attr("src"),
-                            type_img = url.split('.'),
-                            wimg = $(this).width(),
-                            himg = $(this).height();
-                    //canvasEvents.clearSelected();
-                    $('#design_control .tab_content').slideUp(200);
-                    //$('#select_image').slideToggle(600);
-                    if ((type_img[type_img.length - 1] != 'svg')) {
-                        fabric.Image.fromURL(url, function(image) {
-                            image.set({
-                                left: 0,
-                                top: 0,
-                                angle: 0,
-                                width: wimg,
-                                height: himg,
-                                padding: setting.padding
-                            });
-                            image.transparentCorners = true;
-                            image.cornerSize = 10;
-                            image.scale(1).setCoords();
-                            canvas.add(image).setActiveObject(image);
-                            canvasEvents.centerX();
-                            canvasEvents.centerY();
-                            //pdp_history.push(JSON.stringify(canvas));
-                        });
-                    } else {
-                        canvasEvents.addSvg(url);
-                    }
-                });
-            }
-        }.initialize();
-
         /////////////////////////////// Edit active item/group //////////////////////////////////////
         var canvasEvents = {
             objectSelected: function() {
