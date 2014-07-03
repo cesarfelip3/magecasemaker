@@ -1421,8 +1421,7 @@
                     var canvas_export = new fabric.Canvas('canvas_export', {
                         opacity: 1
                     });
-                    console.log(backgroundImg);
-                    return;
+                    
                     // set background for export image  
                     canvas_export.setBackgroundImage(backgroundImg, canvas_export.renderAll.bind(canvas_export), {
                         'originX': 'left',
