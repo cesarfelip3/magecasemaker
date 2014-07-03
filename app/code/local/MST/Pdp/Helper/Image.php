@@ -43,7 +43,7 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
         $this->_saveCanvasImage($string, $filename);
 
         // Save overlay Image
-        $this->_saveCanvasImageWithTransparentBg($overlayString, $overlayName);
+        $this->_saveCanvasImage300DPI($overlayString, "overlay_$uniqueId");
 
         return $filename;
     }
@@ -66,6 +66,31 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
         imagepng($img, self::$_tmpDir . $filename, 0);
 
         imagedestroy($img);
+    }
+
+    protected function _saveCanvasImage300DPI($string, $filename)
+    {
+        $data = base64_decode(str_replace(' ', '+', substr($string, 22)));
+
+        $img = imagecreatefromstring($data);
+
+        $w = imagesx($img);
+
+        $h = imagesy($img);
+
+        $out = imagecreatetruecolor($w, $h);
+
+        imagecopyresampled($out, $img, 0, 0, 0, 0, $w, $h, $w, $h);
+
+        $final = self::$_tmpDir . $filename . '.jpg';
+
+        imagejpeg($img, self::$_tmpDir . $filename, 100);
+
+        $image = file_get_contents($final);
+
+        $image = substr_replace($image, pack("cnn", 1, 300, 300), 13, 5);
+
+        file_put_contents($final, $image);
     }
 
     protected function _saveCanvasImageWithTransparentBg($string, $filename)

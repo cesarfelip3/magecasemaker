@@ -103,16 +103,19 @@ class Mage_Sales_Model_Order_Pdf_Order extends Mage_Sales_Model_Order_Pdf_Abstra
             }
 
             // Create new overlay image 
-            $overlayLocation = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . 'pdp/design/checkout/overlay_' . $item->getFinalImage();
+            $overlayLocation = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . 'pdp/design/checkout/overlay_' . current(explode('.', $item->getFinalImage())) . '.jpg';
+            Mage::log('overlay image : ' . $overlayLocation, null, 'debugging.log');
             if (file_exists($overlayLocation)) {
                 $page = $this->newPage();
                 $overlay = Zend_Pdf_Image::imageWithPath($overlayLocation);
 
-                list($width, $height) = getimagesize($overlayLocation);
+                list ($width, $height) = getimagesize($overlayLocation);
                 // Draw part of the image within a circle 
                 $page->saveGS();
                 $page->drawImage($overlay, -100, 100, $width, 100 + $height);
                 $page->restoreGS();
+            }
+            elseif (Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . 'pdp/design/checkout/overlay_' . $item->getFinalImage) { // if file save as png
             }
 
             $page = end($pdf->pages);
