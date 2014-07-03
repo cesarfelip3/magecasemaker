@@ -80,7 +80,7 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
 
         $out = imagecreatetruecolor($w, $h);
 
-        imagecopyresampled($out, $img, 0, 0, 0, 0, $w, $h, $w, $h);
+        imagecopyresampled($out, $img, 0, 0, 0, 0, 310, 555, $w, $h);
 
         $final = self::$_tmpDir . $filename . '.jpg';
 
