@@ -84,7 +84,7 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
 
         $final = self::$_tmpDir . $filename . '.jpg';
 
-        imagejpeg($img, self::$_tmpDir . $filename, 100);
+        imagejpeg($img, $final, 100);
 
         $image = file_get_contents($final);
 
