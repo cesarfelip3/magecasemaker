@@ -65,7 +65,11 @@ class Itmyprofession_Design_Model_Observer
         }
         @copy($from . $imageFile, $to . $imageFile);
         // overlayimage
-        $overlayImage = 'overlay_' . $imageFile;
+        $overlayImage = 'overlay_' . current(explode('.', $imageFile)) . '.jpg';
+        if (!file_exists($from . $overlayImage)) {
+            $overlayImage = 'overlay_' . $imageFile;
+        }
+
         @copy($from . $overlayImage, $to . $overlayImage);
     }
 
