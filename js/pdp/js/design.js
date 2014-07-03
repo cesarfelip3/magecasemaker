@@ -92,7 +92,7 @@
             originY: 'top',
         };
         //console.log(backgroundOptions);
-//        var backgroundImg = $('#pdp_side_items li:eq(0)').find('img').attr('src');
+        var backgroundImg = $('#pdp_side_items li:eq(0)').find('img').attr('src');
 //        canvas.setBackgroundImage(backgroundImg, canvas.renderAll.bind(canvas), {
 //            'originX': 'left',
 //            'originY': 'top',
@@ -1421,6 +1421,16 @@
                     var canvas_export = new fabric.Canvas('canvas_export', {
                         opacity: 1
                     });
+                    console.log(backgroundImg);
+                    return;
+                    // set background for export image
+                    canvas_export.setBackgroundImage(backgroundImg, canvas_export.renderAll.bind(canvas_export), {
+                        'originX': 'left',
+                        'originY': 'top',
+                        'left': 0,
+                        'top': 0
+                    });
+
                     // Add added image from another canvas
                     fabric.Image.fromURL(canvas.toDataURL('png'), function(image) {
                         image.set({
