@@ -99,6 +99,7 @@
             'left': 0,
             'top': 0
         });
+        
 
         // set overlay
         var overlayImg = $('#pdp_side_items li:eq(1)').find('img').attr('src');
