@@ -1423,7 +1423,7 @@
                     });
                     console.log(backgroundImg);
                     return;
-                    // set background for export image
+                    // set background for export image  
                     canvas_export.setBackgroundImage(backgroundImg, canvas_export.renderAll.bind(canvas_export), {
                         'originX': 'left',
                         'originY': 'top',
