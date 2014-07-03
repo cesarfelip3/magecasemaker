@@ -92,22 +92,22 @@
             originY: 'top',
         };
         //console.log(backgroundOptions);
-        var backgroundImg = $('#pdp_side_items li:eq(0)').find('img').attr('src');
-        canvas.setBackgroundImage(backgroundImg, canvas.renderAll.bind(canvas), {
-            'originX': 'left',
-            'originY': 'top',
-            'left': 0,
-            'top': 0
-        });
-        
+//        var backgroundImg = $('#pdp_side_items li:eq(0)').find('img').attr('src');
+//        canvas.setBackgroundImage(backgroundImg, canvas.renderAll.bind(canvas), {
+//            'originX': 'left',
+//            'originY': 'top',
+//            'left': 0,
+//            'top': 0
+//        });
+
 
         // set overlay
         var overlayImg = $('#pdp_side_items li:eq(1)').find('img').attr('src');
         canvas.setOverlayImage(overlayImg, canvas.renderAll.bind(canvas), {
             'originX': 'left',
             'originY': 'top',
-            'top': -26,
-            'left': -13,
+            'top': 0,
+            'left': 0,
         });
 
         $('#pdp_side_items li').each(function() {
