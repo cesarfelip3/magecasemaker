@@ -25,7 +25,6 @@ frontendPopup(function($) {
                     cartItemId = $("#cart_item_id").val();
             if (action != "" || shareId != "" || cartItemId != "") {
                 //Validate product form
-                alert('test');
                 var addToCartForm = new VarienForm('product_addtocart_form', true);
                 if (addToCartForm.validator.validate()) {
                     $(window).load(function() {

@@ -1,6 +1,6 @@
 ;
 (function($, window, document, undefined) {
-    // Only numeric
+// Only numeric
     $.fn.ForceNumericOnly = function() {
         return this.each(function() {
             $(this).keydown(function(e) {
@@ -9,9 +9,8 @@
             })
         })
     };
-
     $(document).ready(function($) {
-        // Initialisation
+// Initialisation
         var m = $('#url_site').val().replace('index.php/', ''),
                 numImages = $("#design_control img").length,
                 local_zindex = 1000,
@@ -20,9 +19,7 @@
                 pdp_history = [],
                 window_width = $(window).width(),
                 left_ini = parseInt((window_width - 400) / 2);
-
         $('.loading_initializing .p_wrap').css('left', left_ini);
-
         $("#design_control img").load(function() {
             ++loaded;
             $('span#ini_count').html(parseInt((loaded / numImages) * 100) + '%');
@@ -31,23 +28,18 @@
             } else {
             }
         });
-
         $('body').append('<div style="display:none;" class="no-display" id="save_original_img_text"></div>');
         //$('#product-image-wrap-front,#product-image-wrap-back').attr('z_index', 1000);
         $('#add_text_input').click(function() {
             $('.image_item.active, .pdp_text_list li.active').removeClass("active");
         });
-
         $('#wrap_inlay').attr("tab", $('#pdp_side_items li:eq(0)').attr('tab'));
-
         $('.wrap_inlay').hover(function() {
             $(this).addClass("act2");
         }, function() {
             $(this).removeClass("act2");
         });
-
         $('.tshirt-size li').prepend('<span class="prev_t">Prev</span>').append('<span class="next_t">Next</span>');
-
         $('.size_qty, #select_font_size, #h-shadow, #v-shadow, #t-blur').ForceNumericOnly();
         var o = $('#t-shirt-type').val(); //, first_item;
 
@@ -65,16 +57,13 @@
             first_item = $('#pdp_side_items li.active');
         }
         first_item.addClass("active");
-
         var inlay = first_item.attr("inlay").split(",");
-
         $('.wrap_inlay_center').append('<img id="main_image" src="' + m + 'media/pdp/images/no_image.jpg" style="display:none;" />');
 //    $('.wrap_inlay_center').append('<img id="main_image" src="' + first_item.find('img').attr("src") + '" />');
 
         var mainImage = $('#main_image');
         //mainImage.attr("src", first_item.find('img').attr("src"));
         mainImage.attr("src", $('#pdp_side_items li:eq(0)').find('img').attr('src'));
-
         var w_img_f = mainImage.width();
         var h_img_f = mainImage.height();
         // Delay for .5 seconds
@@ -90,11 +79,9 @@
             'width': w_img_f,
             'height': h_img_f
         });
-
         var canvas = new fabric.Canvas('canvas_area', {
             'opacity': 1
         });
-
         //Set background image
         var img_bg = m + 'media/pdp/images/' + $('#pdp_side_items li.active').attr('side_img');
         var backgroundOptions = {
@@ -106,15 +93,21 @@
         };
         //console.log(backgroundOptions);
         var backgroundImg = $('#pdp_side_items li:eq(0)').find('img').attr('src');
-        canvas.setBackgroundImage(backgroundImg, function() {
-                mememaker.canvas.renderAll();
-            }, {'originX': 'left', 'originY': 'top', 'left': 0, 'top': 0});
+        canvas.setBackgroundImage(backgroundImg, canvas.renderAll.bind(canvas), {
+            'originX': 'left',
+            'originY': 'top',
+            'left': 0,
+            'top': 0
+        });
 
-        //setTimeout(function() {
         // set overlay
         var overlayImg = $('#pdp_side_items li:eq(1)').find('img').attr('src');
-        canvas.setOverlayImage(overlayImg, canvas.renderAll.bind(canvas));
-        //}, 500);
+        canvas.setOverlayImage(overlayImg, canvas.renderAll.bind(canvas), {
+            'originX': 'left',
+            'originY': 'top',
+            'top': -26,
+            'left': -13,
+        });
 
         $('#pdp_side_items li').each(function() {
             $('.wrapper_pdp').append($(this).children('img').clone().addClass('pdp_img_session_' + $(this).index()).removeAttr('width').hide());
@@ -138,11 +131,9 @@
                 //canvasEvents.clearSelected();
             }
         });
-
         ///////////////////////////////Text tab///////////////////////////
         //updat inlay option
         update_inlay_option();
-
         ////////////////////////////Change color function ///////////////////////////////
         function rgb2hex(rgb) {
             rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
@@ -258,10 +249,8 @@
             utility: {},
             initialize: function() {
                 this.loading();
-
                 // Owl carousel
                 this._initOwlCarousel();
-
                 //
                 this._build();
             },
@@ -271,10 +260,8 @@
             _initOwlCarousel: function() {
                 // Edit item
                 this._editItem();
-
                 // Color List
                 this._colorList();
-
                 // select font
                 this._selectFont();
             },
@@ -313,8 +300,6 @@
                     navigation: true,
                     navigationText: ["&#xf053;", "&#xf054;"],
                 });
-
-
                 $('.change_font .next_t').click(function() {
                     var a = $(this).prev().val();
                     $(this).prev().val(parseInt(a) + 1);
@@ -337,32 +322,24 @@
                 this._artwork();
                 // Text
                 this._pdpText();
-
                 // Tools
                 this._tools();
-
                 // colors
                 this._pdpColors();
-
                 // Add item to canvas
                 this._addItemToCanvas();
-
                 // Design
                 this._design();
-
                 // font
                 this._pdpFont();
-
                 // save image on checkout and save
                 this._saveImage();
-
             },
             _artwork: function() {
                 $('.add_artwork > a').on('click', function() {
                     $('.tab_content:not(#select_image)').slideUp(200);
                     $('#select_image').slideToggle(600);
                 });
-
                 $('#image_category_list, #select_image').show();
                 var h_cate_list = $('#image_category_list').height();
                 $('#image_category_list, #select_image').hide();
@@ -395,7 +372,6 @@
                 $('.pdp_text_list ul li.active').click(function() {
                     $('#add_text_action').click();
                 });
-
                 $('#pdp_edit_text_tab a').click(function() {
                     $('#pdp_edit_text_tab a.active').removeClass("active");
                     $(this).addClass('active');
@@ -428,8 +404,6 @@
                         return;
                     canvasEvents.editText();
                 });
-
-
                 $('#toolbox-phone-select').change(function() {
                     var a = $(this).val(),
                             ip_id = $(this).find("option:selected").attr("ip_id");
@@ -448,7 +422,6 @@
                         }
                     }
                 });
-
                 $('#pdp_edit_text_input').keyup(function() {
                     canvasEvents.editText();
                 });
@@ -458,7 +431,6 @@
                     $('.wrapper_pdp .product-image.act').removeClass('act');
                     $(this).addClass('act');
                 });
-
                 $('.tshirt-size input').change(function() {
                     if (($(this).val() == '') || ($(this).val() < 0)) {
                         $(this).val(0)
@@ -466,7 +438,6 @@
                     ;
                     $(this).val(parseInt($(this).val()));
                 });
-
                 $('#design_control .control_tab .tab_main').click(function() {
                     var a = $(this).attr("tab");
                     $('#design_control .control_tab .tab_main.active').removeClass("active");
@@ -474,7 +445,6 @@
                     $('.tab_content').hide();
                     $('.' + a).show()
                 });
-
                 $('.tab_design_image a').click(function() {
                     $('.tab_design_image .active').removeClass("active");
                     $(this).addClass("active");
@@ -482,8 +452,6 @@
                     $('.content_tab > div').hide();
                     $('.content_tab .' + tab_act).show();
                 });
-
-
                 $('#use_shadow', '#shadow_item').click(function() {
 // $('#use_shadow','#shadow_item').click(function() {
                     if (!$(this).hasClass('active')) {
@@ -606,8 +574,6 @@
                     $('#pdp_rotate_item').slideToggle(400);
                     $('.tab_content:not(#pdp_rotate_item)').slideUp(300);
                 });
-
-
                 $(".add-to-cartfefeefef .btn-cart").click(function() {
                     return false
                 });
@@ -673,7 +639,6 @@
                 });
             }
         }.initialize();
-
         /////////////////////////////// Edit active item/group //////////////////////////////////////
         var canvasEvents = {
             objectSelected: function() {
@@ -1442,12 +1407,10 @@
                 } else {
                     // Clear canvas
                     canvasEvents.clearSelected();
-
                     // Background image
                     var img_bg = m + 'media/pdp/images/' + $('#pdp_side_items li.active').attr('side_img');
                     var inlay = $('#pdp_side_items li.active').attr('inlay');
                     var inlay_info = inlay.split(',');
-
                     // Create new canvas for export purpose
                     $('#pdp_canvas_result').html('<canvas id="canvas_export"></canvas>');
                     $('#canvas_export').attr({
@@ -1457,7 +1420,6 @@
                     var canvas_export = new fabric.Canvas('canvas_export', {
                         opacity: 1
                     });
-
                     // Add added image from another canvas
                     fabric.Image.fromURL(canvas.toDataURL('png'), function(image) {
                         image.set({
@@ -1474,10 +1436,8 @@
                         canvas_export.add(image);
                     });
                     canvas_export.renderAll();
-
                     canvas.overlayImage = null;
                     canvas.backgroundImage = null;
-
                     // Save image and fix to load background and images
                     setTimeout(function() {
                         console.log(canvas.toDataURL({format: 'png', quality: 1}));
