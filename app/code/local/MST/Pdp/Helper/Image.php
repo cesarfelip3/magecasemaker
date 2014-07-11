@@ -83,7 +83,9 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
         imagecopyresampled($out, $img, 0, 0, 0, 0, 310, 555, $w, $h);
 
         $final = self::$_tmpDir . $filename . '.jpg';
-
+        
+        imagesavealpha($img, TRUE);
+        
         imagejpeg($img, $final, 100);
 
         $image = file_get_contents($final);

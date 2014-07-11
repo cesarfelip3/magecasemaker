@@ -112,7 +112,7 @@ class Mage_Sales_Model_Order_Pdf_Order extends Mage_Sales_Model_Order_Pdf_Abstra
                 list ($width, $height) = getimagesize($overlayLocation);
                 // Draw part of the image within a circle 
                 $page->saveGS();
-                $page->drawImage($overlay, -100, 100, $width, 100 + $height);
+                $page->drawImage($overlay, 0, 100, $width, 100 + $height);
                 $page->restoreGS();
             }
             elseif (Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA) . DS . 'pdp/design/checkout/overlay_' . $item->getFinalImage) { // if file save as png
