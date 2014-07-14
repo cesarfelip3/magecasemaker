@@ -36,7 +36,7 @@
                 <?php echo $this->getColumnHtml($_item, 'name') ?>
 
                 <?php if ($_finalImage): ?>
-                    <a href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'pdp/design/checkout/overlay_' . current(explode('.', $item->getFinalImage())) . '.jpg' ?>" target="_blank">
+                    <a href="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'pdp/design/checkout/overlay_' . current(explode('.', $_item->getFinalImage())) . '.jpg' ?>" target="_blank">
                         <button title="<?php echo $this->__('Print JPG') ?>" type="button" class="scalable" style=""><span><span><span><?php echo $this->__('Print JPG') ?></span></span></span></button>
                     </a>
                     <p>
