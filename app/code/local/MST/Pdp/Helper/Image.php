@@ -84,19 +84,29 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
         $color = imagecolorallocate($out, 255, 255, 255);
         imagefill($out, 0, 0, $color);
 
-        imagecopyresampled($out, $img, 0, 0, 0, 0, 310, 555, $w, $h);
+        imagecopyresampled($out, $img, 0, 0, 0, 0, $w, $h, $w, $h);
 
         $final = self::$_tmpDir . $filename . '.jpg';
+        
+        imagesavealpha($out, TRUE);
 
-        imagesavealpha($img, TRUE);
-
-        imagejpeg($img, $final, 100);
+        imagejpeg($out, $final, 100);
 
         $image = file_get_contents($final);
 
         $image = substr_replace($image, pack("cnn", 1, 300, 300), 13, 5);
 
         file_put_contents($final, $image);
+
+//        imagesavealpha($img, TRUE);
+//
+//        imagejpeg($img, $final, 100);
+//
+//        $image = file_get_contents($final);
+//
+//        $image = substr_replace($image, pack("cnn", 1, 300, 300), 13, 5);
+//
+//        file_put_contents($final, $image);
     }
 
     protected function _saveCanvasImageWithTransparentBg($string, $filename)
