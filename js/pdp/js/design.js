@@ -1447,12 +1447,19 @@
                     canvas_export.renderAll();
                     canvas.overlayImage = null;
                     canvas.backgroundImage = null;
+
+                    // Hide pop up
+                    jQuery('#pdp_popup').hide('fast', function() {
+                        $(".pdp_loading").show();
+                    });
+
+
                     // Save image and fix to load background and images'
                     setTimeout(function() {
                         //console.log(canvas.toDataURL({format: 'jpeg', quality: 1}));
                         //console.log(canvas_export.toDataURL({format: 'png', quality: 1}));
                         zoomout(1850);
-                       
+
                         jQuery.ajax({
                             type: 'POST',
                             url: $("#url_site").val() + "/pdp/view/saveCustomImage",
@@ -1461,7 +1468,11 @@
                                 overlay: canvas.toDataURL({format: 'jpeg', quality: 1})
                             },
                             dataType: 'json',
+                            beforeSend: function() {
+                                $(".pdp_loading").show();
+                            },
                             success: function(response) {
+                                $(".pdp_loading").hide();
                                 if (response.status !== 'success') {
                                     alert('Error!');
                                     return;
