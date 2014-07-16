@@ -1452,8 +1452,7 @@
                         //console.log(canvas.toDataURL({format: 'jpeg', quality: 1}));
                         //console.log(canvas_export.toDataURL({format: 'png', quality: 1}));
                         zoomout(1850);
-                        console.log(canvas.toDataURL({format: 'jpeg', quality: 1}));
-                        return;
+                       
                         jQuery.ajax({
                             type: 'POST',
                             url: $("#url_site").val() + "/pdp/view/saveCustomImage",
