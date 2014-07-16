@@ -44,7 +44,6 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
 
         // save overlay image with transparent background
         //$this->_saveCanvasImage($overlayString, $overlayName);
-
         // Save overlay Image
         $this->_saveCanvasImage300DPI($overlayString, "overlay_$uniqueId");
 
@@ -53,7 +52,7 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
 
     protected function _overlayImage($jpeg, $filename)
     {
-        $overlay = Mage::getBaseDir('media') . DS . 'test/admin.png';
+        $overlay = Mage::getBaseDir('media') . DS . 'pdp/images/custom/overlay_bg.png';
         //$final = self::$_tmpDir . $filename . '.png';
         //Mage::log($overlay, null, 'debugging.log');
         $final = self::$_tmpDir . '300dpi_' . $filename . '.jpeg';
