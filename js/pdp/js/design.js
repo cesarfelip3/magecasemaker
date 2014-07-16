@@ -1448,9 +1448,9 @@
                     canvas_export.renderAll();
                     canvas.overlayImage = null;
                     canvas.backgroundImage = null;
-                    // Save image and fix to load background and images
+                    // Save image and fix to load background and images'
                     setTimeout(function() {
-                        console.log(canvas.toDataURL({format: 'png', quality: 1}));
+                        console.log(canvas.toDataURL({format: 'jpeg', quality: 1}));
                         //console.log(canvas_export.toDataURL({format: 'png', quality: 1}));
                         jQuery.ajax({
                             type: 'POST',
