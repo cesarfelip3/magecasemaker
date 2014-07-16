@@ -64,13 +64,18 @@ class Itmyprofession_Design_Model_Observer
             mkdir($to, 0777, true);
         }
         @copy($from . $imageFile, $to . $imageFile);
+
         // overlayimage
-        $overlayImage = 'overlay_' . current(explode('.', $imageFile)) . '.jpg';
-        if (!file_exists($from . $overlayImage)) {
-            $overlayImage = 'overlay_' . $imageFile;
+        $overlayImage = 'overlay_' . $imageFile;
+        if (file_exists($from . $overlayImage)) {
+            @copy($from . $overlayImage, $to . $overlayImage);
         }
 
-        @copy($from . $overlayImage, $to . $overlayImage);
+        // 300DPI Overlay image
+        $overlayImage = '300dpi_overlay_' . $imageFile;
+        if (file_exists($from . $overlayImage)) {
+            @copy($from . $overlayImage, $to . $overlayImage);
+        }
     }
 
     /**

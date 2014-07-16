@@ -82,6 +82,7 @@
         var canvas = new fabric.Canvas('canvas_area', {
             'opacity': 1
         });
+        canvas.backgroundColor = "#DDDDDD";
         //Set background image
         var img_bg = m + 'media/pdp/images/' + $('#pdp_side_items li.active').attr('side_img');
         var backgroundOptions = {
@@ -103,13 +104,13 @@
 
         // set overlay
         var overlayImg = $('#pdp_side_items li:eq(1)').find('img').attr('src');
+        //var overlayImg = 'media/test/iphone4_fg.png';//test
         canvas.setOverlayImage(overlayImg, canvas.renderAll.bind(canvas), {
             'originX': 'left',
             'originY': 'top',
             'top': 0,
             'left': 0,
         });
-
         $('#pdp_side_items li').each(function() {
             $('.wrapper_pdp').append($(this).children('img').clone().addClass('pdp_img_session_' + $(this).index()).removeAttr('width').hide());
             pdp_history[$(this).index()] = JSON.stringify(canvas);
@@ -1421,7 +1422,6 @@
                     var canvas_export = new fabric.Canvas('canvas_export', {
                         opacity: 1
                     });
-                    
                     // set background for export image  
                     canvas_export.setBackgroundImage(backgroundImg, canvas_export.renderAll.bind(canvas_export), {
                         'originX': 'left',
@@ -1429,7 +1429,6 @@
                         'left': 0,
                         'top': 0
                     });
-
                     // Add added image from another canvas
                     fabric.Image.fromURL(canvas.toDataURL('png'), function(image) {
                         image.set({
@@ -1450,14 +1449,17 @@
                     canvas.backgroundImage = null;
                     // Save image and fix to load background and images'
                     setTimeout(function() {
-                        console.log(canvas.toDataURL({format: 'jpeg', quality: 1}));
+                        //console.log(canvas.toDataURL({format: 'jpeg', quality: 1}));
                         //console.log(canvas_export.toDataURL({format: 'png', quality: 1}));
+                        zoomout(1850);
+                        console.log(canvas.toDataURL({format: 'jpeg', quality: 1}));
+                        return;
                         jQuery.ajax({
                             type: 'POST',
                             url: $("#url_site").val() + "/pdp/view/saveCustomImage",
                             data: {
-                                img: canvas_export.toDataURL({format: 'png', quality: 1}),
-                                overlay: canvas.toDataURL({format: 'png', quality: 1})
+                                img: canvas_export.toDataURL({format: 'jpeg', quality: 1}),
+                                overlay: canvas.toDataURL({format: 'jpeg', quality: 1})
                             },
                             dataType: 'json',
                             success: function(response) {
@@ -1475,11 +1477,11 @@
                         });
                     }, 1000);
                 }
-            }
+            },
         }
 
         canvasEvents.saveSampleDesign();
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         var $sendBackwardsEl = $('#send-backwards');
         $sendBackwardsEl.on('click', function(canvas) {
             var activeObject = canvas.getActiveObject();
@@ -1517,8 +1519,7 @@
                 $('.pdp_extra_item:not(#' + tab_act + ')').slideUp(500);
                 $('#' + tab_act).slideToggle(500);
             }
-        });
-        //////////////////////////////////EDIT FUNCTIONS/////////////////////////////////////////////////////////////////
+        });         //////////////////////////////////EDIT FUNCTIONS/////////////////////////////////////////////////////////////////
         $('#move_item .m_tl').click(function() {
             var active = canvas.getActiveObject();
             if (!active)
@@ -1564,8 +1565,7 @@
         });
         $('#move_item .m_br').click(function() {
             var active = canvas.getActiveObject(),
-                    h_act = active.getHeight(),
-                    w_act = active.getWidth(),
+                    h_act = active.getHeight(), w_act = active.getWidth(),
                     h_ch = canvas.getHeight(),
                     w_cv = canvas.getWidth();
             if (!active)
@@ -1575,8 +1575,7 @@
                 'left': w_cv - w_act - setting.padding - 2
             }, {
                 duration: 500,
-                onChange: canvas.renderAll.bind(canvas),
-                onComplete: ''
+                onChange: canvas.renderAll.bind(canvas), onComplete: ''
             });
         });
         $('#move_item .m_tc').click(function() {
@@ -1589,8 +1588,7 @@
                 return;
             active.animate({
                 'top': setting.padding + 2,
-                'left': (w_cv - w_act) / 2 - setting.padding / 2 - 1
-            }, {
+                'left': (w_cv - w_act) / 2 - setting.padding / 2 - 1}, {
                 duration: 500,
                 onChange: canvas.renderAll.bind(canvas),
                 onComplete: ''
@@ -1621,8 +1619,7 @@
                     w_cv = canvas.getWidth();
             if (!active)
                 return;
-            active.animate({
-                'top': (h_ch - h_act) / 2 - setting.padding / 2 - 1,
+            active.animate({'top': (h_ch - h_act) / 2 - setting.padding / 2 - 1,
                 'left': setting.padding + 2
             }, {
                 duration: 500,
@@ -1638,8 +1635,7 @@
                     w_cv = canvas.getWidth();
             if (!active)
                 return;
-            active.animate({
-                'top': h_ch - h_act - setting.padding - 2,
+            active.animate({'top': h_ch - h_act - setting.padding - 2,
                 'left': (w_cv - w_act) / 2 - setting.padding / 2 - 1
             }, {
                 duration: 500,
@@ -1659,8 +1655,7 @@
          canvas.sendBackwards(activeObject);
          }
          });
-         */
-        var $sendToBackEl = $('#move_to_back');
+         */         var $sendToBackEl = $('#move_to_back');
         $sendToBackEl.on('click', function() {
             var activeObject = canvas.getActiveObject();
             if (activeObject) {
@@ -1857,8 +1852,7 @@
                     $("#font_outline_color_value").css("background-color", color);
                     canvasEvents.editShadowItem();
                     $("#font_outline_color_value").val(color);
-                });
-                //.farbtastic('#font_outline_color_value');
+                });                 //.farbtastic('#font_outline_color_value');
             }
         }
         setting.first_category();
@@ -1953,6 +1947,52 @@
         $('ul.pdp_text_tag li.all_tag').click(function() {
             $('.pdp_text_list ul').find('li').show(100);
         });
+
+        var zoomout = function(b) {
+            canvas.setHeight(b);
+            canvas.setWidth(b);
+            var h = b / 780;
+            var m = canvas.getObjects();
+            for (var e in m) {
+                var l = m[e].scaleX;
+                var k = m[e].scaleY;
+                var c = m[e].left;
+                var j = m[e].top;
+                var g = l * h;
+                var f = k * h;
+                var d = c * h;
+                var a = j * h;
+                m[e].scaleX = g;
+                m[e].scaleY = f;
+                m[e].left = d;
+                m[e].top = a;
+                //m[e].setCoords();
+            }
+            canvas.renderAll()
+        }
+
+        var zoomreset = function(b) {
+            canvas.setHeight(780);
+            canvas.setWidth(780);
+            var h = 780 / b;
+            var m = canvas.getObjects();
+            for (var e in m) {
+                var l = m[e].scaleX;
+                var k = m[e].scaleY;
+                var c = m[e].left;
+                var j = m[e].top;
+                var g = l * h;
+                var f = k * h;
+                var d = c * h;
+                var a = j * h;
+                m[e].scaleX = g;
+                m[e].scaleY = f;
+                m[e].left = d;
+                m[e].top = a;
+                //m[e].setCoords();
+            }
+            canvas.renderAll()
+        }
     });
 })(jQuery, window, document)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
