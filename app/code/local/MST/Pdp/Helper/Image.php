@@ -70,9 +70,9 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
         $png = imagecreatefrompng($overlay);
         $jpeg = imagecreatefromjpeg($jpeg);
 
-        $out = imagecreatetruecolor($width, $height);
-        imagecopyresampled($out, $jpeg, 0, 0, 0, 0, $width, $height, $width, $height);
-        imagecopyresampled($out, $png, 0, 0, 0, 0, $width, $height, $width, $height);
+        $out = imagecreatetruecolor(310, 415);
+        imagecopyresampled($out, $jpeg, 0, 0, 0, 0, 310, 415, $width, $height);
+        imagecopyresampled($out, $png, 0, 0, 0, 0, 310, 415, $width, $height);
 
         imagejpeg($out, $final, 100);
 
