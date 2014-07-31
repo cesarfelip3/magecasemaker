@@ -292,7 +292,7 @@ $dt_ts = array();
                     <ul id="select_font">
                         <li class="active" rel="<?php echo $this->__("Arial") ?>"><?php echo $this->__("Font") ?></li>
                         <?php foreach ($fonts as $font) : ?>
-                            <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName()                                                                                       ?><?php echo $this->__('Font'); ?></li>
+                            <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName()                                                                                        ?><?php echo $this->__('Font'); ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
@@ -485,6 +485,7 @@ $dt_ts = array();
         <input type="hidden" value="<?php echo isset($cid) ? $cid : '' ?>" id="cid" />
         <input type="hidden" value="<?php echo isset($_REQUEST['eid']) ? $_REQUEST['eid'] : '' ?>" id="edit_id" />
         <input type="hidden" id="product_id" name="product_id" value="<?php echo $productId; ?>" />
+        <input type="hidden" id="product-overlay" name="product_overlay" value="<?php echo $product->getSku(); ?>">
     </div>
 </div>
 <div class="clear"></div>

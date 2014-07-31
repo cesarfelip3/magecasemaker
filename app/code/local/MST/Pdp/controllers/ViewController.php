@@ -94,8 +94,9 @@ class MST_Pdp_ViewController extends Mage_Core_Controller_Front_Action
         try {
             $image = $this->getRequest()->getPost('img');
             $overlay = $this->getRequest()->getPost('overlay');
-
-            $response['image'] = Mage::helper('pdp/image')->saveCanvasToImage($image, $overlay);
+            $overlayBg = $this->getRequest()->getPost('overlayBg');
+            
+            $response['image'] = Mage::helper('pdp/image')->saveCanvasToImage($image, $overlay, $overlayBg);
 
             Mage::getModel('core/session')->setData('customImage', $response['image']);
 

@@ -14,6 +14,7 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
      * @var type 
      */
     public static $_tmpDir;
+    protected $_overlayBg;
 
     public function __construct()
     {
@@ -28,10 +29,12 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
      * 
      * @param type $string
      */
-    public function saveCanvasToImage($string, $overlayString)
+    public function saveCanvasToImage($string, $overlayString, $overlayBg)
     {
         $extension = 'jpeg';
         $uniqueId = uniqid();
+
+        $this->_overlayBg = $overlayBg;
 
         $filename = $uniqueId . "." . $extension;
         $overlayName = "overlay_$uniqueId.$extension";
@@ -52,7 +55,14 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
 
     protected function _overlayImage($jpeg, $filename)
     {
-        $overlay = Mage::getBaseDir('media') . DS . 'pdp/images/custom/overlay_bg.png';
+        $overlayDirectory = Mage::getBaseDir('media') . DS . 'pdp/images/custom';
+        
+        $overlay = $overlayDirectory . DS . $this->_overlayBg . '.png';
+
+        if (!file_exists($overlay))
+            $overlay = Mage::getBaseDir('media') . DS .
+                    'pdp/images/custom/overlay_bg.png';
+
         //$final = self::$_tmpDir . $filename . '.png';
         //Mage::log($overlay, null, 'debugging.log');
         $final = self::$_tmpDir . '300dpi_' . $filename . '.jpeg';
@@ -63,16 +73,22 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
             $height = 3700;
         }
         else {
-            $width = 1850;
-            $height = 1850;
+//            $width = 1850;
+//            $height = 1850;
+            $width = 462;
+            $height = 462;
         }
 
         $png = imagecreatefrompng($overlay);
         $jpeg = imagecreatefromjpeg($jpeg);
 
-        $out = imagecreatetruecolor(310, 415);
-        imagecopyresampled($out, $jpeg, 0, 0, 0, 0, 310, 415, $width, $height);
-        imagecopyresampled($out, $png, 0, 0, 0, 0, 310, 415, $width, $height);
+//        $out = imagecreatetruecolor(310, 415);
+//        imagecopyresampled($out, $jpeg, 0, 0, 0, 0, 310, 415, $width, $height);
+//        imagecopyresampled($out, $png, 0, 0, 0, 0, 310, 415, $width, $height);
+
+        $out = imagecreatetruecolor($width, $height);
+        imagecopyresampled($out, $jpeg, 0, 0, 0, 0, $width, $height, $width, $height);
+        imagecopyresampled($out, $png, 0, 0, 0, 0, $width, $height, $width, $height);
 
         imagejpeg($out, $final, 100);
 

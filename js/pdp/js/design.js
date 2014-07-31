@@ -104,7 +104,7 @@
 
         // set overlay
         var overlayImg = $('#pdp_side_items li:eq(1)').find('img').attr('src');
-        var overlayImg = 'media/test/iphone4_fg.png';//test
+        //var overlayImg = 'media/test/iphone4_fg.png';//test
         canvas.setOverlayImage(overlayImg, canvas.renderAll.bind(canvas), {
             'originX': 'left',
             'originY': 'top',
@@ -1458,14 +1458,18 @@
                     setTimeout(function() {
                         //console.log(canvas.toDataURL({format: 'jpeg', quality: 1}));
                         //console.log(canvas_export.toDataURL({format: 'png', quality: 1}));
-                        zoomout(1850);
+                        //zoomout(1850);
+                        zoomout(462);
 
+                        var overlayBg = $('#product-overlay').val();
+                        
                         jQuery.ajax({
                             type: 'POST',
                             url: $("#url_site").val() + "/pdp/view/saveCustomImage",
                             data: {
                                 img: canvas_export.toDataURL({format: 'jpeg', quality: 1}),
-                                overlay: canvas.toDataURL({format: 'jpeg', quality: 1})
+                                overlay: canvas.toDataURL({format: 'jpeg', quality: 1}),
+                                overlayBg: overlayBg,
                             },
                             dataType: 'json',
                             beforeSend: function() {
