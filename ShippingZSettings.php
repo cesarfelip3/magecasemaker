@@ -36,7 +36,7 @@ define("SHIPPINGZSETTINGS_VERSION","3.0.7.0468");
 # 
 ############################################## All Users Settings #######################################
 
-define("SHIPPING_ACCESS_TOKEN","kUfrukabravatastawrat8xetrud2ub");  // See steps above to set this -- REQUIRED !
+define("SHIPPING_ACCESS_TOKEN","k5ChAwaspeF5UstusputrA86sTeswuf");  // See steps above to set this -- REQUIRED !
 
 
 ############################################## BEGIN Magento Section ##################################################

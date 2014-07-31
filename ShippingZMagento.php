@@ -82,8 +82,8 @@ define("Magento_Store_Code_To_Service","-ALL-");
 if(!defined("Magento_Enterprise_Edition"))
 define("Magento_Enterprise_Edition",0);
 
-if(Check_Include_File("../app/Mage.php",1))
-include("../app/Mage.php");
+if(Check_Include_File("app/Mage.php",1))
+include("app/Mage.php");
 
 $app = Mage::app();
 $magentoVersion = Mage::getVersion();
