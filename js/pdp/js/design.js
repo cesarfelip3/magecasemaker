@@ -1484,7 +1484,7 @@
                                 else {
                                     jQuery('#pdp_popup').hide();
                                     jQuery('.product-img-box').show();
-                                    jQuery('.product-img-box').append('<p><a href="' + m + '3d/?i=' + response.image + '"><b>View 3D</b></a></p>');
+                                    jQuery('.product-img-box').append('<p><a href="' + m + '3d/?i=' + response.image + '" target="_blank"><b>View 3D</b></a></p>');
                                     jQuery('.product-image').show();
                                     jQuery('.product-image img').attr('src', canvas_export.toDataURL('png'));
                                 }
