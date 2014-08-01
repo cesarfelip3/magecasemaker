@@ -34,7 +34,7 @@ Mage::app(1);
                 type: "GET",
                 url: "testview.php?i=53dbaad1a709d.jpeg"
             }).done(function(response) {
-                console.log(response);
+                $('#view-3d').html(response);
             });
         });
     })(jQuery);
