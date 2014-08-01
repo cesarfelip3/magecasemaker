@@ -3,7 +3,7 @@ if (version_compare(phpversion(), '5.2.0', '<') === true) {
     die('ERROR: Whoops, it looks like you have an invalid PHP version. Magento supports PHP 5.2.0 or newer.');
 }
 
-require_once('app/Mage.php'); //Path to Magento
+require_once('../app/Mage.php'); //Path to Magento
 umask(0);
 Mage::app(1);
 ?>
