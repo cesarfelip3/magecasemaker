@@ -1,3 +1,12 @@
+<?php
+if (version_compare(phpversion(), '5.2.0', '<') === true) {
+    die('ERROR: Whoops, it looks like you have an invalid PHP version. Magento supports PHP 5.2.0 or newer.');
+}
+
+require_once('app/Mage.php'); //Path to Magento
+umask(0);
+Mage::app(1);
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -9,7 +18,7 @@
         <script>
             var flashvars = {
             };
-            flashvars.imgURL = "http://127.0.0.1/Magento/magecasemaker/media/pdp/design/tmp/overlay_<?php echo $_GET['i']?>";
+            flashvars.imgURL = "<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?>/pdp/design/tmp/overlay_<?php echo $_GET['i'] ?>";
             var params = {
                 menu: "false",
                 scale: "noScale",
