@@ -53,6 +53,18 @@ $dt_ts = array();
                         <div id="save_sample_design"><a  title="Save Sample"><i class="pi pi-floppy-o"></i><?php echo $this->__('Save Sample'); ?></a></div>
                     <?php else : ?>
                         <div id="save_design"><a  title="Login to save your design"><i class="pi pi-floppy-o"></i><?php echo $this->__('Save'); ?></a></div>
+                        <div id="view-3d">
+                            <a  title="3D View">
+                                <i class="pi pi-floppy-o"></i>
+                                <?php echo $this->__('3D View'); ?>
+                            </a>
+                        </div>
+                        <div id="edit-more">
+                            <a  title="Edit">
+                                <i class="pi pi-floppy-o"></i>
+                                <?php echo $this->__('Edit More'); ?>
+                            </a>
+                        </div>
                     <?php endif; ?>
                 </div>
             </div>
@@ -262,6 +274,7 @@ $dt_ts = array();
                             </div>
                         </div>-->
             <div class="wrap_inlay_center" tab="front">
+                <div class="flash-wrapper"></div>
                 <canvas id="canvas_area"></canvas>
             </div>
             <ul class="color_att"></ul>
@@ -292,7 +305,7 @@ $dt_ts = array();
                     <ul id="select_font">
                         <li class="active" rel="<?php echo $this->__("Arial") ?>"><?php echo $this->__("Font") ?></li>
                         <?php foreach ($fonts as $font) : ?>
-                            <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName()                                                                                        ?><?php echo $this->__('Font'); ?></li>
+                            <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName()                                                                                                 ?><?php echo $this->__('Font'); ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>

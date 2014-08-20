@@ -1482,6 +1482,7 @@
                                     return;
                                 }
                                 else {
+                                    //zoomreset(462);
                                     jQuery('#pdp_popup').hide();
                                     jQuery('.product-img-box').show();
                                     jQuery('.product-img-box').append('<p><a href="' + m + '3d/view.php/?i=' + response.image + '" target="_blank"><b>View 3D</b></a></p>');
@@ -2008,6 +2009,23 @@
             }
             canvas.renderAll()
         }
+
+        jQuery('#view-3d a').on('click', function() {
+            $('.canvas-container').hide();
+
+            // ajax call to load flash view
+            $.ajax({
+                type: "GET",
+                url: "http://127.0.0.1/Magento/magecasemaker/3d2/index.html"
+            }).done(function(response) {
+                $('.flash-wrapper').show().html(response);
+            });
+        });
+
+        jQuery('#edit-more').on('click', function() {
+            $('.flash-wrapper').hide();
+            $('.canvas-container').show();
+        });
     });
 })(jQuery, window, document)
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
