@@ -2016,7 +2016,7 @@
             // ajax call to load flash view
             $.ajax({
                 type: "GET",
-                url: "http://127.0.0.1/Magento/magecasemaker/3d2/index.html"
+                url: "http://www.udesingify.com/3d2/index.html"
             }).done(function(response) {
                 $('.flash-wrapper').show().html(response);
             });
