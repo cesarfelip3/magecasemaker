@@ -2100,6 +2100,7 @@
         });
 
         jQuery('#edit-more').on('click', function() {
+            zoomreset(462);
             var overlayImg = $('#pdp_side_items li:eq(1)').find('img').attr('src');
             //var overlayImg = 'media/test/iphone4_fg.png';//test
             canvas.setOverlayImage(overlayImg, canvas.renderAll.bind(canvas), {

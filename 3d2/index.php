@@ -31,7 +31,7 @@
                 id: "IPhoneCase"
             };
             swfobject.embedSWF(
-                    "http://www.udesingify.com/3d2/IPhoneCase.swf", "altContent", "100%", "800px", "10.0.0", "http://www.udesingify.com/3d2/expressInstall.swf", flashvars, params, attributes);
+                    "http://www.udesingify.com/3d2/IPhoneCase.swf", "altContent", "100%", "500px", "10.0.0", "http://www.udesingify.com/3d2/expressInstall.swf", flashvars, params, attributes);
         </script>
         <style>
             html, body { height:100%; overflow:hidden; }
@@ -39,7 +39,7 @@
         </style>
     </head>
     <body>
-        <div id="altContent" style="height:800px;">
+        <div id="altContent" style="height:500px;">
             <h1>IPhone_Case</h1>
             <p><a href="http://www.adobe.com/go/getflashplayer">Get Adobe Flash player</a></p>
         </div>
