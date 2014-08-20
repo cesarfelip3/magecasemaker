@@ -2013,16 +2013,101 @@
         jQuery('#view-3d a').on('click', function() {
             $('.canvas-container').hide();
 
-            // ajax call to load flash view
-            $.ajax({
-                type: "GET",
-                url: "http://www.udesingify.com/3d2/index.php"
-            }).done(function(response) {
-                $('.flash-wrapper').show().html(response);
-            }); 
+
+            // Clear canvas
+            canvasEvents.clearSelected();
+            // Background image
+            var img_bg = m + 'media/pdp/images/' + $('#pdp_side_items li.active').attr('side_img');
+            var inlay = $('#pdp_side_items li.active').attr('inlay');
+            var inlay_info = inlay.split(',');
+            // Create new canvas for export purpose
+            $('#pdp_canvas_result').html('<canvas id="canvas_export"></canvas>');
+            $('#canvas_export').attr({
+                width: canvas.width,
+                height: canvas.height,
+            });
+            var canvas_export = new fabric.Canvas('canvas_export', {
+                opacity: 1
+            });
+            // set background for export image  
+            canvas_export.setBackgroundImage(backgroundImg, canvas_export.renderAll.bind(canvas_export), {
+                'originX': 'left',
+                'originY': 'top',
+                'left': 0,
+                'top': 0
+            });
+
+            // console.log(canvas.toDataURL('png'));
+            // Add added image from another canvas
+            fabric.Image.fromURL(canvas.toDataURL('png'), function(image) {
+                image.set({
+                    left: 0,
+                    top: 0,
+                    width: canvas.width,
+                    height: canvas.height,
+                    angle: 0,
+                    selectable: false
+                });
+                image.transparentCorners = true;
+                image.cornerSize = 10;
+                image.scale(1).setCoords();
+                canvas_export.add(image);
+            });
+            canvas_export.renderAll();
+
+            canvas.overlayImage = null;
+            canvas.backgroundImage = null;
+
+            // Save image and fix to load background and images'
+            setTimeout(function() {
+                //console.log(canvas.toDataURL({format: 'jpeg', quality: 1}));
+                //console.log(canvas_export.toDataURL({format: 'png', quality: 1}));
+                //zoomout(1850);
+                zoomout(462);
+
+                var overlayBg = $('#product-overlay').val();
+
+                jQuery.ajax({
+                    type: 'POST',
+                    url: $("#url_site").val() + "/pdp/view/saveCustomImage",
+                    data: {
+                        img: canvas_export.toDataURL({format: 'jpeg', quality: 1}),
+                        overlay: canvas.toDataURL({format: 'jpeg', quality: 1}),
+                        overlayBg: overlayBg,
+                    },
+                    dataType: 'json',
+                    beforeSend: function() {
+                        $(".pdp_loading").show();
+                    },
+                    success: function(response) {
+                        if (response.status !== 'success') {
+                            alert('Error!');
+                            return;
+                        }
+                        else {
+                            // ajax call to load flash view
+                            $.ajax({
+                                type: "POST",
+                                url: "http://www.udesingify.com/3d2/index.php",
+                                data: {'img': response.img}
+                            }).done(function(response) {
+                                $('.flash-wrapper').show().html(response);
+                            });
+                        }
+                    }
+                });
+            }, 1000);
         });
 
         jQuery('#edit-more').on('click', function() {
+            var overlayImg = $('#pdp_side_items li:eq(1)').find('img').attr('src');
+            //var overlayImg = 'media/test/iphone4_fg.png';//test
+            canvas.setOverlayImage(overlayImg, canvas.renderAll.bind(canvas), {
+                'originX': 'left',
+                'originY': 'top',
+                'top': 0,
+                'left': 0,
+            });
             $('.flash-wrapper').hide();
             $('.canvas-container').show();
         });

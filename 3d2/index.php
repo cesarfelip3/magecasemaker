@@ -9,13 +9,16 @@
         <script>
             var flashvars = {
             };
-<?php
-$_imageUrl = 'http://www.udesingify.com/media/pdp/design/checkout/300dpi_overlay_53efe53f9eecc.jpeg';
-$_caseAWD = 'http://www.udesingify.com/3d2/assets/iPhone-4/iPhone-4.awd';
-?>
+<?php if (isset($_POST['img'])) : ?>
+                $_imageUrl = "http://www.udesingify.com/media/pdp/design/checkout/300dpi_overlay_<?php echo $_POST['img'] ?>";
+<?php else : ?>
+                $_imageUrl = 'http://www.udesingify.com/media/pdp/design/checkout/300dpi_overlay_53efe53f9eecc.jpeg';
+<?php endif; ?>
+<?php $_caseAWD = 'http://www.udesingify.com/3d2/assets/iPhone-4/iPhone-4.awd'; ?>
+
             flashvars.imgURL = "<?php echo $_imageUrl; ?>";
             flashvars.caseAWD = "<?php echo $_caseAWD; ?>";
-            //flashvars.caseAWD = "assets/SG_4/SG_4.awd";
+//flashvars.caseAWD = "assets/SG_4/SG_4.awd";
             var params = {
                 menu: "false",
                 scale: "noScale",
@@ -28,10 +31,7 @@ $_caseAWD = 'http://www.udesingify.com/3d2/assets/iPhone-4/iPhone-4.awd';
                 id: "IPhoneCase"
             };
             swfobject.embedSWF(
-                    "http://www.udesingify.com/3d2/IPhoneCase.swf",
-                    "altContent", "100%", "100%", "10.0.0",
-                    "http://www.udesingify.com/3d2/expressInstall.swf",
-                    flashvars, params, attributes);
+                    "http://www.udesingify.com/3d2/IPhoneCase.swf", "altContent", "100%", "800px", "10.0.0", "http://www.udesingify.com/3d2/expressInstall.swf", flashvars, params, attributes);
         </script>
         <style>
             html, body { height:100%; overflow:hidden; }
