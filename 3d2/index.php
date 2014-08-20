@@ -10,7 +10,7 @@
             var flashvars = {
             };
 <?php if (isset($_POST['img'])) : ?>
-                $_imageUrl = "http://www.udesingify.com/media/pdp/design/checkout/300dpi_overlay_<?php echo $_POST['img'] ?>";
+                $_imageUrl = "http://www.udesingify.com/media/pdp/design/tmp/300dpi_overlay_<?php echo $_POST['img'] ?>";
 <?php else : ?>
                 $_imageUrl = 'http://www.udesingify.com/media/pdp/design/checkout/300dpi_overlay_53efe53f9eecc.jpeg';
 <?php endif; ?>
