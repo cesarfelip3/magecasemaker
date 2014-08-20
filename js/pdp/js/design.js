@@ -2016,10 +2016,10 @@
             // ajax call to load flash view
             $.ajax({
                 type: "GET",
-                url: "http://www.udesingify.com/3d2/index.html"
+                url: "http://www.udesingify.com/3d2/index.php"
             }).done(function(response) {
                 $('.flash-wrapper').show().html(response);
-            });
+            }); 
         });
 
         jQuery('#edit-more').on('click', function() {

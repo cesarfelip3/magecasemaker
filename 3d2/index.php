@@ -39,7 +39,7 @@ $_caseAWD = 'http://www.udesingify.com/3d2/assets/iPhone-4/iPhone-4.awd';
         </style>
     </head>
     <body>
-        <div id="altContent">
+        <div id="altContent" style="height:800px;">
             <h1>IPhone_Case</h1>
             <p><a href="http://www.adobe.com/go/getflashplayer">Get Adobe Flash player</a></p>
         </div>
