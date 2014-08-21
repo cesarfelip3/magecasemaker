@@ -11,18 +11,26 @@ if ($_image = Mage::app()->getRequest()->getParam('img')) {
     $_imageUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . "pdp/design/tmp/300dpi_overlay_" . $_image;
 }
 else {
-        $_imageUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'pdp/design/checkout/300dpi_overlay_53efe53f9eecc.jpeg';
+    $_imageUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'pdp/design/checkout/300dpi_overlay_53efe53f9eecc.jpeg';
 }
 
 $_caseAWD = Mage::getBaseUrl() . '3d2/assets/iPhone-4/iPhone-4.awd';
 ?>
-<script src='<?php echo Mage::getBaseUrl() ?>3d2/js/swfobject.js'></script>
+<script src="<?php echo Mage::getBaseUrl() ?>bin/js/swfobject.js"></script>
 <script>
     var flashvars = {
     };
-    flashvars.imgURL = "<?php echo $_imageUrl; ?>";
-    flashvars.caseAWD = "<?php echo $_caseAWD; ?>";
-//flashvars.caseAWD = "assets/SG_4/SG_4.awd";
+    flashvars.imgURL = "<?php echo $_imageUrl ?>";
+
+    //flashvars.caseAWD = "assets/iPhone-4/iPhone-4.awd";
+    //flashvars.caseAWD = "assets/iPhone-4_Arm/iPhone-4_Arm.awd";
+    //flashvars.caseAWD = "assets/iPhone-5/iPhone-5.awd";
+    //flashvars.caseAWD = "assets/SG_4/SG_4.awd";
+    //flashvars.caseAWD = "assets/SG_3/SG_3.awd";
+    //flashvars.caseAWD = "assets/iPad_Mini/iPad_Mini.awd";
+    flashvar.caseAWD = "<?php echo $_caseAWD ?>"
+    flashvars.caseScale = 1;
+
     var params = {
         menu: "false",
         scale: "noScale",
@@ -35,9 +43,12 @@ $_caseAWD = Mage::getBaseUrl() . '3d2/assets/iPhone-4/iPhone-4.awd';
         id: "IPhoneCase"
     };
     swfobject.embedSWF(
-            "<?php echo Mage::getBaseUrl() ?>3d2/IPhoneCase.swf", "altContent", "100%", "600px", "10.0.0", "<?php echo Mage::getBaseUrl() ?>3d2/expressInstall.swf", flashvars, params, attributes);
+            "<?php echo Mage::getBaseUrl() ?>bin/IPhoneCase.swf",
+            "altContent", "100%", "600px;", "10.0.0",
+            "<?php echo Mage::getBaseUrl() ?>bin/expressInstall.swf",
+            flashvars, params, attributes);
 </script>
-<div id="altContent" style="height:600px;">
-    <h1>Case</h1>
+<div id="altContent">
+    <h1>CASE</h1>
     <p><a href="http://www.adobe.com/go/getflashplayer">Get Adobe Flash player</a></p>
 </div>
