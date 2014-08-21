@@ -2011,8 +2011,8 @@
         }
 
         jQuery('#view-3d a').on('click', function() {
-            $('.canvas-container').hide();
 
+            $('.canvas-container').hide();
 
             // Clear canvas
             canvasEvents.clearSelected();
@@ -2022,6 +2022,7 @@
             var inlay_info = inlay.split(',');
             // Create new canvas for export purpose
             $('#pdp_canvas_result').html('<canvas id="canvas_export"></canvas>');
+
             $('#canvas_export').attr({
                 width: canvas.width,
                 height: canvas.height,
@@ -2088,7 +2089,7 @@
                             // ajax call to load flash view
                             $.ajax({
                                 type: "POST",
-                                url: "http://www.udesingify.com/3d2/index.php",
+                                url: m + "pdp/demo/index",
                                 data: {'img': response.img}
                             }).done(function(response) {
                                 $('.flash-wrapper').show().html(response);
