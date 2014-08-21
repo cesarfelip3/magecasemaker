@@ -434,24 +434,24 @@ $dt_ts = array();
         <div id="pdp_result_2" class="no-display"></div>
     </div>
     <?php
-    if (Mage::getSingleton('customer/session')->isLoggedIn()) {
-        /* Get the customer data */
-        $customer = Mage::getSingleton('customer/session')->getCustomer();
-        /* Get the customer's email address */
-        $email = $customer->getEmail();
-        $customerType = 0;
-        if ($email == 'daovanchung.ictu@gmail.com') {
-            $customerType = 1;
-            ?>
-            <div class='save-design'>
-                <?php $customerId = Mage::getSingleton('customer/session')->getCustomer()->getId();
-                ?>
-                <input type="hidden" id="customer_group_id" value="<?php echo $customerType; ?>" />
-                <input type="hidden" name="customer_id" id="customer_id" value="<?php echo $customerId; ?>" />
+//    if (Mage::getSingleton('customer/session')->isLoggedIn()) {
+//        /* Get the customer data */
+//        $customer = Mage::getSingleton('customer/session')->getCustomer();
+//        /* Get the customer's email address */
+//        $email = $customer->getEmail();
+//        $customerType = 0;
+//        if ($email == 'daovanchung.ictu@gmail.com') {
+//            $customerType = 1;
+//            ?>
+<!--            <div class='save-design'>
+                //<?php $customerId = Mage::getSingleton('customer/session')->getCustomer()->getId();
+//                ?>
+                <input type="hidden" id="customer_group_id" value="//<?php echo $customerType; ?>" />
+                <input type="hidden" name="customer_id" id="customer_id" value="//<?php echo $customerId; ?>" />-->
             </div>
-            <?php
-        }
-    }
+            //<?php
+//        }
+//    }
     ?>
     <?php //endif;  ?>
     <div class="product-info">

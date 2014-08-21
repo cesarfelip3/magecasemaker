@@ -2081,6 +2081,7 @@
                         $(".pdp_loading").show();
                     },
                     success: function(response) {
+                        //console.log(response);
                         if (response.status !== 'success') {
                             alert('Error!');
                             return;
@@ -2090,7 +2091,7 @@
                             $.ajax({
                                 type: "POST",
                                 url: m + "pdp/demo/index",
-                                data: {'img': response.img}
+                                data: {'img': response.image}
                             }).done(function(response) {
                                 $('.flash-wrapper').show().html(response);
                             });

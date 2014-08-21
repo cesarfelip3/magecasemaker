@@ -8,15 +8,15 @@
 <?php
 Mage::log(Mage::app()->getRequest()->getParam('img'), null, 'debugging.log');
 if ($_image = Mage::app()->getRequest()->getParam('img')) {
-    $_imageUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . "/pdp/design/tmp/300dpi_overlay_" . $_image;
+    $_imageUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . "pdp/design/tmp/300dpi_overlay_" . $_image;
 }
 else {
     $_imageUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'pdp/design/checkout/300dpi_overlay_53efe53f9eecc.jpeg';
 }
 
-$_caseAWD = 'http://www.udesingify.com/3d2/assets/iPhone-4/iPhone-4.awd';
+$_caseAWD = Mage::getBaseUrl() . '3d2/assets/iPhone-4/iPhone-4.awd';
 ?>
-<script src="http://www.udesingify.com/3d2/js/swfobject.js"></script>
+<script src='<?php echo Mage::getBaseUrl() ?>3d2/js/swfobject.js'></script>
 <script>
     var flashvars = {
     };
@@ -35,13 +35,9 @@ $_caseAWD = 'http://www.udesingify.com/3d2/assets/iPhone-4/iPhone-4.awd';
         id: "IPhoneCase"
     };
     swfobject.embedSWF(
-            "http://www.udesingify.com/3d2/IPhoneCase.swf", "altContent", "100%", "300px", "10.0.0", "http://www.udesingify.com/3d2/expressInstall.swf", flashvars, params, attributes);
+            "<?php echo Mage::getBaseUrl() ?>3d2/IPhoneCase.swf", "altContent", "100%", "700px", "10.0.0", "<?php echo Mage::getBaseUrl() ?>3d2/expressInstall.swf", flashvars, params, attributes);
 </script>
-<div id="altContent" style="height:300px;">
+<div id="altContent" style="height:700px;">
     <h1>Case</h1>
     <p><a href="http://www.adobe.com/go/getflashplayer">Get Adobe Flash player</a></p>
 </div>
-<style>
-    html, body { height:100%; overflow:hidden; }
-    body { margin:0; }
-</style>
