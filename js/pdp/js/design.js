@@ -2078,7 +2078,7 @@
                     },
                     dataType: 'json',
                     beforeSend: function() {
-                        $(".pdp_loading").show();
+                        $('.flash-wrapper').show().html('<span class="pdp_loading"><span>Please wait...</span></span>');
                     },
                     success: function(response) {
                         //console.log(response);
@@ -2092,7 +2092,7 @@
                                 type: "POST",
                                 url: m + "pdp/demo/index",
                                 data: {'img': response.image}
-                            }).done(function(response) {
+                            }).done(function(response) {               
                                 $('.flash-wrapper').show().html(response);
                             });
                         }
