@@ -1,3 +1,12 @@
+<?php
+if (version_compare(phpversion(), '5.2.0', '<') === true) {
+    die('ERROR: Whoops, it looks like you have an invalid PHP version. Magento supports PHP 5.2.0 or newer.');
+}
+
+require_once('../app/Mage.php'); //Path to Magento
+umask(0);
+Mage::app(1);
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -10,7 +19,7 @@
             var flashvars = {
             };
 <?php if (isset($_POST['img'])) : ?>
-                $_imageUrl = "http://www.udesingify.com/media/pdp/design/tmp/300dpi_overlay_<?php echo $_POST['img'] ?>";
+                $_imageUrl = "<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA);?>/pdp/design/tmp/300dpi_overlay_<?php echo $_POST['img'] ?>";
 <?php else : ?>
                 $_imageUrl = 'http://www.udesingify.com/media/pdp/design/checkout/300dpi_overlay_53efe53f9eecc.jpeg';
 <?php endif; ?>
