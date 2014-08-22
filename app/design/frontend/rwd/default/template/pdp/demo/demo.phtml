@@ -14,7 +14,25 @@ else {
     $_imageUrl = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'pdp/design/checkout/300dpi_overlay_53efe53f9eecc.jpeg';
 }
 
-$_caseAWD = Mage::getBaseUrl() . '3d2/assets/iPhone-4/iPhone-4.awd';
+switch (Mage::app()->getRequest()->getParam('phone')) {
+    case 'iphone4':
+        $_caseAWD = Mage::getBaseUrl() . '3d2/assets/iPhone-4/iPhone-4.awd';
+        break;
+    case 'iphone5':
+        $_caseAWD = Mage::getBaseUrl() . '3d2/assets/iPhone-5/iPhone-5.awd';
+        break;
+    case 'galaxy4':
+        $_caseAWD = Mage::getBaseUrl() . '3d2/assets/SG_4/SG_4.awd';
+        break;
+    case 'galaxy3':
+        $_caseAWD = Mage::getBaseUrl() . '3d2/assets/SG_3/SG_3.awd';
+        break;
+    case 'ipad':
+        $_caseAWD = Mage::getBaseUrl() . '3d2/assets/iPad_Mini/iPad_Mini.awd';
+        break;
+    default :
+        break;
+}
 ?>
 <script src="<?php echo Mage::getBaseUrl() ?>bin/js/swfobject.js"></script>
 <script>

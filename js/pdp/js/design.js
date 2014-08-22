@@ -2091,8 +2091,11 @@
                             $.ajax({
                                 type: "POST",
                                 url: m + "pdp/demo/index",
-                                data: {'img': response.image}
-                            }).done(function(response) {               
+                                data: {
+                                    img: response.image,
+                                    phone: overlayBg
+                                }
+                            }).done(function(response) {
                                 $('.flash-wrapper').show().html(response);
                             });
                         }
