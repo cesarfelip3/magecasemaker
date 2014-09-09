@@ -273,6 +273,80 @@
             <block type="core/template" name="pdpdesign_button" as="design_button" template="pdp/design_button.phtml" />
         </reference>
     </catalog_product_view>
+    
+    <cms_index_index>
+        <reference name="head">
+            <action method="addJs" ifconfig="pdp/setting/enable" >
+                <script>pdp/js/jquery-1.10.2.min.js</script>
+            </action>
+            <action method="addItem" ifconfig="pdp/setting/enable" >
+                <type>js_css</type>
+                <name>pdp/css/styles.css</name>
+            </action>
+            <action method="addItem" ifconfig="pdp/setting/enable" >
+                <type>js_css</type>
+                <name>pdp/css/colorbox.css</name>
+            </action>
+            <action method="addItem" ifconfig="pdp/setting/enable" >
+                <type>js_css</type>
+                <name>pdp/css/owl.carousel.css</name>
+            </action>
+            <action method="addItem" ifconfig="pdp/setting/enable" >
+                <type>js_css</type>
+                <name>pdp/css/pi-awesome.css</name>
+            </action>
+            <action method="addItem" ifconfig="pdp/setting/enable" >
+                <type>js_css</type>
+                <name>pdp/css/jquery.nouislider.css</name>
+            </action>
+            <action method="addItem" ifconfig="pdp/setting/enable" >
+                <type>js_css</type>
+                <name>pdp/css/farbtastic.css</name>
+            </action>
+            <action method="addItem" ifconfig="pdp/setting/enable" >
+                <type>js_css</type>
+                <name>pdp/css/stickytooltip.css</name>
+            </action>
+            <action method="addCss" ifconfig="pdp/setting/enable">
+                <stylesheet>css/styles.css</stylesheet>
+            </action>
+            <action method="addJs" ifconfig="pdp/setting/enable" >
+                <script>pdp/js/farbtastic.js</script>
+            </action>
+            <action method="addJs" ifconfig="pdp/setting/enable" >
+                <script>pdp/js/fabric.js</script>
+            </action>
+            <action method="addJs" ifconfig="pdp/setting/enable" >
+                <script>pdp/js/owl.carousel.js</script>
+            </action>
+            <action method="addJs" ifconfig="pdp/setting/enable" >
+                <script>pdp/js/jquery.waitforimages.js</script>
+            </action>
+            <action method="addJs" ifconfig="pdp/setting/enable" >
+                <script>pdp/js/jquery.colorbox.js</script>
+            </action>
+            <action method="addJs" ifconfig="pdp/setting/enable" >
+                <script>pdp/js/jquery.nouislider.js</script>
+            </action>
+            <action method="addJs" ifconfig="pdp/setting/enable" >
+                <script>pdp/js/paging.js</script>
+            </action>
+            <action method="addJs" ifconfig="pdp/setting/enable" >
+                <script>pdp/js/stickytooltip.js</script>
+            </action>
+            <action method="addJs" ifconfig="pdp/setting/enable" >
+                <script>pdp/js/frontend_popup.js</script>
+            </action>
+            <action method="addJs" ifconfig="pdp/setting/enable" >
+                <script>pdp/js/custom.js</script>
+            </action>
+        </reference>
+        <reference name="product.info.addtocart">
+            <block type="core/template" name="default_setting" as="default_setting" output="toHtml" template="pdp/default_setting.phtml" />
+            <block type="core/template" name="pdpdesign_button" as="design_button" template="pdp/design_button.phtml" />
+        </reference>
+    </cms_index_index>
+    
     <pdp_view_getdesignpage>
         <reference name="content">
             <block type="pdp/pdp" name="root" template="pdp/design.phtml" ></block>
