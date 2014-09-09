@@ -918,7 +918,7 @@ body:not(.customer-account) .block:first-child .block-title {
 .cart-table .product-cart-actions .button,
 #co-shipping-method-form .buttons-set .button,
 .footer .button {
-  background: #FFF200;
+  background: #005797;
   display: inline-block;
   padding: 7px 15px;
   border: 0;
@@ -1421,6 +1421,14 @@ a.button:hover {
   .col3-layout .col-wrapper .col-left {
     width: 25%;
   }
+  .home_guara_inner{ width:90% !important; margin:0 auto}
+  .iossection { padding:10px}
+  .homecontentinner {
+    margin: 0 2%;
+    min-height: 298px;
+    padding-top: 75px;
+    width: 42%;
+}
 }
 @media only screen and (max-width: 770px) {
   .col-left,
@@ -3142,8 +3150,8 @@ body {
     max-width: 100%;
     margin: 0 auto;
     padding: 0 8%;
-	 background-image: url(../images/header_bg.png); 
-  background-repeat: repeat-x;
+	/* background-image: url(../images/header_bg.png); 
+  background-repeat: repeat-x;*/
   }
 
   .page-header-container {
@@ -3160,7 +3168,7 @@ body {
  * ============================================ */
 .header-language-background {
   padding: 10px;
-  background-color: #254c9f;
+  background-color: #282828;
   text-transform: uppercase;
 }
 .header-language-background .header-language-container {
@@ -3528,7 +3536,7 @@ a.skip-link {
   #header-nav {
     display: block;
     /* Force visibility aneesh */
-    border-bottom: 1px solid #ededed;  background-image: url(../images/menu_bg.png); 
+    border-bottom: 1px solid #ededed;  /*background-image: url(../images/menu_bg.png); */
   background-repeat: repeat-x; border-radius:10px 10px 0 0;
   }
   
@@ -3606,7 +3614,9 @@ a.skip-link {
 }
 
 .nav-primary li.level0 > a {
-  text-transform: uppercase;
+  color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 /* ============================================ *
@@ -3681,9 +3691,9 @@ a.skip-link {
   .nav-primary li.level1{ padding:5px 0 !important; }
   .nav-primary li.level0{
 	  
-	  background-image:url(../images/menu_devider.png) !important; 
+	 /* background-image:url(../images/menu_devider.png) !important; 
 background-repeat:no-repeat; 
-background-position:right center
+background-position:right center*/
 
 	  }
   .nav-primary li.level0,
@@ -3695,7 +3705,7 @@ background-position:right center
   }
   .nav-primary a:hover,
   .nav-primary li:hover > a {
-    color: #3399cc;
+    color: #ec1766;
   }
   .nav-primary .menu-active,
   .nav-primary li.level0:hover {
@@ -3975,8 +3985,8 @@ background-position:right center
 }
 @media only screen and (min-width: 771px) {
   .skip-cart {
-    color: #000; background-color:#fff200;
-    text-transform: uppercase; border-radius:5px; border:solid 3px #096dac
+    color: #fff; background-color:#ec1766;
+    text-transform: uppercase; border-radius:20px; border:solid 0px #096dac
   }
   .skip-cart:hover {
     text-decoration: none;
@@ -4121,8 +4131,8 @@ background-position:right center
 .footer .links {
   float: left;
   width: 17%;
-  padding: 0 30px 0 0;
-  margin-bottom: 30px;
+  padding: 0 0px 0 0;
+  margin-bottom: 20px;
 }
 .footer .links li {
   word-break: break-all;
@@ -9856,6 +9866,8 @@ div.paypal-logo span > img {
   .notice-cookie .notice-text {
     max-width: 86%;
   }
+  
+  
 }
 
 
@@ -9930,9 +9942,9 @@ div.calendar table td.button {
 
 .demo-notice{ display:none !important}
 
-#search_mini_form button.search-button{ background-color:#fff200 !important;
+#search_mini_form button.search-button{ 
     border-radius:5px; /*border:solid 3px #096dac*/}
-	input#search{ background-color:#FFF; border: 3px solid #096DAC; border-radius:5px;}
+	input#search{ background-color:#FFF; border-radius:20px;}
 	
 	
 	.desktopheader #search{height: 44px !important; } 
@@ -10143,13 +10155,13 @@ footer .block-title strong span{ font-size:14px !important; font-family: 'Oswald
 /*.main{background-image:url(../images/page_bg.jpg); background-repeat:repeat;}*/
 body{background-image:url(../images/page_bg.jpg) !important; background-repeat:repeat !important;}
 		input#newsletter{ background-color:#000; border-color:#3a3c3b}
-		.page{background-image:url(../images/page_bg.jpg) !important; background-repeat:repeat !important;}
+		.page{/*background-image:url(../images/page_bg.jpg) !important; background-repeat:repeat !important;*/}
 		
 
 		
 		.page-header {
-    background-image: url("../images/header_bg.png");
-    background-repeat: repeat-x;
+   /* background-image: url("../images/header_bg.png");
+    background-repeat: repeat-x;*/
 
 }
 
@@ -10221,5 +10233,149 @@ margin: 14px 0;
 overflow: hidden;
 padding: 0 8% !important;
 width: 100%;}
+@media only screen and (max-width: 1024px) {}
+@media only screen and (min-width: 1024px) {
+.iossection {
+    margin: 50px auto 0;
+    width: 1100px;
+}
 
 
+.page-header 	{margin:0 auto !important; max-width:1100px; padding:0 !important }
+.logo 			{max-width:300px; min-height: 90px; position: absolute;}
+.page-header 	{min-height:157px;}
+.nav-primary 	{}
+
+#header-nav { float:right; margin-top:40px;}
+}
+
+/* home content */
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,300italic,300);
+.homepage_content { float:left; width:100%}
+
+.homepage_content h2 {
+	background-image:url(../images/pattern.png);
+	text-align:center; margin:0
+}
+.homepage_content h2 span {
+	background-color:#fff;
+	padding:2px 20px;
+	margin:0 auto;
+}
+.heading_wrapper {
+	background-image:url(../images/heading_devider.png);
+	background-repeat:no-repeat;
+	background-position:center bottom;
+	padding:0 0 10px 0
+}
+.homeitem {
+	width:29%;
+	margin:1%;
+	border:#ececec 1px solid;
+	min-height:200px;
+	border-radius:10px;
+	float:left;
+	padding:10px
+}
+.homeitem .thu {
+	float:left;
+	width:100%;
+	text-align:center;
+}
+.homeitem .pdname {
+	float:left;
+	width:100%;
+	text-align:center;
+	margin:10px 0; text-transform:uppercase; font-weight:bold
+}
+.homeitem .tools {
+	margin:0 auto;
+	width:250px;
+	text-align:center;
+}
+.homeitem .thu img {
+    float: none !important;
+    margin: 0 auto;
+    max-width: 100%;
+    text-align: center !important;
+}
+.homeitem .tools .addwishlist {
+	float:left;
+	width:42px;
+	height:42px;
+	text-align:center;
+	border:#ececec 1px solid;
+	margin:0 5px 0 0;
+	line-height:42px;
+	vertical-align: middle;
+	border-radius:5px;
+}
+.homeitem .tools .startnow {
+	background-color:#a3268e;
+	float:left;
+	width:130px;
+	height:42px;
+	text-align:center;
+	
+	line-height:42px;
+	border-radius:5px;
+	color:#fff
+}
+.homeitem .tools .startnow :hover{ background-color:#005797}
+.homeitem .tools .addcompare {
+	float:left;
+	width:42px;
+	height:42px;
+	text-align:center;
+	border:#ececec 1px solid;
+	text-align:center;
+	margin:0 0px 0 5px;
+	line-height:42px;
+	border-radius:5px;
+}
+.home_guara_wrapper {
+	float:left;
+	width:100%;
+	background-image:url(../images/blue_section_bg.jpg);
+	background-repeat:repeat;
+	background-position:center top;
+	color:#fff; padding:10px 0
+}
+.home_guara_wrapper h2.homeheading span {
+	text-align:center;
+	background-image:url(../images/heading_devider.png);
+	background-repeat:no-repeat;
+	background-position:center bottom;
+	padding:0 0 15px 0;
+}
+.home_guara_wrapper h2.homeheading {
+	text-align:center; font-size:30px 
+}
+.home_guara_inner {
+    margin: 0 auto;
+    width: 1100px;
+}
+.home_guara_inner h2{ text-align:center; text-transform:uppercase; font-weight:lighter; margin: 20px 0 ; font-size:22px }
+.home_guara_inner h3{ text-align:center; text-transform:uppercase; font-weight:lighter; margin: 20px 0 5px 0 ; font-size:18px }
+.home_guara_inner p{ text-align:justify; font-weight:lighter; margin: 0px 0 ; font-size:12px }
+.heading_wrapper {
+	background-image:url(../images/heading_devider.png);
+	background-repeat:no-repeat;
+	background-position:center bottom;
+	padding:0 0 18px 0
+}
+.homecontentinner {
+    background-image: url("../images/guarantee.png");
+    background-position: center top;
+    background-repeat: no-repeat;
+    float: left;
+    margin: 0 2%;
+    padding-top: 75px;
+    width: 21%;
+}.home_guara_inner, .home_guara_inner h2, .home_guara_inner h3, .home_guara_inner p{ color:#fff; font-weight:lighter}
+.addwishlist img{margin:10px}
+.addwishlist img{margin:10px}
+.addcompare img{margin:10px} 
