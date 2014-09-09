@@ -1,6 +1,7 @@
 cgi-bin/
 store/
 var/
+media
 media/customer/
 media/dhl/
 media/downloadable/
