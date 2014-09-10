@@ -21,10 +21,17 @@ frontendPopup(function($) {
 
             $(".homeitem .startnow").on("click", function() {
                 if (!$(this).hasClass("loaded")) {
+                    var productId = $(this).attr('data-product-id');
+                    if (typeof productId !== typeof undefined && productId !== false) {
+                        var currentProductId = productId;
+                    }
+                    else {
+                        alert('Please contact site owner or administrator.');
+                        return;
+                    }
                     var designPageUrl = BASE_URL + "pdp/view/getDesignPage";
                     var cartItemId = $("#cart_item_id").val() || '',
                             shareId = $("#pdp_design_share").val() || '',
-                            currentProductId = 890,
                             pdpData = {product_id: currentProductId, item_id: cartItemId, share_id: shareId};
                     LoadDesign.sendRequest(designPageUrl, pdpData, LoadDesign.prepareDesignPage);
                 } else {

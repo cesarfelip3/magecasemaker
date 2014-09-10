@@ -52,7 +52,7 @@ $dt_ts = array();
                     <?php if (isset($params['area']) && $params['area'] == "backend") : ?>
                         <div id="save_sample_design"><a  title="Save Sample"><i class="pi pi-floppy-o"></i><?php echo $this->__('Save Sample'); ?></a></div>
                     <?php else : ?>
-<!--                        <div id="save_design"><a  title="Login to save your design"><i class="pi pi-floppy-o"></i><?php echo $this->__('Save'); ?></a></div>-->
+    <!--                        <div id="save_design"><a  title="Login to save your design"><i class="pi pi-floppy-o"></i><?php echo $this->__('Save'); ?></a></div>-->
                         <div id="view-3d" style="float:right;">
                             <a  title="3D View">
                                 <i class="pi pi-floppy-o"></i>
@@ -305,7 +305,7 @@ $dt_ts = array();
                     <ul id="select_font">
                         <li class="active" rel="<?php echo $this->__("Arial") ?>"><?php echo $this->__("Font") ?></li>
                         <?php foreach ($fonts as $font) : ?>
-                            <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName()                                                                                                 ?><?php echo $this->__('Font'); ?></li>
+                            <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName()                                                                                                   ?><?php echo $this->__('Font'); ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
@@ -442,64 +442,72 @@ $dt_ts = array();
 //        $customerType = 0;
 //        if ($email == 'daovanchung.ictu@gmail.com') {
 //            $customerType = 1;
-//            ?>
-<!--            <div class='save-design'>
-                //<?php $customerId = Mage::getSingleton('customer/session')->getCustomer()->getId();
-//                ?>
-                <input type="hidden" id="customer_group_id" value="//<?php echo $customerType; ?>" />
-                <input type="hidden" name="customer_id" id="customer_id" value="//<?php echo $customerId; ?>" />-->
-            </div>
-            //<?php
+//            
+    ?>
+    <!--            <div class='save-design'>
+                    //<?php
+    $customerId = Mage::getSingleton('customer/session')->getCustomer()->getId();
+//                
+    ?>
+                    <input type="hidden" id="customer_group_id" value="//<?php echo $customerType; ?>" />
+                    <input type="hidden" name="customer_id" id="customer_id" value="//<?php echo $customerId; ?>" />-->
+</div>
+//<?php
 //        }
 //    }
-    ?>
-    <?php //endif;  ?>
-    <div class="product-info">
-        <div class="sort_des">
-            <?php
-            $gi = 0;
-            foreach ($group_items as $group_item) {
-                ?>
-                <div class="group-des gdes_<?php
-                echo $group_item->getId();
-                if (isset($dt_ts[0]) && $dt_ts[0] == $group_item->getId()) {
-                    
-                }
-                elseif (++$gi != 1) {
-                    echo ' no-display';
-                }
-                ?>">
-                         <?php
-                         $_cmsHelper = Mage::helper('cms');
-                         $_process = $_cmsHelper->getBlockTemplateProcessor();
-                         //echo $_process->filter($group_item['description']);
-                         //echo $group_item->getDescription();
-                         //break;
-                         ?>
-                </div>
-            <?php } ?>
-        </div>   
-        <div class="full_des">
-            <?php //echo $_helper->productAttribute($_product, nl2br($product->getDescription()), 'description')  ?>
-            <?php //echo $fullDes   ?>
-        </div> 
-    </div>
-    <div id="img_sessiton" class="no-display">
+?>
+<?php //endif;    ?>
+<div class="product-info">
+    <div class="sort_des">
         <?php
+        $gi = 0;
+        foreach ($group_items as $group_item) {
+            ?>
+            <div class="group-des gdes_<?php
+            echo $group_item->getId();
+            if (isset($dt_ts[0]) && $dt_ts[0] == $group_item->getId()) {
+                
+            }
+            elseif (++$gi != 1) {
+                echo ' no-display';
+            }
+            ?>">
+                     <?php
+                     $_cmsHelper = Mage::helper('cms');
+                     $_process = $_cmsHelper->getBlockTemplateProcessor();
+                     //echo $_process->filter($group_item['description']);
+                     //echo $group_item->getDescription();
+                     //break;
+                     ?>
+            </div>
+<?php } ?>
+    </div>   
+    <div class="full_des">
+        <?php //echo $_helper->productAttribute($_product, nl2br($product->getDescription()), 'description')   ?>
+<?php //echo $fullDes     ?>
+    </div> 
+</div>
+<div id="img_sessiton" class="no-display">
+    <?php
 //for($i=1;$i<count($data);$i++){ 
 //$datass= explode(';',$data[$i]);
-        ?> 
-        <?php //}    ?>
-    </div>
-    <div class="no-display">
-        <input type="hidden" value="<?php echo isset($_REQUEST['fb']) ? $_REQUEST['fb'] : '' ?>" id="fb_get_id" />
-        <input type="hidden" value="<?php echo $product->getProductUrl(); ?>" id="current_url" />
-        <input type="hidden" value="<?php echo isset($wid) ? $wid : ''; ?>" id="wid" />
-        <input type="hidden" value="<?php echo isset($cid) ? $cid : '' ?>" id="cid" />
-        <input type="hidden" value="<?php echo isset($_REQUEST['eid']) ? $_REQUEST['eid'] : '' ?>" id="edit_id" />
-        <input type="hidden" id="product_id" name="product_id" value="<?php echo $productId; ?>" />
-        <input type="hidden" id="product-overlay" name="product_overlay" value="<?php echo $product->getSku(); ?>">
-    </div>
+    ?> 
+<?php //}     ?>
+</div>
+<?php
+$itemId = isset($params['item_id']) ? $params['item_id']: ''
+?>
+
+
+<div class="no-display">
+    <input type="hidden" value="<?php echo isset($_REQUEST['fb']) ? $_REQUEST['fb'] : '' ?>" id="fb_get_id" />
+    <input type="hidden" value="<?php echo $product->getProductUrl(); ?>" id="current_url" />
+    <input type="hidden" value="<?php echo isset($wid) ? $wid : ''; ?>" id="wid" />
+    <input type="hidden" value="<?php echo isset($cid) ? $cid : '' ?>" id="cid" />
+    <input type="hidden" value="<?php echo $itemId ?>" id="edit_id" />
+    <input type="hidden" id="product_id" name="product_id" value="<?php echo $productId; ?>" />
+    <input type="hidden" id="product-overlay" name="product_overlay" value="<?php echo $product->getSku(); ?>">
+</div>
 </div>
 <div class="clear"></div>
 <script type="text/javascript">

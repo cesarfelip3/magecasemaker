@@ -1470,7 +1470,8 @@
                                 img: canvas_export.toDataURL({format: 'jpeg', quality: 1}),
                                 overlay: canvas.toDataURL({format: 'jpeg', quality: 1}),
                                 overlayBg: overlayBg,
-                                productId: $('#product_id').val()
+                                productId: $('#product_id').val(),
+                                editId : $('#edit_id').val() 
                             },
                             dataType: 'json',
                             beforeSend: function() {
@@ -1478,7 +1479,7 @@
                             },
                             success: function(response) {
                                 $(".pdp_loading").hide();
-                                console.log(response);
+                                //console.log(response);
                                 if (response.status !== 'success') {
                                     alert('Error!');
                                     return;
