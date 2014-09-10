@@ -78,9 +78,15 @@ frontendPopup(function($) {
             $("#pdp_design_popup").appendTo($('#pdp_popup')).html(data);
             var w_design = $('.wrap_inlay_center').width(),
                     w_pdp = parseInt(w_design) + 330;
-            //$('#pdp_design_popup').width(w_pdp);
-            //$("#pdp_design_button").colorbox({inline:true,width:"90%",height:'850px',escKey: false,overlayClose: false});
-            //$('#pdp_design_button').click();
+
+
+            var $body = $(this.ie6 ? document.body : document); // using document in ie6 causes a crash
+
+            var popupTop = (parseInt($body.height() / 2) - parseInt($('#pdp_popup').height() / 2));
+            $('#pdp_popup').css('top', popupTop + 'px');
+//            $('#pdp_design_popup').width(w_pdp);
+//            $("#pdp_design_button", ".startnow").colorbox({inline: true, width: "90%", height: '850px', escKey: false, overlayClose: false});
+//            $('#pdp_design_button', ".startnow").click();
             //LoadDesign.center_canvas();
 
         },
