@@ -279,6 +279,12 @@
             <action method="addJs" ifconfig="pdp/setting/enable" >
                 <script>pdp/js/jquery-1.10.2.min.js</script>
             </action>
+<!--            <action method="addJs">
+                <script>require.js</script>
+            </action>
+            <action method="addJs">
+                <script>app-config.js</script>
+            </action>-->
             <action method="addItem" ifconfig="pdp/setting/enable" >
                 <type>js_css</type>
                 <name>pdp/css/styles.css</name>

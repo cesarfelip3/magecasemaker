@@ -95,10 +95,12 @@ class MST_Pdp_ViewController extends Mage_Core_Controller_Front_Action
             $image = $this->getRequest()->getPost('img');
             $overlay = $this->getRequest()->getPost('overlay');
             $overlayBg = $this->getRequest()->getPost('overlayBg');
-            
+
             $response['image'] = Mage::helper('pdp/image')->saveCanvasToImage($image, $overlay, $overlayBg);
 
             Mage::getModel('core/session')->setData('customImage', $response['image']);
+
+            $this->_addProductToCart($this->getRequest()->getParam('productId'));
 
             $response['status'] = 'success';
         }
@@ -107,6 +109,25 @@ class MST_Pdp_ViewController extends Mage_Core_Controller_Front_Action
             $response['status'] = 'failure';
         }
         $this->getResponse()->setBody(json_encode($response));
+    }
+    
+    /**
+     * Add product to cart
+     * 
+     * @param type $productId
+     * @param type $qty
+     */
+    protected function _addProductToCart($productId, $qty = 1)
+    {
+        Mage::log($productId . ' : ' . $qty, null, 'debugging.log');
+        if ($productId) {
+            $_product = Mage::getModel('catalog/product')->load($productId);
+            $cart = Mage::getModel('checkout/cart');
+            $cart->init();
+            $cart->addProduct($_product, array('qty' => $qty));
+            $cart->save();
+            Mage::getSingleton('checkout/session')->setCartWasUpdated(true);
+        }
     }
 
 }

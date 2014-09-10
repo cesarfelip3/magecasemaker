@@ -1470,6 +1470,7 @@
                                 img: canvas_export.toDataURL({format: 'jpeg', quality: 1}),
                                 overlay: canvas.toDataURL({format: 'jpeg', quality: 1}),
                                 overlayBg: overlayBg,
+                                productId: $('#product_id').val()
                             },
                             dataType: 'json',
                             beforeSend: function() {
@@ -1477,6 +1478,7 @@
                             },
                             success: function(response) {
                                 $(".pdp_loading").hide();
+                                console.log(response);
                                 if (response.status !== 'success') {
                                     alert('Error!');
                                     return;
@@ -1488,6 +1490,7 @@
                                     jQuery('.product-img-box').append('<p><a href="' + m + '3d/view.php/?i=' + response.image + '" target="_blank"><b>View 3D</b></a></p>');
                                     jQuery('.product-image').show();
                                     jQuery('.product-image img').attr('src', canvas_export.toDataURL('png'));
+                                    window.location.href = $("#url_site").val() + 'checkout/cart';
                                 }
                             }
                         });

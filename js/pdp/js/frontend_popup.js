@@ -21,7 +21,7 @@ frontendPopup(function($) {
 
             $(".homeitem .startnow").on("click", function() {
                 if (!$(this).hasClass("loaded")) {
-                    
+                    var designPageUrl = BASE_URL + "pdp/view/getDesignPage";
                     var cartItemId = $("#cart_item_id").val() || '',
                             shareId = $("#pdp_design_share").val() || '',
                             currentProductId = 890,
@@ -95,3 +95,19 @@ frontendPopup(function($) {
         }
     }
 });
+
+//require(['jquery', 'jquery-popups'], function($) {
+//    $(".homeitem .startnow").on("click", function() {
+//        if (!$(this).hasClass("loaded")) {
+//            var designPageUrl = BASE_URL + "pdp/view/getDesignPage";
+//            var cartItemId = $("#cart_item_id").val() || '',
+//                    shareId = $("#pdp_design_share").val() || '',
+//                    currentProductId = 890,
+//                    pdpData = {product_id: currentProductId, item_id: cartItemId, share_id: shareId};
+//            LoadDesign.sendRequest(designPageUrl, pdpData, LoadDesign.prepareDesignPage);
+//        } else {
+//            //show popup here
+//            //$('#pdp_design_button').click();
+//        }
+//    });
+//});
