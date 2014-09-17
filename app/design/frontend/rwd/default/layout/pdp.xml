@@ -34,7 +34,7 @@
             <action method="addJs" ifconfig="pdp/setting/enable" >
                 <script>pdp/js/stickytooltip.js</script>
             </action>
-            <!--
+<!--            
             <action method="addJs" ifconfig="pdp/setting/enable" ><script>pdp/js/facebook_img.js</script></action>
             -->
             <!--

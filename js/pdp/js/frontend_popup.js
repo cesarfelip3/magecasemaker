@@ -21,7 +21,7 @@ frontendPopup(function($) {
 
             $(".homeitem .startnow").on("click", function() {
                 if (!$(this).hasClass("loaded")) {
-                    var productId = $(this).attr('data-product-id');
+                    var productId = $(this).attr('data-product-id') || 890;
                     if (typeof productId !== typeof undefined && productId !== false) {
                         var currentProductId = productId;
                     }
