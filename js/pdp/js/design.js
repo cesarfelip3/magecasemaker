@@ -1459,7 +1459,7 @@
                         //console.log(canvas.toDataURL({format: 'jpeg', quality: 1}));
                         //console.log(canvas_export.toDataURL({format: 'png', quality: 1}));
                         //zoomout(1850);
-                        zoomout(462);
+                        zoomout(2340);
 
                         var overlayBg = $('#product-overlay').val();
 
@@ -1467,8 +1467,8 @@
                             type: 'POST',
                             url: $("#url_site").val() + "/pdp/view/saveCustomImage",
                             data: {
-                                img: canvas_export.toDataURL({format: 'jpeg', quality: 1, multiplier:3}),
-                                overlay: canvas.toDataURL({format: 'jpeg', quality: 1, multiplier:3}),
+                                img: canvas_export.toDataURL({format: 'jpeg', quality: 1}),
+                                overlay: canvas.toDataURL({format: 'jpeg', quality: 1}),
                                 overlayBg: overlayBg,
                                 productId: $('#product_id').val(),
                                 editId : $('#edit_id').val() 
