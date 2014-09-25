@@ -75,8 +75,8 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
         else {
 //            $width = 1850;
 //            $height = 1850;
-            $width = 462;
-            $height = 462;
+            $width = 2340;
+            $height = 2340;
         }
 
         $png = imagecreatefrompng($overlay);
