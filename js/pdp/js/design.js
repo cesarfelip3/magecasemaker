@@ -1471,7 +1471,8 @@
                                 overlay: canvas.toDataURL({format: 'jpeg', quality: 1}),
                                 overlayBg: overlayBg,
                                 productId: $('#product_id').val(),
-                                editId : $('#edit_id').val() 
+                                editId : $('#edit_id').val(),
+                                type : "order"
                             },
                             dataType: 'json',
                             beforeSend: function() {
@@ -2079,6 +2080,7 @@
                         img: canvas_export.toDataURL({format: 'jpeg', quality: 1}),
                         overlay: canvas.toDataURL({format: 'jpeg', quality: 1}),
                         overlayBg: overlayBg,
+                        type : "3dview"
                     },
                     dataType: 'json',
                     beforeSend: function() {
