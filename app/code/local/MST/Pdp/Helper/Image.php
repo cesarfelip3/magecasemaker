@@ -74,7 +74,7 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
         imagedestroy($img);
     }
 
-    protected function generatePrintVersion($string, $filename)
+    protected function _saveCanvasImage300DPI2($string, $filename)
     {
         $data = base64_decode(str_replace(' ', '+', substr($string, 22)));
 
