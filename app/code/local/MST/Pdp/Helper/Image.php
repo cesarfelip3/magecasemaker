@@ -154,7 +154,7 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
 
     protected function _overlayImage($jpeg, $filename)
     {
-        $overlayDirectory = Mage::getBaseDir('media') . DS . 'pdp/images/custom';
+        $overlayDirectory = Mage::getBaseDir('media') . DS . 'pdp/images/custom/3dview';
         
         $overlay = $overlayDirectory . DS . $this->_overlayBg . '.png';
 
@@ -166,17 +166,8 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
         //Mage::log($overlay, null, 'debugging.log');
         $final = self::$_tmpDir . '300dpi_' . $filename . '.jpeg';
 
-        $basename = pathinfo($jpeg, PATHINFO_FILENAME);
-        if (preg_match("/ipad/i", $basename)) {
-            $width = 3700;
-            $height = 3700;
-        }
-        else {
-//            $width = 1850;
-//            $height = 1850;
-            $width = 2340;
-            $height = 2340;
-        }
+        $width = 462;
+        $height = 462;
 
         $png = imagecreatefrompng($overlay);
         $jpeg = imagecreatefromjpeg($jpeg);
