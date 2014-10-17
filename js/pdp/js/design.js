@@ -2088,6 +2088,7 @@
                     },
                     success: function(response) {
                         //console.log(response);
+                        canvas.calcOffset();
                         if (response.status !== 'success') {
                             alert('Error!');
                             return;
