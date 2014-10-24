@@ -30,12 +30,20 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
      * @param type $string
      */
 
+    // put new overlay image spec here
+    // iphone5 is file basename of overlay image
+
     public $overlay_spec = array (
         "iphone5" => array (
+
+            // the position of content area in overlay image
+
             "left" => 589,
             "top" => 148,
             "right" => 1717,
             "bottom" => 2190,
+
+            // the required width and height
             "width" => 945,
             "height" => 1713
         ),
@@ -151,7 +159,7 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
 
         $image_cropped = imagecreatetruecolor($width, $height);
         //$image = imagecreatefromjpeg($filename);
-        imagecopyresampled($image_cropped, $out, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
+        imagecopyresampled($image_cropped, $out, 0, 0, $left, $top, $width, $height, $width_orig, $height_orig);
 
         //
 
