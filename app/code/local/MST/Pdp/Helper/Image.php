@@ -30,6 +30,25 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
      * @param type $string
      */
 
+    public $overlay_spec = array (
+        "iphone5" => array (
+            "left" => 589,
+            "top" => 148,
+            "right" => 1717,
+            "bottom" => 2190,
+            "width" => 945,
+            "height" => 1713
+        ),
+        "iphone_5" => array (
+            "left" => 589,
+            "top" => 148,
+            "right" => 1717,
+            "bottom" => 2190,
+            "width" => 945,
+            "height" => 1713
+        ),
+    );
+
     public function saveCanvasToImage2($string, $overlayString, $overlayBg)
     {
         $extension = 'jpeg';
@@ -116,7 +135,27 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
         imagecopyresampled($out, $jpeg, 0, 0, 0, 0, $width, $height, $width, $height);
         imagecopyresampled($out, $png, 0, 0, 0, 0, $width, $height, $width, $height);
 
-        imagejpeg($out, $final, 100);
+        // lets resize it
+
+        $spec = $this->overlay_spec[$this->_overlayBg];
+        $width = $spec['width'];
+        $height = $spec['height'];
+
+        $left = $spec['left'];
+        $top = $spec['top'];
+        $right = $spec['right'];
+        $bottom = $spec['bottom'];
+
+        $width_orig = $right - $left;
+        $height_orig = $bottom - $top;
+
+        $image_cropped = imagecreatetruecolor($width, $height);
+        //$image = imagecreatefromjpeg($filename);
+        imagecopyresampled($image_cropped, $out, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
+
+        //
+
+        imagejpeg($image_cropped, $final, 100);
 
         $image = file_get_contents($final);
         $image = substr_replace($image, pack("cnn", 1, 300, 300), 13, 5);
