@@ -61,7 +61,7 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
             "right" => 1752,
             "bottom" => 2105,
             "width" => 1004,
-            "height" => 1631
+            "height" => 1731
         )
     );
 
