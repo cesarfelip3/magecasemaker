@@ -295,7 +295,7 @@ class MST_Pdp_Helper_Data extends Mage_Core_Helper_Abstract
 //            $height = $side->getInlayH();
             $top = $side->getInlayT();
             $left = $side->getInlayL();
-            $inlayString = "$width,$height,$top,$left";
+            $inlayString = "780, 780, $top,$left";
             $list .= "<li class='pdp_side_item_content'  inlay='" . $inlayString . "' tab='side_" . $side->getId() .
                     "' side_img='" . $side->getFilename() . "' label='" . $side->getLabel() . "' title='" . $side->getLabel() . "'>";
             $list .= "<img id='thumbnail_" . $side->getId() . "' width='120' src='" . $baseImageUrl . $side->getFilename() . "' />";
