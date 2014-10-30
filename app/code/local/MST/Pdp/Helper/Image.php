@@ -55,6 +55,14 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
             "width" => 945,
             "height" => 1713
         ),
+        "iphone4" => array (
+            "left" => 593,
+            "top" => 223,
+            "right" => 1752,
+            "bottom" => 2105,
+            "width" => 1004,
+            "height" => 1631
+        )
     );
 
     public function saveCanvasToImage2($string, $overlayString, $overlayBg)
