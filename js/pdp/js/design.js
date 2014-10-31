@@ -605,6 +605,17 @@
                 });
                 $('.pdp_add_to_cart').on('click', function() {
                     // save image
+                    zoomreset(462);
+                    var overlayImg = $('#pdp_side_items li:eq(1)').find('img').attr('src');
+                    //var overlayImg = 'media/test/iphone4_fg.png';//test
+                    canvas.setOverlayImage(overlayImg, canvas.renderAll.bind(canvas), {
+                        'originX': 'left',
+                        'originY': 'top',
+                        'top': 0,
+                        'left': 0
+                    });
+                    $('.flash-wrapper').hide();
+                    $('.canvas-container').show();
                     canvasEvents.saveCustomImage();
                 });
             },
@@ -2112,7 +2123,7 @@
         });
 
         jQuery('#edit-more').on('click', function() {
-            //zoomreset(462);
+            zoomreset(462);
             var overlayImg = $('#pdp_side_items li:eq(1)').find('img').attr('src');
             //var overlayImg = 'media/test/iphone4_fg.png';//test
             canvas.setOverlayImage(overlayImg, canvas.renderAll.bind(canvas), {
