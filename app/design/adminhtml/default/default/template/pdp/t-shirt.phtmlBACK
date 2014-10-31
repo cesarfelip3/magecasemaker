@@ -559,7 +559,7 @@
 <script type='text/javascript' src='<?php echo $this->getSkinUrl('pdp/js/fabric.js') ?>'></script>
 <script type="text/javascript">
 window.fbAsyncInit = function() {
-  FB.init({ appId: '257358397755418', 
+  FB.init({ appId: '383795131773275',
         status: true, 
         cookie: true,
         xfbml: true,
