@@ -63,7 +63,7 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
             "width" => 1004,
             "height" => 1631
         ),
-        "galaxy3" => array (
+        "samsunggalaxy3" => array (
             "left" => 593,
             "top" => 146,
             "right" => 1715,
@@ -71,7 +71,7 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
             "width" => 1063,
             "height" => 1712
         ),
-        "galaxy4" => array (
+        "samsunggalaxy4" => array (
             "left" => 593,
             "top" => 146,
             "right" => 1717,
