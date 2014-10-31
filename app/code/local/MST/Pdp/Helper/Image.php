@@ -56,10 +56,26 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
             "height" => 1713
         ),
         "iphone4" => array (
-            "left" => 593,
-            "top" => 223,
-            "right" => 1752,
+            "left" => 591,
+            "top" => 221,
+            "right" => 1750,
             "bottom" => 2105,
+            "width" => 1004,
+            "height" => 1631
+        ),
+        "galaxy3" => array (
+            "left" => 593,
+            "top" => 146,
+            "right" => 1715,
+            "bottom" => 1958,
+            "width" => 1063,
+            "height" => 1712
+        ),
+        "galaxy4" => array (
+            "left" => 593,
+            "top" => 146,
+            "right" => 1717,
+            "bottom" => 1933,
             "width" => 1004,
             "height" => 1631
         )
