@@ -608,15 +608,19 @@
                     zoomreset(462);
                     var overlayImg = $('#pdp_side_items li:eq(1)').find('img').attr('src');
                     //var overlayImg = 'media/test/iphone4_fg.png';//test
-                    canvas.setOverlayImage(overlayImg, canvas.renderAll.bind(canvas), {
+                    canvas.setOverlayImage(overlayImg, function () {
+                        canvas.renderAll.bind(canvas);
+
+                        $('.flash-wrapper').hide();
+                        $('.canvas-container').show();
+                        canvasEvents.saveCustomImage();
+
+                    }, {
                         'originX': 'left',
                         'originY': 'top',
                         'top': 0,
                         'left': 0
                     });
-                    $('.flash-wrapper').hide();
-                    $('.canvas-container').show();
-                    canvasEvents.saveCustomImage();
                 });
             },
             _addItemToCanvas: function() {
