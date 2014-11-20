@@ -2034,7 +2034,8 @@
 
         jQuery('#close-editor a').on('click', function () {
 
-            $(".wrapper_pdp").remove();
+            $("div.wrapper_pdp").remove();
+            $("div.overlay").remove();
         });
 
         jQuery('#view-3d a').on('click', function() {
