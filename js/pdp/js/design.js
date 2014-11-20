@@ -2030,6 +2030,13 @@
             canvas.renderAll()
         }
 
+        // close
+
+        jQuery('#close-editor a').on('click', function () {
+
+            $(".wrapper_pdp").remove();
+        });
+
         jQuery('#view-3d a').on('click', function() {
 
             $('.canvas-container').hide();
