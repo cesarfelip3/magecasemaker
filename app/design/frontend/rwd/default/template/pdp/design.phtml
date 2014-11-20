@@ -48,7 +48,7 @@ $dt_ts = array();
                     <div class="add_artwork">
                         <a data-tooltip="pdptt_add_images"><i class="pi pi-picture-o"></i><?php echo $this->__("Images"); ?><i class="pi pi-angle-down"></i></a>
                     </div>
-                    <div id="pdp_question"><a data-tooltip="pdptt_questions" title="Frequently Asked Questions" ><i class="pi pi-question-circle"></i></a></div>
+                    <!-- div id="pdp_question"><a data-tooltip="pdptt_questions" title="Frequently Asked Questions" ><i class="pi pi-question-circle"></i></a></div -->
                     <?php if (isset($params['area']) && $params['area'] == "backend") : ?>
                         <div id="save_sample_design"><a  title="Save Sample"><i class="pi pi-floppy-o"></i><?php echo $this->__('Save Sample'); ?></a></div>
                     <?php else : ?>
@@ -68,12 +68,12 @@ $dt_ts = array();
                                 <img src="http://www.udesingify.com/js/pdp/css/images/360view_100.png" style="width:36px;height:36px" />
                             </a>
                         </div>
-                        <!-- div id="edit-more">
+                        <div id="edit-more">
                             <a  title="Edit">
                                 <i class="pi pi-floppy-o"></i>
                                 <?php echo $this->__('Edit'); ?>
                             </a>
-                        </div -->
+                        </div>
                     <?php endif; ?>
                 </div>
             </div>
