@@ -10247,7 +10247,10 @@ width: 100%;}
 .nav-primary 	{}
 
 #header-nav { float:right; margin-top:40px;}
+.firstgalexy{ margin-left:213px !important}
+
 }
+
 
 /* home content */
 body {
@@ -10374,7 +10377,7 @@ body {
     float: left;
     margin: 0 2%;
     padding-top: 75px;
-    width: 21%;
+    width: 29%;
 }.home_guara_inner, .home_guara_inner h2, .home_guara_inner h3, .home_guara_inner p{ color:#fff; font-weight:lighter}
 .addwishlist img{margin:10px}
 .addwishlist img{margin:10px}
