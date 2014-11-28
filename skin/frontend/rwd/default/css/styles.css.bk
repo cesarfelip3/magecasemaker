@@ -3555,7 +3555,7 @@ a.skip-link {
     width: 200px !important;
 }.skip-cart {
     position: absolute !important;;
-    top: 15px !important;
+    top: 32px !important;
 	width:143px !important
 }
 #header-cart.skip-active{ top:74px !important}
@@ -4130,7 +4130,7 @@ background-position:right center*/
 }
 .footer .links {
   float: left;
-  width: 22%;
+  width: 17%;
   padding: 0 0px 0 0;
   margin-bottom: 20px;
 }
@@ -10296,7 +10296,7 @@ body {
 }
 .homeitem .tools {
 	margin:0 auto;
-	width:130px;
+	width:250px;
 	text-align:center;
 }
 .homeitem .thu img {
@@ -10325,11 +10325,9 @@ body {
 	
 	line-height:42px;
 	border-radius:5px;
-	color:#fff;
-  cursor:pointer;
+	color:#fff
 }
-.homeitem .tools .startnow:hover{ background-color:#005797}
-
+.homeitem .tools .startnow :hover{ background-color:#005797}
 .homeitem .tools .addcompare {
 	float:left;
 	width:42px;
@@ -10384,5 +10382,3 @@ body {
 .addwishlist img{margin:10px}
 .addwishlist img{margin:10px}
 .addcompare img{margin:10px} 
-
-#rotate-180 {display: none;}

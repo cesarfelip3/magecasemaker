@@ -26,7 +26,68 @@
 ?>
 <div class="footer-container">
     <div class="footer">
+    	<div class="footer-inner" style="width:1100px; margin:0 auto;">
         <?php echo $this->getChildHtml() ?>
         <address class="copyright"><?php echo $this->getCopyright() ?></address>
+        </div>
     </div>
 </div>
+
+<script type="text/javascript">
+jQuery(document).ready(function($){
+	//console.log($);
+	if($('li.cycle-slide a').length > 0) {
+		$('li.cycle-slide a').click(function (e) {
+			e.preventDefault();
+			//var element = $('#'+$(this).data('href'));
+			//console.log(element);
+		    $('html,body').animate({
+		        scrollTop: $("#home-phone-container").offset().top
+		    }, 800);
+		});
+	}
+
+	if($('li.nav-1 a').length > 0) {
+
+		$('li.nav-1 a, li.nav-3 a').click(function (e) {
+			e.preventDefault();
+			//var element = $('#'+$(this).data('href'));
+			//console.log(element);
+		    $('html,body').animate({
+		        scrollTop: $("#home-phone-container").offset().top
+		    }, 800);
+		});
+	}
+	if($('li.nav-2 a').length > 0) {
+		$('li.nav-2 a').click(function (e) {
+			e.preventDefault();
+			//var element = $('#'+$(this).data('href'));
+			//console.log(element);
+		    $('html,body').animate({
+		        scrollTop: $("#home-phone-container .homepage_content:eq(1)").offset().top
+		    }, 800);
+		});
+	}
+
+	if($('li.nav-4 a').length > 0) {
+		$('li.nav-4 a').click(function (e) {
+			e.preventDefault();
+			//var element = $('#'+$(this).data('href'));
+			//console.log(element);
+		    $('html,body').animate({
+		        scrollTop: $(".home_guara_wrapper").offset().top
+		    }, 800);
+		});
+	}
+	if($('li.nav-5 a').length > 0) {
+		$('li.nav-5 a').click(function (e) {
+			e.preventDefault();
+			//var element = $('#'+$(this).data('href'));
+			//console.log(element);
+		    $('html,body').animate({
+		        scrollTop: $("#whyus").offset().top
+		    }, 800);
+		});
+	}
+});
+</script>

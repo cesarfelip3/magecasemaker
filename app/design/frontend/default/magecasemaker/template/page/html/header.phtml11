@@ -44,13 +44,13 @@
 
 
 <!-- Skip Links -->
-<!--<div id="header-search" class="skip-content">
+<div id="header-search" class="skip-content">
 <?php echo $this->getChildHtml('topSearch') ?>
-</div>-->
+</div>
 
 <div class="phoneemail">
-	<!--<span class="phone">001.234.567.88</span>-->
-    <span class="email">support@marvelcases.com</span>
+	<span class="phone">001.234.567.88</span>
+    <span class="email">info@123gocase.com</span>
 </div>
 <div class="skip-links">
 <a href="#header-nav" class="skip-link skip-nav">
