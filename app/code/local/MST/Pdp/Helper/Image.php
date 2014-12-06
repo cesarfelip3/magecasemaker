@@ -78,6 +78,14 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
             "bottom" => 1933,
             "width" => 1078,
             "height" => 1713
+        ),
+        "ipad" => array(
+            "left" => 0,
+            "top" => 0,
+            "right" => 2340,
+            "bottom" => 2340,
+            "width" => 2340,
+            "height" => 2340
         )
     );
 
