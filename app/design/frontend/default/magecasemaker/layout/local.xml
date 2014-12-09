@@ -1,10 +1,13 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
-    <customer_account>
+    <default>
         <reference name="customer_account_navigation">
             <action method="removeLinkByUrl">
                 <url>sales/billing_agreement</url>
             </action>
+            <action method="removeLinkByUrl">
+                <url>sales/recurring_profile</url>
+            </action>
         </reference>
-    </customer_account>
+    </default>
 </layout>   
