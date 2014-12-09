@@ -629,6 +629,10 @@
                             type_img = url.split('.'),
                             wimg = $(this).width(),
                             himg = $(this).height();
+
+                    if (wimg <= 250 || himg <= 250) {
+                        alert ("The size of image is small");
+                    }
                     //canvasEvents.clearSelected();
                     $('#design_control .tab_content').slideUp(200);
                     //$('#select_image').slideToggle(600);
