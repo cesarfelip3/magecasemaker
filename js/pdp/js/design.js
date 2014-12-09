@@ -631,7 +631,7 @@
                             himg = $(this).height();
 
                     if (wimg <= 250 || himg <= 250) {
-                        alert ("The size of image is small");
+                        alert ("The file you have uploaded is smaller than we recommend and may appear blurry or pixelated in print. For best results, upload a new image that is at least 950 × 950 pixels.");
                     }
                     //canvasEvents.clearSelected();
                     $('#design_control .tab_content').slideUp(200);
