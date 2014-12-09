@@ -17,6 +17,15 @@
             <action method="removeLink">
                 <name>reviews</name>
             </action>
+            <action method="removeLink">
+                <name>wishlist_link</name>
+            </action>
+            <action method="removeLink">
+                <name>newsletter</name>
+            </action>
+            <action method="removeLink">
+                <name>viewpdp</name>
+            </action>
         </reference>
     </customer_account>
 </layout>   
