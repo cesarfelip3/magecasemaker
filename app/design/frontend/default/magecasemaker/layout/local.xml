@@ -27,21 +27,7 @@
                     <path>sales/order/history/</path>
                     <label>My Orders</label>
                 </action>
-                <action method="addLink" translate="label" module="review">
-                    <name>reviews</name>
-                    <path>review/customer</path>
-                    <label>My Product Reviews</label>
-                </action>
-                <action method="addLink" translate="label" module="wishlist" ifconfig="wishlist/general/active">
-                    <name>wishlist</name>
-                    <path>wishlist/</path>
-                    <label>My Favorite</label>
-                </action>
-                <action method="addLink" translate="label" module="newsletter">
-                    <name>newsletter</name>
-                    <path>newsletter/manage/</path>
-                    <label>Newsletter Subscriptions</label>
-                </action>
+               
             </block>
             <remove name="catalog.compare.sidebar"/>
         </reference>
