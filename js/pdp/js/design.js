@@ -2145,6 +2145,7 @@
                 'top': 0,
                 'left': 0
             });
+            canvas.calcOffset();
             $('.flash-wrapper').hide();
             $('.canvas-container').show();
         });
