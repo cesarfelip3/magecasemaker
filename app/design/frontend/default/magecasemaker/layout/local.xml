@@ -1,10 +1,49 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
-    <customer_account>
-        <reference name="customer_account_navigation">
-            <action method="removeLink"><name>OAuth Customer Tokens</name</action>
-            <action method="removeLink"><name>billing_agreements</name></action>
-            <action method="removeLink"><name>recurring_profiles</name></action>
+    <customer_account translate="label">
+        <reference name="left">
+            <!--Unset the whole block then add back later-->
+            <action method="unsetChild">
+                <name>customer_account_navigation</name>
+            </action>
+            <block type="customer/account_navigation" name="customer_account_navigation" before="-" template="customer/account/navigation.phtml">
+                <action method="addLink" translate="label" module="customer">
+                    <name>account</name>
+                    <path>customer/account/</path>
+                    <label>Account Dashboard</label>
+                </action>
+                <action method="addLink" translate="label" module="customer">
+                    <name>account_edit</name>
+                    <path>customer/account/edit/</path>
+                    <label>Account Information</label>
+                </action>
+                <action method="addLink" translate="label" module="customer">
+                    <name>address_book</name>
+                    <path>customer/address/</path>
+                    <label>Address Book</label>
+                </action>
+                <action method="addLink" translate="label" module="sales">
+                    <name>orders</name>
+                    <path>sales/order/history/</path>
+                    <label>My Orders</label>
+                </action>
+                <action method="addLink" translate="label" module="review">
+                    <name>reviews</name>
+                    <path>review/customer</path>
+                    <label>My Product Reviews</label>
+                </action>
+                <action method="addLink" translate="label" module="wishlist" ifconfig="wishlist/general/active">
+                    <name>wishlist</name>
+                    <path>wishlist/</path>
+                    <label>My Favorite</label>
+                </action>
+                <action method="addLink" translate="label" module="newsletter">
+                    <name>newsletter</name>
+                    <path>newsletter/manage/</path>
+                    <label>Newsletter Subscriptions</label>
+                </action>
+            </block>
+            <remove name="catalog.compare.sidebar"/>
         </reference>
- </customer_account>
+    </customer_account>
 </layout>   
