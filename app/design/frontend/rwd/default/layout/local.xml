@@ -18,7 +18,7 @@
                 <name>reviews</name>
             </action>
             <action method="removeLink">
-                <name>wishlist_link</name>
+                <name>wishlist</name>
             </action>
             <action method="removeLink">
                 <name>newsletter</name>
