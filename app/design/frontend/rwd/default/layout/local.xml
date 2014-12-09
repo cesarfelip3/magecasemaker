@@ -11,6 +11,12 @@
             <action method="removeLink">
                 <name>recurring_profiles</name>
             </action>
+            <action method="removeLink">
+                <name>downloadable_products</name>
+            </action>
+            <action method="removeLink">
+                <name>reviews</name>
+            </action>
         </reference>
     </customer_account>
 </layout>   
