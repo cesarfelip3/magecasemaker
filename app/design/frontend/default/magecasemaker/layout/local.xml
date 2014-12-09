@@ -1,35 +1,16 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
-    <customer_account translate="label">
-        <reference name="left">
-            <!--Unset the whole block then add back later-->
-            <action method="unsetChild">
-                <name>customer_account_navigation</name>
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <action method="removeLink">
+                <name>OAuth Customer Tokens</name>
             </action>
-            <block type="customer/account_navigation" name="customer_account_navigation" before="-" template="customer/account/navigation.phtml">
-                <action method="addLink" translate="label" module="customer">
-                    <name>account</name>
-                    <path>customer/account/</path>
-                    <label>Account Dashboard</label>
-                </action>
-                <action method="addLink" translate="label" module="customer">
-                    <name>account_edit</name>
-                    <path>customer/account/edit/</path>
-                    <label>Account Information</label>
-                </action>
-                <action method="addLink" translate="label" module="customer">
-                    <name>address_book</name>
-                    <path>customer/address/</path>
-                    <label>Address Book</label>
-                </action>
-                <action method="addLink" translate="label" module="sales">
-                    <name>orders</name>
-                    <path>sales/order/history/</path>
-                    <label>My Orders</label>
-                </action>
-               
-            </block>
-            <remove name="catalog.compare.sidebar"/>
+            <action method="removeLink">
+                <name>billing_agreements</name>
+            </action>
+            <action method="removeLink">
+                <name>recurring_profiles</name>
+            </action>
         </reference>
     </customer_account>
 </layout>   
