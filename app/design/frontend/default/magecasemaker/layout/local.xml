@@ -1,4 +1,10 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
-    <action method="removeLinkByUrl"><url>sales/billing_agreement</url></action>
+    <customer_account>
+        <reference name="customer_account_navigation">
+            <action method="removeLinkByUrl">
+                <url>sales/billing_agreement</url>
+            </action>
+        </reference>
+    </customer_account>
 </layout>   
