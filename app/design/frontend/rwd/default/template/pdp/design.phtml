@@ -58,14 +58,14 @@ $dt_ts = array();
                                 <!-- i class="pi"></i>
                                 <?php echo $this->__('Close'); ?> !-->
 
-                                <img src="<?php echo $this->getUrl()?>/js/pdp/css/images/Actions-file-close-icon.png" style="width:36px;height:36px" />
+                                <img src="<?php echo $this->getUrl() ?>/js/pdp/css/images/Actions-file-close-icon.png" style="width:36px;height:36px" />
                             </a>
                         </div>
                         <div id="view-3d" style="float:right;">
                             <a  title="3D View" style="display:block;padding-top:5px;">
                                 <!--i class="pi pi-mobile pi-3x"></i-->
                                 <!-- <?php echo $this->__('3D View'); ?> -->
-                                <img src="<?php echo $this->getUrl()?>/js/pdp/css/images/360view_100.png" style="width:36px;height:36px" />
+                                <img src="<?php echo $this->getUrl() ?>/js/pdp/css/images/360view_100.png" style="width:36px;height:36px" />
                             </a>
                         </div>
                         <div id="edit-more">
@@ -314,7 +314,7 @@ $dt_ts = array();
                     <ul id="select_font">
                         <li class="active" rel="<?php echo $this->__("Arial") ?>"><?php echo $this->__("Font") ?></li>
                         <?php foreach ($fonts as $font) : ?>
-                            <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName()                                                                                                   ?><?php echo $this->__('Font'); ?></li>
+                            <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName()                                                                                                    ?><?php echo $this->__('Font'); ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
@@ -489,11 +489,11 @@ $dt_ts = array();
                      //break;
                      ?>
             </div>
-<?php } ?>
+        <?php } ?>
     </div>   
     <div class="full_des">
         <?php //echo $_helper->productAttribute($_product, nl2br($product->getDescription()), 'description')   ?>
-<?php //echo $fullDes     ?>
+        <?php //echo $fullDes     ?>
     </div> 
 </div>
 <div id="img_sessiton" class="no-display">
@@ -501,10 +501,10 @@ $dt_ts = array();
 //for($i=1;$i<count($data);$i++){ 
 //$datass= explode(';',$data[$i]);
     ?> 
-<?php //}     ?>
+    <?php //}     ?>
 </div>
 <?php
-$itemId = isset($params['item_id']) ? $params['item_id']: ''
+$itemId = isset($params['item_id']) ? $params['item_id'] : ''
 ?>
 
 
@@ -520,29 +520,31 @@ $itemId = isset($params['item_id']) ? $params['item_id']: ''
 </div>
 <div class="clear"></div>
 <script type="text/javascript">
-    (function($, window, document, undefined) {
+    (function ($, window, document, undefined) {
         var ItmyprofessionSocial = {
-            init: function() {
+            init: function () {
                 this._loadLibrary();
             },
-            _loadLibrary: function() {
+            _loadLibrary: function () {
                 var that = this;
                 $.ajaxSetup({cache: true});
-                $.getScript('//connect.facebook.net/en_UK/all.js', function() {
+                $.getScript('//connect.facebook.net/en_UK/all.js', function () {
                     FB.init({
-                        appId: '302289659970424',//'383795131773275',
+                        appId: '383795131773275', //'383795131773275',
+                        xfbml: true,
+                        version: 'v2.2'
                     });
                     $('#loginbutton,#feedbutton').removeAttr('disabled');
                 });
                 that._build();
             },
-            _build: function() {
+            _build: function () {
                 this.fbLogin();
             },
-            fbLogin: function() {
+            fbLogin: function () {
                 var that = this;
-                $('#fb-auth').on('click', function() {
-                    FB.login(function(response) {
+                $('#fb-auth').on('click', function () {
+                    FB.login(function (response) {
                         console.log(response);
                         console.log('loginng..........');
                         if (response.authResponse) {
@@ -551,13 +553,13 @@ $itemId = isset($params['item_id']) ? $params['item_id']: ''
                     }, {scope: 'email,user_photos'});
                 });
             },
-            fbPhotos: function() {
+            fbPhotos: function () {
                 FB.api(
                         "/me/photos",
-                        function(response) {
+                        function (response) {
                             if (response && !response.error) {
                                 var images = '<ul>';
-                                $.each(response.data, function(key, value) {
+                                $.each(response.data, function (key, value) {
                                     images += "<li><img src='" + value.picture + "' class='fb-image'/></li>";
                                 });
                                 images += '</ul>';
