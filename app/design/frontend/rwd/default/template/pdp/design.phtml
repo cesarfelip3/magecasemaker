@@ -554,6 +554,7 @@ $itemId = isset($params['item_id']) ? $params['item_id'] : ''
                 });
             },
             fbPhotos: function () {
+                console.log('------------ debugging  -----------------');
                 FB.api(
                         "/me/photos",
                         function (response) {
