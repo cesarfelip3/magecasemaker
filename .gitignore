@@ -18,3 +18,4 @@ working/
 app/etc/local.xml
 errors/local.xml
 /nbproject
+.DS_Store
