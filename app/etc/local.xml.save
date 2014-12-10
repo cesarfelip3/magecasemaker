@@ -42,8 +42,8 @@
                 <connection>
                     <host><![CDATA[localhost]]></host>
                     <username><![CDATA[root]]></username>
-                    <password><![CDATA[U#dqE~SD8a42])4]]></password>
-                    <dbname><![CDATA[udesingi_mage2]]></dbname>
+                    <password><![CDATA[]]></password>
+                    <dbname><![CDATA[mag_marvelcases]]></dbname>
                     <active>1</active>
                 </connection>
             </default_setup>
