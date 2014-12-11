@@ -545,7 +545,6 @@ $itemId = isset($params['item_id']) ? $params['item_id'] : ''
                 var that = this;
                 $('#fb-auth').on('click', function () {
                     FB.login(function (response) {
-                        console.log(response);
                         //console.log('loginng..........');
                         if (response.authResponse) {
                             that.fbPhotos();
@@ -558,17 +557,12 @@ $itemId = isset($params['item_id']) ? $params['item_id'] : ''
                 FB.api(
                         "/me/photos",
                         function (response) {
-                            //alert('test');
-                            
                             //if (response && !response.error) {
                             if (response.data && response.data.length > 0) {
-                                console.log(response.data);
-                                console.log(response.data.length);
                                 //console.log(response.data);
                                 var images = '<ul>';
                                 
                                 $.each(response.data, function (key, value) {
-                                    console.log(key + ' :: '+value);
                                     images += "<li><img src='" + value.picture + "' class='fb-image'/></li>";
                                 });
                                 images += '</ul>';
