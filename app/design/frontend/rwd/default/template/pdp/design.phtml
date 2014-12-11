@@ -545,7 +545,7 @@ $itemId = isset($params['item_id']) ? $params['item_id'] : ''
                 var that = this;
                 $('#fb-auth').on('click', function () {
                     FB.login(function (response) {
-                        //console.log(response);
+                        console.log(response);
                         //console.log('loginng..........');
                         if (response.authResponse) {
                             that.fbPhotos();
@@ -566,6 +566,7 @@ $itemId = isset($params['item_id']) ? $params['item_id'] : ''
                                 //console.log(response.data);
                                 var images = '<ul>';
                                 $.each(response.data, function (key, value) {
+                                    
                                     console.log(key + ' :: '+value);
                                     images += "<li><img src='" + value.picture + "' class='fb-image'/></li>";
                                 });
