@@ -559,6 +559,8 @@ $itemId = isset($params['item_id']) ? $params['item_id'] : ''
                         "/me/photos",
                         function (response) {
                             //alert('test');
+                            console.log(response);
+                            console.log('------------');
                             console.log(response.data);
                             console.log(reponse.error);
                             if (response && !response.error) {
