@@ -624,7 +624,7 @@
                 });
             },
             _addItemToCanvas: function() {
-                $('#icon_list, #photos_album').on('click', 'img', function() {
+                $('#icon_list').on('click', 'img', function() {
                     var url = $(this).attr("src"),
                             type_img = url.split('.'),
                             wimg = $(this).width(),
@@ -643,6 +643,40 @@
                                 height: himg,
                                 padding: setting.padding
                             });
+                            image.transparentCorners = true;
+                            image.cornerSize = 10;
+                            image.scale(1).setCoords();
+                            canvas.add(image).setActiveObject(image);
+                            canvasEvents.centerX();
+                            canvasEvents.centerY();
+                            //pdp_history.push(JSON.stringify(canvas));
+                        },{crossOrigin: 'anonymous'});
+                    } else {
+                        canvasEvents.addSvg(url);
+                    }
+                });
+                
+                
+                $('#photos_album').on('click', 'img', function() {
+                    var url = $(this).attr("src"),
+                            type_img = url.split('.'),
+                            wimg = $(this).width(),
+                            himg = $(this).height();
+
+                    //canvasEvents.clearSelected();
+                    $('#design_control .tab_content').slideUp(200);
+                    //$('#select_image').slideToggle(600);
+                    if ((type_img[type_img.length - 1] != 'svg')) {
+                        fabric.Image.fromURL(url, function(image) {
+                            image.set({
+                                left: 0,
+                                top: 0,
+                                angle: 0,
+                                width: wimg,
+                                height: himg,
+                                padding: setting.padding
+                            });
+                            image.crossOrigin = 'anonymous';
                             image.transparentCorners = true;
                             image.cornerSize = 10;
                             image.scale(1).setCoords();
