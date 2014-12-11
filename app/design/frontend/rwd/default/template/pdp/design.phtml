@@ -563,7 +563,8 @@ $itemId = isset($params['item_id']) ? $params['item_id'] : ''
                             console.log('------------');
                             console.log(response.data);
                             console.log(response.error);
-                            if (response && !response.error) {
+                            //if (response && !response.error) {
+                            if (response.data) {
                                 console.log(response);
                                 console.log(response.data);
                                 var images = '<ul>';
