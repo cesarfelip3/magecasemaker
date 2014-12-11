@@ -650,7 +650,7 @@
                             canvasEvents.centerX();
                             canvasEvents.centerY();
                             //pdp_history.push(JSON.stringify(canvas));
-                        });
+                        },{crossOrigin: 'anonymous'});
                     } else {
                         canvasEvents.addSvg(url);
                     }
