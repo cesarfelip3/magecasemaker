@@ -1,0 +1,47 @@
+<?php
+$helper = Mage::helper('pdp');
+$fonts = $helper->getFonts();
+?>
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type='text/javascript' src='<?php echo $this->getSkinUrl('pdp/js/jquery-latest.js') ?>'></script>
+		<script type='text/javascript' src='<?php echo $this->getSkinUrl('pdp/js/viewfinaldesign.js') ?>'></script>
+		<title>Final Design Review</title>
+		<style type="text/css">
+			<?php foreach ( $fonts as $font) { ?>
+			@font-face {
+				font-family: '<?php echo $font->getName() ?>';
+				src: url('<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>pdp/fonts/<?php echo $font->getName() ?>.<?php echo $font->getExt() ?>');
+			}
+			<?php } ?>
+		</style>
+	</head>
+	<body>
+		<div id='wrapper'>
+			<div id='final_design'>
+			<?php 
+				$orderNumber = Mage::app()->getRequest()->getParam('id');;
+				if ($orderNumber != "") {
+					$order = Mage::getModel('sales/order')->loadByIncrementId($orderNumber);
+					$orderItems = $order->getItemsCollection();
+					if ( count($orderItems) ) {
+						foreach ($orderItems as $item){
+							$seriaOption = unserialize($item->getData('product_options'));
+							$itemOptions = $seriaOption['options'];
+							foreach ($itemOptions as $_option) {
+								if ($_option['label'] == "pdpinfo") {
+									echo "<input type='hidden' value='" . $_option['value'] . "' name='option[]' class='design-option' />";
+								}
+							}
+						}
+					}
+				} else {
+					echo "<h3>Found no order id</h3>";
+				}
+			?>
+			</div>
+			<div id='design_result' style='float: left;'></div>
+		</div>
+	</body>
+</html>

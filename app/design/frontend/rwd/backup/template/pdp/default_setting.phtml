@@ -1,0 +1,169 @@
+<?php
+$helper = Mage::helper('pdp');
+$fonts = $helper->getFonts();
+?>
+<style type="text/css">
+    <?php foreach ( $fonts as $font) { ?>
+    @font-face {
+        font-family: '<?php echo $font->getName() ?>';
+        src: url('<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA); ?>pdp/fonts/<?php echo $font->getName() ?>.<?php echo $font->getExt() ?>');
+    }
+    <?php } ?>
+</style> 
+<!--
+<input type="hidden" id="base_dir22" name="base_dir22" value="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_WEB); ?> " />
+-->
+<input type="hidden" id="url_site" value="<?php echo Mage::getUrl('', array('_secure' => Mage::app()->getFrontController()->getRequest()->isSecure())); ?>" />
+<input type="hidden" id="base_dir" name="base_dir" value="<?php echo Mage::getBaseDir('base'); ?>" />
+<input type="hidden" value="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK).Mage::getStoreConfig('pdp/setting/urlkey'); ?>" id="pdp_uri_key" />
+<div class="no-display color_content">
+    <div class="inlay_div color"></div>
+    <div class="color_content_wrap">
+        <ul>
+            <li><a style="background-color: #F0F8FF" title="AliceBlue">AliceBlue</a></li>
+            <li><a style="background-color: #FAEBD7" title="AntiqueWhite">AntiqueWhite</a></li>
+            <li><a style="background-color: #00FFFF" title="Aqua">Aqua</a></li>
+            <li><a style="background-color: #7FFFD4" title="Aquamarine">Aquamarine</a></li>
+            <li><a style="background-color: #F0FFFF" title="Azure">Azure</a></li>
+            <li><a style="background-color: #F5F5DC" title="Beige">Beige</a></li>
+            <li><a style="background-color: #FFE4C4" title="Bisque">Bisque</a></li>
+            <li><a style="background-color: #000000" title="Black">Black</a></li>
+            <li><a style="background-color: #FFEBCD" title="BlanchedAlmond">BlanchedAlmond</a></li>
+            <li><a style="background-color: #0000FF" title="Blue">Blue</a></li>
+            <li><a style="background-color: #8A2BE2" title="BlueViolet">BlueViolet</a></li>
+            <li><a style="background-color: #A52A2A" title="Brown">Brown</a></li>
+            <li><a style="background-color: #DEB887" title="BurlyWood">BurlyWood</a></li>
+            <li><a style="background-color: #5F9EA0" title="CadetBlue">CadetBlue</a></li>
+            <li><a style="background-color: #7FFF00" title="Chartreuse">Chartreuse</a></li>
+            <li><a style="background-color: #D2691E" title="Chocolate">Chocolate</a></li>
+            <li><a style="background-color: #FF7F50" title="Coral">Coral</a></li>
+            <li><a style="background-color: #6495ED" title="CornflowerBlue">CornflowerBlue</a></li>
+            <li><a style="background-color: #FFF8DC" title="Cornsilk">Cornsilk</a></li>
+            <li><a style="background-color: #DC143C" title="Crimson">Crimson</a></li>
+            <li><a style="background-color: #00008B" title="DarkBlue">DarkBlue</a></li>
+            <li><a style="background-color: #008B8B" title="DarkCyan">DarkCyan</a></li>
+            <li><a style="background-color: #B8860B" title="DarkGoldenRod">DarkGoldenRod</a></li>
+            <li><a style="background-color: #A9A9A9" title="DarkGray">DarkGray</a></li>
+            <li><a style="background-color: #006400" title="DarkGreen">DarkGreen</a></li>
+            <li><a style="background-color: #BDB76B" title="DarkKhaki">DarkKhaki</a></li>
+            <li><a style="background-color: #8B008B" title="DarkMagenta">DarkMagenta</a></li>
+            <li><a style="background-color: #556B2F" title="DarkOliveGreen">DarkOliveGreen</a></li>
+            <li><a style="background-color: #FF8C00" title="DarkOrange">DarkOrange</a></li>
+            <li><a style="background-color: #9932CC" title="DarkOrchid">DarkOrchid</a></li>
+            <li><a style="background-color: #8B0000" title="DarkRed">DarkRed</a></li>
+            <li><a style="background-color: #E9967A" title="DarkSalmon">DarkSalmon</a></li>
+            <li><a style="background-color: #8FBC8F" title="DarkSeaGreen">DarkSeaGreen</a></li>
+            <li><a style="background-color: #483D8B" title="DarkSlateBlue">DarkSlateBlue</a></li>
+            <li><a style="background-color: #2F4F4F" title="DarkSlateGray">DarkSlateGray</a></li>
+            <li><a style="background-color: #00CED1" title="DarkTurquoise">DarkTurquoise</a></li>
+            <li><a style="background-color: #9400D3" title="DarkViolet">DarkViolet</a></li>
+            <li><a style="background-color: #FF1493" title="DeepPink">DeepPink</a></li>
+            <li><a style="background-color: #00BFFF" title="DeepSkyBlue">DeepSkyBlue</a></li>
+            <li><a style="background-color: #696969" title="DimGray">DimGray</a></li>
+            <li><a style="background-color: #1E90FF" title="DodgerBlue">DodgerBlue</a></li>
+            <li><a style="background-color: #B22222" title="FireBrick">FireBrick</a></li>
+            <li><a style="background-color: #FFFAF0" title="FloralWhite">FloralWhite</a></li>
+            <li><a style="background-color: #228B22" title="ForestGreen">ForestGreen</a></li>
+            <li><a style="background-color: #FF00FF" title="Fuchsia">Fuchsia</a></li>
+            <li><a style="background-color: #DCDCDC" title="Gainsboro">Gainsboro</a></li>
+            <li><a style="background-color: #F8F8FF" title="GhostWhite">GhostWhite</a></li>
+            <li><a style="background-color: #FFD700" title="Gold">Gold</a></li>
+            <li><a style="background-color: #DAA520" title="GoldenRod">GoldenRod</a></li>
+            <li><a style="background-color: #808080" title="Gray">Gray</a></li>
+            <li><a style="background-color: #008000" title="Green">Green</a></li>
+            <li><a style="background-color: #ADFF2F" title="GreenYellow">GreenYellow</a></li>
+            <li><a style="background-color: #F0FFF0" title="HoneyDew">HoneyDew</a></li>
+            <li><a style="background-color: #FF69B4" title="HotPink">HotPink</a></li>
+            <li><a style="background-color: #CD5C5C" title="IndianRed">IndianRed</a></li>
+            <li><a style="background-color: #4B0082" title="Indigo">Indigo</a></li>
+            <li><a style="background-color: #FFFFF0" title="Ivory">Ivory</a></li>
+            <li><a style="background-color: #F0E68C" title="Khaki">Khaki</a></li>
+            <li><a style="background-color: #E6E6FA" title="Lavender">Lavender</a></li>
+            <li><a style="background-color: #FFF0F5" title="LavenderBlush">LavenderBlush</a></li>
+            <li><a style="background-color: #7CFC00" title="LawnGreen">LawnGreen</a></li>
+            <li><a style="background-color: #FFFACD" title="LemonChiffon">LemonChiffon</a></li>
+            <li><a style="background-color: #ADD8E6" title="LightBlue">LightBlue</a></li>
+            <li><a style="background-color: #F08080" title="LightCoral">LightCoral</a></li>
+            <li><a style="background-color: #E0FFFF" title="LightCyan">LightCyan</a></li>
+            <li><a style="background-color: #FAFAD2" title="LightGoldenRodYellow">LightGoldenRodYellow</a></li>
+            <li><a style="background-color: #D3D3D3" title="LightGray">LightGray</a></li>
+            <li><a style="background-color: #90EE90" title="LightGreen">LightGreen</a></li>
+            <li><a style="background-color: #FFB6C1" title="LightPink">LightPink</a></li>
+            <li><a style="background-color: #FFA07A" title="LightSalmon">LightSalmon</a></li>
+            <li><a style="background-color: #20B2AA" title="LightSeaGreen">LightSeaGreen</a></li>
+            <li><a style="background-color: #87CEFA" title="LightSkyBlue">LightSkyBlue</a></li>
+            <li><a style="background-color: #778899" title="LightSlateGray">LightSlateGray</a></li>
+            <li><a style="background-color: #B0C4DE" title="LightSteelBlue">LightSteelBlue</a></li>
+            <li><a style="background-color: #FFFFE0" title="LightYellow">LightYellow</a></li>
+            <li><a style="background-color: #00FF00" title="Lime">Lime</a></li>
+            <li><a style="background-color: #32CD32" title="LimeGreen">LimeGreen</a></li>
+            <li><a style="background-color: #FAF0E6" title="Linen">Linen</a></li>
+            <li><a style="background-color: #FF00FF" title="Magenta">Magenta</a></li>
+            <li><a style="background-color: #800000" title="Maroon">Maroon</a></li>
+            <li><a style="background-color: #66CDAA" title="MediumAquaMarine">MediumAquaMarine</a></li>
+            <li><a style="background-color: #0000CD" title="MediumBlue">MediumBlue</a></li>
+            <li><a style="background-color: #BA55D3" title="MediumOrchid">MediumOrchid</a></li>
+            <li><a style="background-color: #9370DB" title="MediumPurple">MediumPurple</a></li>
+            <li><a style="background-color: #3CB371" title="MediumSeaGreen">MediumSeaGreen</a></li>
+            <li><a style="background-color: #7B68EE" title="MediumSlateBlue">MediumSlateBlue</a></li>
+            <li><a style="background-color: #00FA9A" title="MediumSpringGreen">MediumSpringGreen</a></li>
+            <li><a style="background-color: #48D1CC" title="MediumTurquoise">MediumTurquoise</a></li>
+            <li><a style="background-color: #C71585" title="MediumVioletRed">MediumVioletRed</a></li>
+            <li><a style="background-color: #191970" title="MidnightBlue">MidnightBlue</a></li>
+            <li><a style="background-color: #F5FFFA" title="MintCream">MintCream</a></li>
+            <li><a style="background-color: #FFE4E1" title="MistyRose">MistyRose</a></li>
+            <li><a style="background-color: #FFE4B5" title="Moccasin">Moccasin</a></li>
+            <li><a style="background-color: #FFDEAD" title="NavajoWhite">NavajoWhite</a></li>
+            <li><a style="background-color: #000080" title="Navy">Navy</a></li>
+            <li><a style="background-color: #FDF5E6" title="OldLace">OldLace</a></li>
+            <li><a style="background-color: #808000" title="Olive">Olive</a></li>
+            <li><a style="background-color: #6B8E23" title="OliveDrab">OliveDrab</a></li>
+            <li><a style="background-color: #FFA500" title="Orange">Orange</a></li>
+            <li><a style="background-color: #FF4500" title="OrangeRed">OrangeRed</a></li>
+            <li><a style="background-color: #DA70D6" title="Orchid">Orchid</a></li>
+            <li><a style="background-color: #EEE8AA" title="PaleGoldenRod">PaleGoldenRod</a></li>
+            <li><a style="background-color: #98FB98" title="PaleGreen">PaleGreen</a></li>
+            <li><a style="background-color: #AFEEEE" title="PaleTurquoise">PaleTurquoise</a></li>
+            <li><a style="background-color: #DB7093" title="PaleVioletRed">PaleVioletRed</a></li>
+            <li><a style="background-color: #FFEFD5" title="PapayaWhip">PapayaWhip</a></li>
+            <li><a style="background-color: #FFDAB9" title="PeachPuff">PeachPuff</a></li>
+            <li><a style="background-color: #CD853F" title="Peru">Peru</a></li>
+            <li><a style="background-color: #FFC0CB" title="Pink">Pink</a></li>
+            <li><a style="background-color: #DDA0DD" title="Plum">Plum</a></li>
+            <li><a style="background-color: #B0E0E6" title="PowderBlue">PowderBlue</a></li>
+            <li><a style="background-color: #800080" title="Purple">Purple</a></li>
+            <li><a style="background-color: #FF0000" title="Red">Red</a></li>
+            <li><a style="background-color: #BC8F8F" title="RosyBrown">RosyBrown</a></li>
+            <li><a style="background-color: #4169E1" title="RoyalBlue">RoyalBlue</a></li>
+            <li><a style="background-color: #8B4513" title="SaddleBrown">SaddleBrown</a></li>
+            <li><a style="background-color: #FA8072" title="Salmon">Salmon</a></li>
+            <li><a style="background-color: #F4A460" title="SandyBrown">SandyBrown</a></li>
+            <li><a style="background-color: #2E8B57" title="SeaGreen">SeaGreen</a></li>
+            <li><a style="background-color: #FFF5EE" title="SeaShell">SeaShell</a></li>
+            <li><a style="background-color: #A0522D" title="Sienna">Sienna</a></li>
+            <li><a style="background-color: #C0C0C0" title="Silver">Silver</a></li>
+            <li><a style="background-color: #87CEEB" title="SkyBlue">SkyBlue</a></li>
+            <li><a style="background-color: #6A5ACD" title="SlateBlue">SlateBlue</a></li>
+            <li><a style="background-color: #708090" title="SlateGray">SlateGray</a></li>
+            <li><a style="background-color: #FFFAFA" title="Snow">Snow</a></li>
+            <li><a style="background-color: #00FF7F" title="SpringGreen">SpringGreen</a></li>
+            <li><a style="background-color: #4682B4" title="SteelBlue">SteelBlue</a></li>
+            <li><a style="background-color: #D2B48C" title="Tan">Tan</a></li>
+            <li><a style="background-color: #008080" title="Teal">Teal</a></li>
+            <li><a style="background-color: #D8BFD8" title="Thistle">Thistle</a></li>
+            <li><a style="background-color: #FF6347" title="Tomato">Tomato</a></li>
+            <li><a style="background-color: #40E0D0" title="Turquoise">Turquoise</a></li>
+            <li><a style="background-color: #EE82EE" title="Violet">Violet</a></li>
+            <li><a style="background-color: #F5DEB3" title="Wheat">Wheat</a></li>
+            <li><a style="background-color: #FFFFFF" title="White">White</a></li>
+            <li><a style="background-color: #F5F5F5" title="WhiteSmoke">WhiteSmoke</a></li>
+            <li><a style="background-color: #FFFF00" title="Yellow">Yellow</a></li>
+            <li><a style="background-color: #9ACD32" title="YellowGreen">YellowGreen</a></li>
+            <!--
+            <li><a class="pdp_color_ori" title="Original">Original</a></li>
+            -->
+            <li><label><?php echo $this->__('Selected Color:'); ?></label><input maxlength="6" id="selected_color" type="text" value="" /><a style="background-color: #FFF" class="selected_color" title="Wheat">Wheat</a></li></li>
+            <li class="last"><a class="bt_done">Done</a></li>
+        </ul>
+    </div>
+</div>

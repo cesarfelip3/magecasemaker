@@ -1,0 +1,27 @@
+
+<?php $_productId = $this->getData('product-id');?>
+<?php $_product = Mage::getModel('catalog/product')->load($_productId); ?>
+<?php if($_product):?>
+  
+<div class="homeitem">
+      <div class="thu">
+      <img src="<?php echo Mage::helper('catalog/image')->init($_product, 'image')->resize(223, 297);?>" width="223" height="297" />
+
+      </div>
+      <div class="pdname"><?php echo $_product->getName()?></div>
+      <p class="price" style="clear:both; text-align:center"><b><?php echo Mage::helper('core')->currency($_product->getFinalPrice());?></b></p>
+      <div class="tools">
+        <!--<div class="addwishlist">
+        <a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>">
+        <img src="<?php echo $this->getUrl()?>/skin/frontend/rwd/default/images/wishlist.jpg" width="19" height="17" />
+        </a>
+        </div>-->
+        <div class="startnow" data-product-id="<?php echo $_productId?>"><?php echo $this->__('Start Now')?></div>
+        <!--<div class="addcompare">
+        <a href="<?php echo $this->helper('catalog/product_compare')->getAddUrl($_product) ?>">
+          <img src="<?php echo $this->getUrl()?>skin/frontend/rwd/default/images/compare.jpg" width="19" height="17" />
+          </a>
+        </div>-->
+      </div>
+</div>
+<?php endif;?>

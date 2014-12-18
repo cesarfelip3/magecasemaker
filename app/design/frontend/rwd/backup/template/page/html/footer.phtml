@@ -1,0 +1,93 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     rwd_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<div class="footer-container">
+    <div class="footer">
+    	<div class="footer-inner" style="width:1100px; margin:0 auto;">
+        <?php echo $this->getChildHtml() ?>
+        <address class="copyright"><?php echo $this->getCopyright() ?></address>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+jQuery(document).ready(function($){
+	//console.log($);
+	if($('li.cycle-slide a').length > 0) {
+		$('li.cycle-slide a').click(function (e) {
+			e.preventDefault();
+			//var element = $('#'+$(this).data('href'));
+			//console.log(element);
+		    $('html,body').animate({
+		        scrollTop: $("#home-phone-container").offset().top
+		    }, 800);
+		});
+	}
+
+	if($('li.nav-1 a').length > 0) {
+
+		$('li.nav-1 a, li.nav-3 a').click(function (e) {
+			e.preventDefault();
+			//var element = $('#'+$(this).data('href'));
+			//console.log(element);
+		    $('html,body').animate({
+		        scrollTop: $("#home-phone-container").offset().top
+		    }, 800);
+		});
+	}
+	if($('li.nav-2 a').length > 0) {
+		$('li.nav-2 a').click(function (e) {
+			e.preventDefault();
+			//var element = $('#'+$(this).data('href'));
+			//console.log(element);
+		    $('html,body').animate({
+		        scrollTop: $("#home-phone-container .homepage_content:eq(1)").offset().top
+		    }, 800);
+		});
+	}
+
+	if($('li.nav-4 a').length > 0) {
+		$('li.nav-4 a').click(function (e) {
+			e.preventDefault();
+			//var element = $('#'+$(this).data('href'));
+			//console.log(element);
+		    $('html,body').animate({
+		        scrollTop: $(".home_guara_wrapper").offset().top
+		    }, 800);
+		});
+	}
+	if($('li.nav-5 a').length > 0) {
+		$('li.nav-5 a').click(function (e) {
+			e.preventDefault();
+			//var element = $('#'+$(this).data('href'));
+			//console.log(element);
+		    $('html,body').animate({
+		        scrollTop: $("#whyus").offset().top
+		    }, 800);
+		});
+	}
+});
+</script>
