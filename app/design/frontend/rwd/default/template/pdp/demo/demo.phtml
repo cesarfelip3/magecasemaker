@@ -15,6 +15,12 @@ else {
 }
 
 switch (Mage::app()->getRequest()->getParam('phone')) {
+    case 'iphone6plus':
+        $_caseAWD = Mage::getBaseUrl() . 'bin/assets/iPhone-6/iPhone6Plus.awd';
+        break;
+    case 'iphone6':
+        $_caseAWD = Mage::getBaseUrl() . 'bin/assets/iPhone-6/iPhone6.awd';
+        break;
     case 'iphone4':
        // $_caseAWD = Mage::getBaseUrl() . 'bin/assets/iPhone-4/iPhone-4.awd';
         $_caseAWD = Mage::getBaseUrl() . 'bin/assets/iPhone-5/iPhone-5.awd';

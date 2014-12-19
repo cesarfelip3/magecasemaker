@@ -82,7 +82,7 @@
 }
 #pdp_design_popup {
     position: relative;
-    width: 843px;
+    width: 90%;
     z-index: 99999;
     margin: 0 auto;
 }

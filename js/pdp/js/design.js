@@ -74,10 +74,12 @@
             w_img_f = inlay[0];
             h_img_f = inlay[1];
         }
+        
+        
 /////////////////////////////////Setup the first Canvas//////////////////////////
         $('#canvas_area').attr({
-            'width': w_img_f,
-            'height': h_img_f
+            'width': (0.7 *window.innerWidth),//w_img_f,
+            'height': (0.7*window.innerHeight)//h_img_f
         });
         var canvas = new fabric.Canvas('canvas_area', {
             'opacity': 1
