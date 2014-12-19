@@ -523,6 +523,7 @@ $itemId = isset($params['item_id']) ? $params['item_id'] : ''
     (function ($, window, document, undefined) {
         get_all_photos = function (id) {
             var photos_album = document.getElementById('photos_album');
+            photos_album.innerHTML = 'Photos are loading.....';
             if (id == 0) {
                 photos_album.innerHTML = '';
                 return;
@@ -577,6 +578,7 @@ $itemId = isset($params['item_id']) ? $params['item_id'] : ''
                             rs_all,
                             all_img;
                     if (l > 0) {
+                        userInfo.innerHTML = 'Photos are loading.....';
                         rs_all = '<select id="fb_album" onchange="get_all_photos(this.value)"><option value="0">-- Select your album --</option>';
                         for (var i = 0; i < l; i++) {
                             var album = response.data[i],
@@ -584,7 +586,6 @@ $itemId = isset($params['item_id']) ? $params['item_id'] : ''
                             rs_all += '<option value="' + album.id + '">' + album.name + '</option>';
                         }
                         rs_all += '</select>';
-                        console.log(rs_all);
                         userInfo.innerHTML = rs_all;
                     }
                     //
