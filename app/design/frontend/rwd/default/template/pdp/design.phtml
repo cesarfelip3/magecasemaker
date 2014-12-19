@@ -314,7 +314,7 @@ $dt_ts = array();
                     <ul id="select_font">
                         <li class="active" rel="<?php echo $this->__("Arial") ?>"><?php echo $this->__("Font") ?></li>
                         <?php foreach ($fonts as $font) : ?>
-                            <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName()                                                                                                       ?><?php echo $this->__('Font'); ?></li>
+                            <li rel="<?php echo $font->getName() ?>"><?php //echo $font->getName()                                                                                                          ?><?php echo $this->__('Font'); ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
@@ -521,142 +521,93 @@ $itemId = isset($params['item_id']) ? $params['item_id'] : ''
 <div class="clear"></div>
 <script type="text/javascript">
     (function ($, window, document, undefined) {
-        /*var ItmyprofessionSocial = {
-         init: function () {
-         this._loadLibrary();
-         },
-         _loadLibrary: function () {
-         var that = this;
-         $.ajaxSetup({cache: true});
-         $.getScript('//connect.facebook.net/en_UK/all.js', function () {
-         FB.init({
-         appId: '383795131773275', //'383795131773275',
-         xfbml: true,
-         version: 'v2.2'
-         });
-         $('#loginbutton,#feedbutton').removeAttr('disabled');
-         });
-         that._build();
-         },
-         _build: function () {
-         this.fbLogin();
-         },
-         fbLogin: function () {
-         var that = this;
-         $('#fb-auth').on('click', function () {
-         FB.login(function (response) {
-         //console.log('loginng..........');
-         if (response.authResponse) {
-         that.fbPhotos();
-         }
-         }, {scope: 'public_profile, user_photos, email'});
-         });
-         },
-         fbPhotos: function () {
-         //console.log('------------ debugging  -----------------');
-         FB.api(
-         "/me/photos",
-         function (response) {
-         //if (response && !response.error) {
-         if (response.data && response.data.length > 0) {
-         //console.log(response.data);
-         var images = '<ul>';
-         
-         $.each(response.data, function (key, value) {
-         images += "<li><img src='" + value.picture + "' class='fb-image'/></li>";
-         });
-         images += '</ul>';
-         $('#photos_album').html(images);
-         }
-         }
-         );
-         }
-         }
-         ItmyprofessionSocial.init();*/
-
-
-        $.getScript('//connect.facebook.net/en_UK/all.js', function () {
-            console.log('fbtesting');
-            window.fbAsyncInit = function () {
-                FB.init({appId: 383795131773275,
-                    status: true,
-                    cookie: true,
-                    xfbml: true,
-                    oauth: true});
-                function updateButton(response) {
-                    var button = document.getElementById('fb-auth');
-
-                    if (response.authResponse) {
-                        //user is already logged in and connected
-                        var userInfo = document.getElementById('user-info'),
-                                photos_album = document.getElementById('photos_album');
-                        FB.api('/me', function (response) {
-                            //userInfo.innerHTML = '<img src="https://graph.facebook.com/' 
-                            //+ response.id + '/picture">' + response.name;
-                            button.innerHTML = 'Logout';
-                        });
-                        FB.api('/me/albums', function (response) {
-                            var l = response.data.length,
-                                    rs_all,
-                                    all_img;
-                            if (l > 0) {
-                                rs_all = '<select id="fb_album" onchange="get_all_photos(this.value)"><option value="0">-- Select your album --</option>';
-                                for (var i = 0; i < l; i++) {
-                                    var album = response.data[i],
-                                            albumid = album.id;
-                                    rs_all += '<option value="' + album.id + '">' + album.name + '</option>';
-                                }
-                                rs_all += '</select>';
-                                userInfo.innerHTML = rs_all;
-                            }
-                            //
-                        });
-                        get_all_photos = function (id) {
-                            if (id == 0) {
-                                photos_album.innerHTML = '';
-                                return;
-                            }
-                            FB.api("/" + id + "/photos", function (response) {
-                                var photos = response["data"],
-                                        pt_result = '<ul>';
-                                for (var pt = 0; pt < photos.length; pt++) {
-                                    //console.log(photos[pt].images[0].source);
-                                    pt_result += '<li><img color="" src="' + photos[pt].images[0].source + '" /></li>';
-                                }
-                                photos_album.innerHTML = pt_result + '</ul>';
-                            });
-                        }
-                        button.onclick = function () {
-                            FB.logout(function (response) {
-                                var userInfo = document.getElementById('user-info');
-                                userInfo.innerHTML = "";
-                            });
-                        };
-                    } else {
-                        //user is not connected to your app or logged out
-                        //button.innerHTML = 'Please Login Facebook';
-                        button.onclick = function () {
-                            FB.login(function (response) {
-                                if (response.authResponse) {
-                                    FB.api('/me', function (response) {
-                                        var userInfo = document.getElementById('user-info');
-                                        //userInfo.innerHTML = 
-                                        //     '<img src="https://graph.facebook.com/' 
-                                        //+ response.id + '/picture" style="margin-right:5px"/>' 
-                                        // + response.name;
-                                    });
-                                } else {
-                                    //user cancelled login or did not grant authorization
-                                }
-                            }, {scope: 'user_photos'});
-                        }
-                    }
+        get_all_photos = function (id) {
+            var photos_album = document.getElementById('photos_album');
+            if (id == 0) {
+                photos_album.innerHTML = '';
+                return;
+            }
+            FB.api("/" + id + "/photos", function (response) {
+                var photos = response["data"],
+                        pt_result = '<ul>';
+                for (var pt = 0; pt < photos.length; pt++) {
+                    //console.log(photos[pt].images[0].source);
+                    pt_result += '<li><img class="fb-image" color="" src="' + photos[pt].images[0].source + '" /></li>';
                 }
-
-                // run once with current status and whenever the status changes
-                FB.getLoginStatus(updateButton);
-                FB.Event.subscribe('auth.statusChange', updateButton);
-            };
+                photos_album.innerHTML = pt_result + '</ul>';
+            });
         };
+        
+        var ItmyprofessionSocial = {
+            init: function () {
+                this._loadLibrary();
+            },
+            _loadLibrary: function () {
+                var that = this;
+                $.ajaxSetup({cache: true});
+                $.getScript('//connect.facebook.net/en_UK/all.js', function () {
+                    FB.init({
+                        appId: '383795131773275', //'383795131773275',
+                        xfbml: true,
+                        version: 'v2.2'
+                    });
+                    $('#loginbutton,#feedbutton').removeAttr('disabled');
+                });
+                that._build();
+            },
+            _build: function () {
+                this.fbLogin();
+            },
+            fbLogin: function () {
+                var that = this;
+                $('#fb-auth').on('click', function () {
+                    FB.login(function (response) {
+                        //console.log('loginng..........');
+                        if (response.authResponse) {
+                            that.fbPhotos();
+                        }
+                    }, {scope: 'public_profile, user_photos, email'});
+                });
+            },
+            fbPhotos: function () {
+                var userInfo = document.getElementById('user-info');
+                FB.api('/me/albums', function (response) {
+                    var l = response.data.length,
+                            rs_all,
+                            all_img;
+                    if (l > 0) {
+                        rs_all = '<select id="fb_album" onchange="get_all_photos(this.value)"><option value="0">-- Select your album --</option>';
+                        for (var i = 0; i < l; i++) {
+                            var album = response.data[i],
+                                    albumid = album.id;
+                            rs_all += '<option value="' + album.id + '">' + album.name + '</option>';
+                        }
+                        rs_all += '</select>';
+                        console.log(rs_all);
+                        userInfo.innerHTML = rs_all;
+                    }
+                    //
+                });
+
+                //console.log('------------ debugging  -----------------');
+//                FB.api(
+//                        "/me/photos",
+//                        function (response) {
+//                            //if (response && !response.error) {
+//                            if (response.data && response.data.length > 0) {
+//                                //console.log(response.data);
+//                                var images = '<ul>';
+//
+//                                $.each(response.data, function (key, value) {
+//                                    images += "<li><img src='" + value.picture + "' class='fb-image'/></li>";
+//                                });
+//                                images += '</ul>';
+//                                $('#photos_album').html(images);
+//                            }
+//                        }
+//                );
+            }
+        }
+        ItmyprofessionSocial.init();
     })(jQuery, window, document);
 </script>
