@@ -1504,7 +1504,7 @@
                 if (!fabric.Canvas.supports('toDataURL')) {
                     alert('This browser doesn\'t provide means to serialize canvas to an image');
                 } else {
-                    zoomreset(canvas.width);
+                    //zoomreset(canvas.width);
                     // Clear canvas
                     canvasEvents.clearSelected();
                     // Background image
