@@ -120,6 +120,8 @@
             'top': 0,
             'left': 0,
         });
+        zoomout(564);
+        canvas.renderAll();
         $('#pdp_side_items li').each(function () {
             $('.wrapper_pdp').append($(this).children('img').clone().addClass('pdp_img_session_' + $(this).index()).removeAttr('width').hide());
             pdp_history[$(this).index()] = JSON.stringify(canvas);
@@ -255,7 +257,6 @@
                 $(this).attr("id", 'img_upload_' + a).attr("color", "")
             })
         });
-        zoomout(546);
         /////////////////////// MagecaseMaker /////////////////////////////////////////////
         var MagecaseMaker = {
             utility: {},
@@ -615,8 +616,7 @@
                 });
                 $('.pdp_add_to_cart').on('click', function () {
                     // save image
-                    //zoomreset(462);
-                    zoomreset(546);
+                    zoomreset(564);
                     var overlayImg = $('#pdp_side_items li:eq(1)').find('img').attr('src');
                     //var overlayImg = 'media/test/iphone4_fg.png';//test
                     canvas.setOverlayImage(overlayImg, function () {
@@ -2074,7 +2074,7 @@
 // Zoom In
         var zoomin = function (b) {
             // TODO limit the max canvas zoom in
-            
+
             canvas.setHeight(canvas.getHeight() * b);
             canvas.setWidth(canvas.getWidth() * b);
 
