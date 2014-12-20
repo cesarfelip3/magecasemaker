@@ -82,8 +82,8 @@
 //            'height': h_img_f, //(0.7*window.innerHeight)//h_img_f
 //        });
         $('#canvas_area').attr({
-            'width': 725, //(0.7 *window.innerWidth),//w_img_f,
-            'height': 725, //(0.7*window.innerHeight)//h_img_f
+            'width': (0.8 * window.innerWidth),//w_img_f,
+            'height':(0.8 * window.innerHeight)//h_img_f
         });
         var canvas = new fabric.Canvas('canvas_area', {
             'opacity': 1
@@ -110,7 +110,7 @@
 
         // set overlay
         var overlayImg = $('#pdp_side_items li:eq(1)').find('img').attr('src');
-        console.log(overlayImg);
+        //console.log(overlayImg);
         //var overlayImg = 'media/test/iphone4_fg.png';//test
         canvas.setOverlayImage(overlayImg, canvas.renderAll.bind(canvas), {
             scaleX: 0.8,
