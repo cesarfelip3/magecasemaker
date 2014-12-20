@@ -625,8 +625,8 @@
                         canvasEvents.saveCustomImage();
 
                     }, {
-                        'scaleX': (1/0.7),
-                        'scaleY': (1/0.7),
+                        'scaleX': 0.7,
+                        'scaleY': 0.7,
                         'originX': 'left',
                         'originY': 'top',
                         'top': 0,
@@ -1514,8 +1514,8 @@
                     // Create new canvas for export purpose
                     $('#pdp_canvas_result').html('<canvas id="canvas_export"></canvas>');
                     $('#canvas_export').attr({
-                        width: canvas.width,
-                        height: canvas.height,
+                        width: (1 / 0.7 * canvas.width),
+                        height: (1 / 0.7 * canvas.height),
                     });
                     var canvas_export = new fabric.Canvas('canvas_export', {
                         opacity: 1
@@ -1523,6 +1523,8 @@
                     console.log('test' + backgroundImg);
                     // set background for export image  
                     canvas_export.setBackgroundImage(backgroundImg, canvas_export.renderAll.bind(canvas_export), {
+                        'scaleX': (1 / 0.7),
+                        'scaleY': (1 / 0.7),
                         'originX': 'left',
                         'originY': 'top',
                         'left': 0,
@@ -1531,6 +1533,8 @@
                     // Add added image from another canvas
                     fabric.Image.fromURL(canvas.toDataURL('png'), function (image) {
                         image.set({
+                            'scaleX': (1 / 0.7),
+                            'scaleY': (1 / 0.7),
                             left: 0,
                             top: 0,
                             width: canvas.width,
