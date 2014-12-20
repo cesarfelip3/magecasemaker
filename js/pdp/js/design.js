@@ -1,15 +1,15 @@
 ;
-(function($, window, document, undefined) {
+(function ($, window, document, undefined) {
 // Only numeric
-    $.fn.ForceNumericOnly = function() {
-        return this.each(function() {
-            $(this).keydown(function(e) {
+    $.fn.ForceNumericOnly = function () {
+        return this.each(function () {
+            $(this).keydown(function (e) {
                 var a = e.charCode || e.keyCode || 0;
                 return (a == 8 || a == 9 || a == 46 || (a >= 37 && a <= 40) || (a >= 48 && a <= 57) || (a >= 96 && a <= 105))
             })
         })
     };
-    $(document).ready(function($) {
+    $(document).ready(function ($) {
 // Initialisation
         var m = $('#url_site').val().replace('index.php/', ''),
                 numImages = $("#design_control img").length,
@@ -20,7 +20,7 @@
                 window_width = $(window).width(),
                 left_ini = parseInt((window_width - 400) / 2);
         $('.loading_initializing .p_wrap').css('left', left_ini);
-        $("#design_control img").load(function() {
+        $("#design_control img").load(function () {
             ++loaded;
             $('span#ini_count').html(parseInt((loaded / numImages) * 100) + '%');
             $('.loading_initializing .process_wrap #process_pdp_ini').css("width", parseInt((loaded / numImages) * 100) + '%');
@@ -30,13 +30,13 @@
         });
         $('body').append('<div style="display:none;" class="no-display" id="save_original_img_text"></div>');
         //$('#product-image-wrap-front,#product-image-wrap-back').attr('z_index', 1000);
-        $('#add_text_input').click(function() {
+        $('#add_text_input').click(function () {
             $('.image_item.active, .pdp_text_list li.active').removeClass("active");
         });
         $('#wrap_inlay').attr("tab", $('#pdp_side_items li:eq(0)').attr('tab'));
-        $('.wrap_inlay').hover(function() {
+        $('.wrap_inlay').hover(function () {
             $(this).addClass("act2");
-        }, function() {
+        }, function () {
             $(this).removeClass("act2");
         });
         $('.tshirt-size li').prepend('<span class="prev_t">Prev</span>').append('<span class="next_t">Next</span>');
@@ -67,15 +67,15 @@
         var w_img_f = mainImage.width();
         var h_img_f = mainImage.height();
         // Delay for .5 seconds
-        setTimeout(function() {
+        setTimeout(function () {
             //just delay so image gets loaded
         }, 1000);
         if (w_img_f == 0 || h_img_f == 0) {
             w_img_f = inlay[0];
             h_img_f = inlay[1];
         }
-        
-        
+
+
 /////////////////////////////////Setup the first Canvas//////////////////////////
 //        $('#canvas_area').attr({
 //            'width': w_img_f, //(0.7 *window.innerWidth),//w_img_f,
@@ -113,19 +113,21 @@
         console.log(overlayImg);
         //var overlayImg = 'media/test/iphone4_fg.png';//test
         canvas.setOverlayImage(overlayImg, canvas.renderAll.bind(canvas), {
+            scaleX: 0.5,
+            scaleY: 0.5,
             'originX': 'left',
             'originY': 'top',
             'top': 0,
             'left': 0,
         });
-        $('#pdp_side_items li').each(function() {
+        $('#pdp_side_items li').each(function () {
             $('.wrapper_pdp').append($(this).children('img').clone().addClass('pdp_img_session_' + $(this).index()).removeAttr('width').hide());
             pdp_history[$(this).index()] = JSON.stringify(canvas);
         });
         ////////////////////////No Group////////////////////////////////////
         //canvas.selection = false;
         //}
-        $('#pdp_side_items li').click(function() {
+        $('#pdp_side_items li').click(function () {
             canvasEvents.save_design($('#pdp_side_items li.active').index(), $('#main_image').width(), $('#main_image').height());
             $('#pdp_side_items li.active').removeClass("active");
             $(this).addClass("active");
@@ -165,10 +167,10 @@
                         data: {
                             design: design
                         },
-                        beforeSend: function() {
+                        beforeSend: function () {
                             $('.pdploading').show()
                         },
-                        success: function(a) {
+                        success: function (a) {
                             $('.pdploading').hide();
                             if (a == "") {
                                 window.location = m + 'index.php/customer/account/login/';
@@ -189,10 +191,10 @@
                     design: design,
                     id: editid
                 },
-                beforeSend: function() {
+                beforeSend: function () {
                     $('.pdploading').show()
                 },
-                success: function(a) {
+                success: function (a) {
                     $('.pdploading').hide();
                     if (a == "") {
                         window.location = m + 'index.php/pdp/pdptemplate/view/';
@@ -205,7 +207,7 @@
             });
         }
         /** End save design */
-        $('#files_upload').hover(function() {
+        $('#files_upload').hover(function () {
             if (!$(this).hasClass("active")) {
                 document.getElementById('files_upload').addEventListener('change', handleFileSelect, false);
                 $(this).addClass("active")
@@ -233,8 +235,8 @@
                     continue
                 }
                 var h = new FileReader();
-                h.onload = (function(c) {
-                    return function(e) {
+                h.onload = (function (c) {
+                    return function (e) {
                         var a = $('#lists_img_upload span').length;
                         var b = document.createElement('span');
                         b.innerHTML = ['<img id="img_up_' + a++ + '" color="" class="thumb pdp_img_upload" src="', e.target.result, '" title="', escape(c.name), '"/>'].join('');
@@ -246,9 +248,9 @@
             $('#files_upload').val("")
         }
 
-        $('#lists_img_upload2').hover(function() {
+        $('#lists_img_upload2').hover(function () {
             var a = 0;
-            $('#lists_img_upload span img').each(function() {
+            $('#lists_img_upload span img').each(function () {
                 a++;
                 $(this).attr("id", 'img_upload_' + a).attr("color", "")
             })
@@ -256,17 +258,17 @@
         /////////////////////// MagecaseMaker /////////////////////////////////////////////
         var MagecaseMaker = {
             utility: {},
-            initialize: function() {
+            initialize: function () {
                 this.loading();
                 // Owl carousel
                 this._initOwlCarousel();
                 //
                 this._build();
             },
-            loading: function() {
+            loading: function () {
                 $('body').prepend('<div class="loadding_initializing no-display"><div class="p_wrap"><p>Initializing...</p><div class="process_wrap"><span id="process_pdp_ini"></span></div><span id="ini_count">0%</span></div></div>');
             },
-            _initOwlCarousel: function() {
+            _initOwlCarousel: function () {
                 // Edit item
                 this._editItem();
                 // Color List
@@ -274,7 +276,7 @@
                 // select font
                 this._selectFont();
             },
-            _editItem: function() {
+            _editItem: function () {
                 $('#edit_item_wrap').owlCarousel({
                     items: 7, //10 items above 1000px browser width
                     itemsDesktop: [1000, 7], //5 items between 1000px and 901px
@@ -286,7 +288,7 @@
                     navigationText: ["&#xf053;", "&#xf054;"],
                 });
             },
-            _colorList: function() {
+            _colorList: function () {
                 $('.pdp_color_list ul').owlCarousel({
                     items: 12, //10 items above 1000px browser width
                     itemsDesktop: [1000, 7], //5 items between 1000px and 901px
@@ -298,7 +300,7 @@
                     navigationText: ["&#xf053;", "&#xf054;"],
                 });
             },
-            _selectFont: function() {
+            _selectFont: function () {
                 $('#select_font').owlCarousel({
                     items: 10, //10 items above 1000px browser width
                     itemsDesktop: [1000, 7], //5 items between 1000px and 901px
@@ -309,12 +311,12 @@
                     navigation: true,
                     navigationText: ["&#xf053;", "&#xf054;"],
                 });
-                $('.change_font .next_t').click(function() {
+                $('.change_font .next_t').click(function () {
                     var a = $(this).prev().val();
                     $(this).prev().val(parseInt(a) + 1);
                     canvasEvents.editText();
                 });
-                $('.change_font .prev_t').click(function() {
+                $('.change_font .prev_t').click(function () {
                     var a = $(this).next().val();
                     if (($(this).next().attr("id") == 't-blur') && (a == 0)) {
                     } else {
@@ -326,7 +328,7 @@
                     canvasEvents.editText();
                 });
             },
-            _build: function() {
+            _build: function () {
                 // Artwork
                 this._artwork();
                 // Text
@@ -344,56 +346,56 @@
                 // save image on checkout and save
                 this._saveImage();
             },
-            _artwork: function() {
-                $('.add_artwork > a').on('click', function() {
+            _artwork: function () {
+                $('.add_artwork > a').on('click', function () {
                     $('.tab_content:not(#select_image)').slideUp(200);
                     $('#select_image').slideToggle(600);
                 });
                 $('#image_category_list, #select_image').show();
                 var h_cate_list = $('#image_category_list').height();
                 $('#image_category_list, #select_image').hide();
-                $('.design_label span').click(function() {
+                $('.design_label span').click(function () {
                     $('#image_category_list').slideToggle(600);
                 });
-                $('#image_category_list').hover(function() {
+                $('#image_category_list').hover(function () {
                     $(this).stop(true, false).animate({'height': h_cate_list}, 600);
-                }, function() {
-                    $(this).stop(true, false).animate({'height': '0px'}, 600, function() {
+                }, function () {
+                    $(this).stop(true, false).animate({'height': '0px'}, 600, function () {
                         $(this).height(h_cate_list).hide();
                     });
                 });
             },
-            _pdpText: function() {
-                $('.add_text > a').on('click', function() {
+            _pdpText: function () {
+                $('.add_text > a').on('click', function () {
                     $('#add_text').slideToggle(600);
                     $('#font_outline_colorpicker').hide();
                     $('.tab_content:not(#add_text), .pdp_extra_item').slideUp(200);
                     $('.pdp_text_list li.active').removeClass("active");
                 });
-                $('.pdp_close').click(function() {
+                $('.pdp_close').click(function () {
                     $(this).parent().parent().parent().slideUp(600);
                 });
-                $('.pdp_text_list ul li').click(function() {
+                $('.pdp_text_list ul li').click(function () {
                     $('.pdp_text_list ul li.active').removeClass("active");
                     $('#add_text_input').val($(this).text());
                     $(this).addClass("active");
                 });
-                $('.pdp_text_list ul li.active').click(function() {
+                $('.pdp_text_list ul li.active').click(function () {
                     $('#add_text_action').click();
                 });
-                $('#pdp_edit_text_tab a').click(function() {
+                $('#pdp_edit_text_tab a').click(function () {
                     $('#pdp_edit_text_tab a.active').removeClass("active");
                     $(this).addClass('active');
                     $('.pdp_edit_text_tab_content').slideUp(300);
                     $('#' + $(this).attr("tab")).slideDown(400);
                 });
-                $('.pdp_edit_font_style li a.text').click(function() {
+                $('.pdp_edit_font_style li a.text').click(function () {
                     $(this).toggleClass("active");
                     canvasEvents.editText();
                 });
-                $('#pdp_search_text').keyup(function() {
+                $('#pdp_search_text').keyup(function () {
                     var key = $(this).val().toUpperCase();
-                    $('.pdp_text_list li').each(function() {
+                    $('.pdp_text_list li').each(function () {
                         if ($(this).text().toUpperCase().indexOf(key) >= 0) {
                             $(this).show();
                         } else {
@@ -401,26 +403,26 @@
                         }
                     });
                 });
-                $('#pdp_edit_text_style li a.align').click(function() {
+                $('#pdp_edit_text_style li a.align').click(function () {
                     $('#pdp_edit_text_style li a.align.active').removeClass("active");
                     $(this).addClass("active");
                     canvasEvents.editText();
                 });
-                $('#pdp_font_size_input').bind("slider:changed", function(event, data) {
+                $('#pdp_font_size_input').bind("slider:changed", function (event, data) {
                     $('#pdp_font_size_value').html($(this).val() + 'px');
                     var activeObject = canvas.getActiveObject();
                     if (!activeObject)
                         return;
                     canvasEvents.editText();
                 });
-                $('#toolbox-phone-select').change(function() {
+                $('#toolbox-phone-select').change(function () {
                     var a = $(this).val(),
                             ip_id = $(this).find("option:selected").attr("ip_id");
                     $('#ip_id').val(ip_id);
                     update_inlay_option();
                     $('#main_image').attr("src", m + 'media/pdp/images/' + a)
                 });
-                $('#add_text_action').click(function() {
+                $('#add_text_action').click(function () {
                     var text1 = $('#add_text_input').val(),
                             text2 = $('.pdp_text_list li.active').text();
                     if (text2 != '') {
@@ -431,37 +433,37 @@
                         }
                     }
                 });
-                $('#pdp_edit_text_input').keyup(function() {
+                $('#pdp_edit_text_input').keyup(function () {
                     canvasEvents.editText();
                 });
             },
-            _design: function() {
-                $('.wrapper_pdp .product-image').click(function() {
+            _design: function () {
+                $('.wrapper_pdp .product-image').click(function () {
                     $('.wrapper_pdp .product-image.act').removeClass('act');
                     $(this).addClass('act');
                 });
-                $('.tshirt-size input').change(function() {
+                $('.tshirt-size input').change(function () {
                     if (($(this).val() == '') || ($(this).val() < 0)) {
                         $(this).val(0)
                     }
                     ;
                     $(this).val(parseInt($(this).val()));
                 });
-                $('#design_control .control_tab .tab_main').click(function() {
+                $('#design_control .control_tab .tab_main').click(function () {
                     var a = $(this).attr("tab");
                     $('#design_control .control_tab .tab_main.active').removeClass("active");
                     $(this).addClass("active");
                     $('.tab_content').hide();
                     $('.' + a).show()
                 });
-                $('.tab_design_image a').click(function() {
+                $('.tab_design_image a').click(function () {
                     $('.tab_design_image .active').removeClass("active");
                     $(this).addClass("active");
                     var tab_act = $(this).attr("tab-content");
                     $('.content_tab > div').hide();
                     $('.content_tab .' + tab_act).show();
                 });
-                $('#use_shadow', '#shadow_item').click(function() {
+                $('#use_shadow', '#shadow_item').click(function () {
 // $('#use_shadow','#shadow_item').click(function() {
                     if (!$(this).hasClass('active')) {
                         $('.font_outline_color > div').show();
@@ -474,7 +476,7 @@
                     }
                     $('#font_outline_colorpicker').hide();
                 });
-                $('.use_shadow').click(function() {
+                $('.use_shadow').click(function () {
 // $('#use_shadow','#shadow_item').click(function() {
                     if (!$(this).hasClass('active')) {
                         $('.font_outline_color > div').show();
@@ -487,25 +489,25 @@
                     }
                     $('#font_outline_colorpicker').hide();
                 });
-                $('.tshirt-size .next_t').click(function() {
+                $('.tshirt-size .next_t').click(function () {
                     var a = $(this).parent().children('.size_qty').val();
                     $(this).parent().children('.size_qty').val(parseInt(a) + 1);
                 });
-                $('.tshirt-size .prev_t').click(function() {
+                $('.tshirt-size .prev_t').click(function () {
                     var a = $(this).parent().children('.size_qty').val();
                     if (a > 0) {
                         $(this).parent().children('.size_qty').val(parseInt(a) - 1);
                     }
                 });
             },
-            _pdpColors: function() {
-                $('#font_color_div1, #font_outline_color1, #color_item1').click(function() {
+            _pdpColors: function () {
+                $('#font_color_div1, #font_outline_color1, #color_item1').click(function () {
                     $(this).addClass("pdp_cr_color");
                     $('.color_content').show();
                     $('.color_display, .color_content li a.act').removeClass("act");
                     $(this).find('.color_display').addClass("act");
                     var current_color = $(this).find('.color_display').css("background-color");
-                    $('.color_content li a').each(function() {
+                    $('.color_content li a').each(function () {
                         if ($(this).css('background-color') == current_color) {
                             $(this).addClass("act");
                             $('#selected_color').val(rgb2hex(current_color));
@@ -513,27 +515,27 @@
                         }
                     });
                 });
-                $('#font_outline_color').click(function() {
+                $('#font_outline_color').click(function () {
                     $('#font_outline_colorpicker').slideToggle(300);
                 });
-                $('.inlay_div.color, .color_content_wrap .bt_done').click(function() {
+                $('.inlay_div.color, .color_content_wrap .bt_done').click(function () {
                     $('.color_content').hide();
                     $('#pdp_color_text').removeClass('pdp_cr_color');
                     $('.color_display').removeClass("act");
                 });
-                $('#pdp_color_text li a').click(function() {
+                $('#pdp_color_text li a').click(function () {
                     $('#pdp_color_text li a.active').removeClass("active");
                     $(this).addClass("active");
                     var color = $(this).css("background-color");
                     canvasEvents.changeColor(color);
                 });
-                $('#pdp_color_item li a').click(function() {
+                $('#pdp_color_item li a').click(function () {
                     $('#pdp_color_item li a.active').removeClass("active");
                     $(this).addClass("active");
                     var color = $(this).css("background-color");
                     canvasEvents.changeColor(color);
                 });
-                $('.color_content li a:not(.selected_color, .bt_done)').click(function() {
+                $('.color_content li a:not(.selected_color, .bt_done)').click(function () {
                     $('.color_content li a.act').removeClass("act");
                     $(this).addClass("act");
                     var color;
@@ -563,34 +565,34 @@
                         canvasEvents.changeColor(color);
                     }
                 });
-                $('#selected_color').change(function() {
+                $('#selected_color').change(function () {
                     $('a.selected_color').css('background-color', '#' + $(this).val());
                 });
             },
-            _pdpFont: function() {
-                $('#select_font li').each(function() {
+            _pdpFont: function () {
+                $('#select_font li').each(function () {
                     $(this).css('font-family', $(this).attr("rel"))
                 });
-                $('#select_font li').click(function() {
+                $('#select_font li').click(function () {
                     $('#select_font li.active').removeClass("active");
                     $(this).addClass("active");
                     //$('#select_font_span').css("font-family", $(this).attr("rel")).html($(this).attr("rel"));
                     canvasEvents.editText();
                 });
             },
-            _tools: function() {
-                $('#rotate-180').click(function() {
+            _tools: function () {
+                $('#rotate-180').click(function () {
                     $('#pdp_rotate_item').slideToggle(400);
                     $('.tab_content:not(#pdp_rotate_item)').slideUp(300);
                 });
-                $(".add-to-cartfefeefef .btn-cart").click(function() {
+                $(".add-to-cartfefeefef .btn-cart").click(function () {
                     return false
                 });
-                $("#undo, #redo, #clear222").click(function() {
+                $("#undo, #redo, #clear222").click(function () {
                     // undone[this.className]();
                     $.undone(this.id);
                 });
-                $(document).keydown(function(e) {
+                $(document).keydown(function (e) {
                     var key = e.which;
                     if (e.ctrlKey) { // ctrl
                         if (key === 90)
@@ -599,18 +601,18 @@
                             $.undone("redo"); // y
                     }
                 });
-                $(window).on("undone:change", function(e, name, undoLen, redoLen) {
+                $(window).on("undone:change", function (e, name, undoLen, redoLen) {
                     $("#undo").prop("disabled", !undoLen);
                     $("#redo").prop("disabled", !redoLen);
                     //$("input").val(undoLen)
                 });
             },
-            _saveImage: function() {
+            _saveImage: function () {
                 /*Save Design*/
-                $('#save_design').click(function() {
+                $('#save_design').click(function () {
                     canvasEvents.saveCustomImage();
                 });
-                $('.pdp_add_to_cart').on('click', function() {
+                $('.pdp_add_to_cart').on('click', function () {
                     // save image
                     //zoomreset(462);
                     var overlayImg = $('#pdp_side_items li:eq(1)').find('img').attr('src');
@@ -630,8 +632,8 @@
                     });
                 });
             },
-            _addItemToCanvas: function() {
-                $('#icon_list').on('click', 'img', function() {
+            _addItemToCanvas: function () {
+                $('#icon_list').on('click', 'img', function () {
                     var url = $(this).attr("src"),
                             type_img = url.split('.'),
                             wimg = $(this).width(),
@@ -641,7 +643,7 @@
                     $('#design_control .tab_content').slideUp(200);
                     //$('#select_image').slideToggle(600);
                     if ((type_img[type_img.length - 1] != 'svg')) {
-                        fabric.Image.fromURL(url, function(image) {
+                        fabric.Image.fromURL(url, function (image) {
                             image.set({
                                 left: 0,
                                 top: 0,
@@ -657,14 +659,14 @@
                             canvasEvents.centerX();
                             canvasEvents.centerY();
                             //pdp_history.push(JSON.stringify(canvas));
-                        },{crossOrigin: 'anonymous'});
+                        }, {crossOrigin: 'anonymous'});
                     } else {
                         canvasEvents.addSvg(url);
                     }
                 });
-                
-                
-                $('#photos_album').on('click', 'img', function() {
+
+
+                $('#photos_album').on('click', 'img', function () {
                     var url = $(this).attr("src"),
                             type_img = url.split('.'),
                             wimg = $(this).width(),
@@ -674,7 +676,7 @@
                     $('#design_control .tab_content').slideUp(200);
                     //$('#select_image').slideToggle(600);
                     if ((type_img[type_img.length - 1] != 'svg')) {
-                        fabric.Image.fromURL(url, function(image) {
+                        fabric.Image.fromURL(url, function (image) {
                             image.set({
                                 left: 0,
                                 top: 0,
@@ -691,27 +693,27 @@
                             canvasEvents.centerX();
                             canvasEvents.centerY();
                             //pdp_history.push(JSON.stringify(canvas));
-                        },{crossOrigin: 'anonymous'});
+                        }, {crossOrigin: 'anonymous'});
                     } else {
                         canvasEvents.addSvg(url);
                     }
                 });
 
 
-                $('#lists_img_upload').on('click', 'img', function() {
+                $('#lists_img_upload').on('click', 'img', function () {
                     var url = $(this).attr("src"),
-                        type_img = url.split('.'),
-                        wimg = $(this).width(),
-                        himg = $(this).height();
+                            type_img = url.split('.'),
+                            wimg = $(this).width(),
+                            himg = $(this).height();
 
                     //canvasEvents.clearSelected();
                     $('#design_control .tab_content').slideUp(200);
                     //$('#select_image').slideToggle(600);
                     if ((type_img[type_img.length - 1] != 'svg')) {
                         if (wimg <= 250 || himg <= 250) {
-                            alert ("The file you have uploaded is smaller than we recommend and may appear blurry or pixelated in print. For best results, upload a new image that is at least 950 × 950 pixels.");
+                            alert("The file you have uploaded is smaller than we recommend and may appear blurry or pixelated in print. For best results, upload a new image that is at least 950 × 950 pixels.");
                         }
-                        fabric.Image.fromURL(url, function(image) {
+                        fabric.Image.fromURL(url, function (image) {
                             image.set({
                                 left: 0,
                                 top: 0,
@@ -736,7 +738,7 @@
         }.initialize();
         /////////////////////////////// Edit active item/group //////////////////////////////////////
         var canvasEvents = {
-            objectSelected: function() {
+            objectSelected: function () {
                 var activeObject = canvas.getActiveObject();
                 if (activeObject.text) {
                     canvasEvents.changeToEditText(activeObject);
@@ -748,7 +750,7 @@
                 $('#edit_item_wrap').addClass('active');
                 $('#edit_item_wrap > div').css('opacity', 1);
             },
-            removeShadow: function() {
+            removeShadow: function () {
                 var activeObject = canvas.getActiveObject();
                 if (!activeObject)
                     return;
@@ -756,7 +758,7 @@
                 canvasEvents.resetShadowForm();
                 canvasEvents.renderall();
             },
-            resetShadowForm: function() {
+            resetShadowForm: function () {
                 $('#use_shadow').removeClass("active");
                 $('#h-shadow').val(0);
                 $('#v-shadow').val(0);
@@ -764,7 +766,7 @@
                 $('#font_outline_color_value').css({"background-color": '#FFF', 'color': '#000'}).val('#FFFFFF');
                 $('.font_outline_color > div:not(.use_shadow)').hide();
             },
-            addShadowItem: function() {
+            addShadowItem: function () {
                 var activeObject = canvas.getActiveObject();
                 if (!activeObject)
                     return;
@@ -782,12 +784,12 @@
                 });
                 canvasEvents.renderall();
             },
-            renderall: function() {
+            renderall: function () {
                 canvasEvents.save_history();
                 canvasEvents.save_design2();
                 canvas.calcOffset().renderAll();
             },
-            reset_canvas: function(tab) {
+            reset_canvas: function (tab) {
                 var item_act = $('#pdp_side_items li[tab=' + tab + ']'),
                         item_img,
                         tab_index = $('#pdp_side_items li[tab=' + tab + ']').index(),
@@ -820,11 +822,11 @@
                     }
                 }
             },
-            save_history: function() {
+            save_history: function () {
                 var index = $('#pdp_side_items li.active').index();
                 pdp_history[index] = JSON.stringify(canvas);
             },
-            editShadowItem: function() {
+            editShadowItem: function () {
                 var activeObject = canvas.getActiveObject();
                 if (!activeObject)
                     return;
@@ -847,7 +849,7 @@
                 }
                 canvasEvents.renderall();
             },
-            changeToEditItem: function() {
+            changeToEditItem: function () {
                 var activeObject = canvas.getActiveObject();
                 if (!activeObject)
                     return;
@@ -867,7 +869,7 @@
                     $('#use_shadow').addClass('active');
                 }
             },
-            editText: function() {
+            editText: function () {
                 var activeObject = canvas.getActiveObject();
                 if (!activeObject)
                     return;
@@ -945,7 +947,7 @@
                 }
                 canvasEvents.renderall();
             },
-            addText: function(text) {
+            addText: function (text) {
                 $('#add_text').slideUp(300);
                 $('#add_text_input').val('');
                 var color = '#111',
@@ -976,7 +978,7 @@
                 canvasEvents.centerY();
                 canvasEvents.renderall();
             },
-            changeToEditText: function(a) {
+            changeToEditText: function (a) {
                 $('#edit_text').show();
                 $('#edit_item_wrap').addClass('active');
                 $('#edit_item_wrap > div').css('opacity', 1);
@@ -1036,7 +1038,7 @@
                     $('#pdp_color_text li:eq(0) a').addClass("active");
                     //$('#pdp_color_text input').val('#111111');
                 } else {
-                    $('#pdp_color_text li a').each(function() {
+                    $('#pdp_color_text li a').each(function () {
                         if ($(this).css('background-color') == color) {
                             $(this).addClass("active");
                         }
@@ -1050,8 +1052,8 @@
                 $('#pdp_edit_text_line_height_input').val(line_height * 10);
                 $('#pdp_font_size_input').val(font_size);
             },
-            addSvg: function(el) {
-                fabric.loadSVGFromURL(el, function(objects, options) {
+            addSvg: function (el) {
+                fabric.loadSVGFromURL(el, function (objects, options) {
                     var loadedObject = fabric.util.groupSVGElements(objects, options),
                             center = canvas.getCenter();
                     loadedObject.set({
@@ -1069,7 +1071,7 @@
                     canvasEvents.centerY();
                 });
             },
-            resetTextForm: function() {
+            resetTextForm: function () {
                 $('#pdp_font_size_input').val(20);
                 $('#pdp_font_size_value').html('20px');
                 $('#pdp_edit_text_line_height_input').val(13);
@@ -1092,19 +1094,19 @@
                 $('#select_font li').removeClass("active");
                 $('#select_font li:eq(0)').addClass("active");
             },
-            objectUnselected: function() {
+            objectUnselected: function () {
                 //canvasEvents.resetTextForm();
                 $('.pdp_extra_item, .tab_content, #font_outline_colorpicker').slideUp(400);
                 $('#edit_item_wrap .active').removeClass('active');
                 $('#edit_item_wrap').removeClass('active');
                 $('#edit_item_wrap > div').css('opacity', .5);
             },
-            clearSelected: function() {
+            clearSelected: function () {
                 this.objectUnselected();
                 canvas.deactivateAll().renderAll();
                 canvasEvents.renderall();
             },
-            centerX: function() {
+            centerX: function () {
                 var active = canvas.getActiveObject();
                 if (!active)
                     return;
@@ -1112,7 +1114,7 @@
                 active.setCoords();
                 canvasEvents.renderall();
             },
-            centerY: function() {
+            centerY: function () {
                 var active = canvas.getActiveObject();
                 if (!active)
                     return;
@@ -1120,7 +1122,7 @@
                 active.setCoords();
                 canvasEvents.renderall();
             },
-            rotateRight: function(canvas) {
+            rotateRight: function (canvas) {
                 var active = canvas.getActiveObject();
                 if (!active)
                     return;
@@ -1129,7 +1131,7 @@
                 active.setCoords();
                 canvasEvents.renderall();
             },
-            rotateLeft: function(canvas) {
+            rotateLeft: function (canvas) {
                 var active = canvas.getActiveObject();
                 if (!active)
                     return;
@@ -1138,7 +1140,7 @@
                 active.setCoords();
                 canvasEvents.renderall();
             },
-            flipX: function() {
+            flipX: function () {
                 var active = canvas.getActiveObject();
                 if (!active)
                     return;
@@ -1146,7 +1148,7 @@
                 active.setCoords();
                 canvasEvents.renderall();
             },
-            flipY: function() {
+            flipY: function () {
                 var active = canvas.getActiveObject();
                 if (!active)
                     return;
@@ -1154,14 +1156,14 @@
                 active.setCoords();
                 canvasEvents.renderall();
             },
-            load_json: function(objs) {
+            load_json: function (objs) {
                 var json = JSON.parse(objs);
                 var objects = json.objects;
                 canvas.clear();
                 for (var i = 0; i < objects.length; i++) {
                     var klass = fabric.util.getKlass(objects[i].type);
                     if (klass.async) {
-                        klass.fromObject(objects[i], function(img) {
+                        klass.fromObject(objects[i], function (img) {
                             canvas.add(img);
                         });
                     } else {
@@ -1169,12 +1171,12 @@
                     }
                 }
             },
-            copyObject: function() {
+            copyObject: function () {
                 var active = canvas.getActiveObject();
                 if (!active)
                     return;
                 if (fabric.util.getKlass(active.type).async) {
-                    active.clone(function(clone) {
+                    active.clone(function (clone) {
                         clone.set({
                             transparentCorners: true,
                             cornerColor: setting.border
@@ -1189,14 +1191,14 @@
                 }
                 canvasEvents.renderall();
             },
-            removeObject: function() {
+            removeObject: function () {
                 var active = canvas.getActiveObject();
                 if (active) {
                     canvas.remove(active);
                     canvasEvents.renderall();
                 }
             },
-            moveObject: function(direction) {
+            moveObject: function (direction) {
                 var active = canvas.getActiveObject();
                 if (active) {
                     if (direction == 'up') {
@@ -1214,12 +1216,12 @@
                     }
                 }
             },
-            applyFilter: function(index, filter) {
+            applyFilter: function (index, filter) {
                 var obj = canvas.getActiveObject();
                 obj.filters[index] = filter;
                 obj.applyFilters(canvas.renderAll.bind(canvas));
             },
-            changeColor: function(color) {
+            changeColor: function (color) {
                 var activeObject = canvas.getActiveObject();
                 if (!activeObject)
                     return;
@@ -1241,7 +1243,7 @@
                 }
                 canvasEvents.renderall();
             },
-            convert_svg: function(img_bg, inlay, index) {
+            convert_svg: function (img_bg, inlay, index) {
                 if (!fabric.Canvas.supports('toDataURL')) {
                     alert('This browser doesn\'t provide means to serialize canvas to an image');
                 } else {
@@ -1265,7 +1267,7 @@
                     for (var i = 0; i < objects.length; i++) {
                         var klass = fabric.util.getKlass(objects[i].type);
                         if (klass.async) {
-                            klass.fromObject(objects[i], function(img) {
+                            klass.fromObject(objects[i], function (img) {
                                 canvas_export_2.add(img);
                             });
                         } else {
@@ -1281,7 +1283,7 @@
                     });
                     var canvas_export = new fabric.Canvas('canvas_export', {opacity: 1});
                     canvas_export.setBackgroundImage(img_bg, canvas_export.renderAll.bind(canvas_export));
-                    fabric.Image.fromURL(canvas_export_2.toDataURL('png'), function(image) {
+                    fabric.Image.fromURL(canvas_export_2.toDataURL('png'), function (image) {
                         image.set({
                             //left: canvas_export_info.left_f,
                             //top: canvas_export_info.top_f,
@@ -1299,7 +1301,7 @@
                     });
                     canvas_export.renderAll();
                     //imageObj.src = canvas_f.toDataURL('png');
-                    $('#pdp_result').animate({'opacity': 1}, 600, function() {
+                    $('#pdp_result').animate({'opacity': 1}, 600, function () {
                         //$('#pdp_side_items li:eq('+index+')').children('img').attr('src',canvas_export.toDataURL('png'));
                         $('#pdp_result').append('<img width="120" src="' + canvas_export_2.toDataURL('png') + '">');
                     });
@@ -1308,7 +1310,7 @@
                     //canvas_b.item(0).setVisible(1);
                 }
             },
-            save_png: function(img_bg, inlay, index) {
+            save_png: function (img_bg, inlay, index) {
                 if (!fabric.Canvas.supports('toDataURL')) {
                     alert('This browser doesn\'t provide means to serialize canvas to an image');
                 } else {
@@ -1332,7 +1334,7 @@
                     for (var i = 0; i < objects.length; i++) {
                         var klass = fabric.util.getKlass(objects[i].type);
                         if (klass.async) {
-                            klass.fromObject(objects[i], function(img) {
+                            klass.fromObject(objects[i], function (img) {
                                 canvas_export_2.add(img);
                             });
                         } else {
@@ -1348,7 +1350,7 @@
                     });
                     var canvas_export = new fabric.Canvas('canvas_export', {opacity: 1});
                     canvas_export.setBackgroundImage(img_bg, canvas_export.renderAll.bind(canvas_export));
-                    fabric.Image.fromURL(canvas_export_2.toDataURL('png'), function(image) {
+                    fabric.Image.fromURL(canvas_export_2.toDataURL('png'), function (image) {
                         image.set({
                             //left: canvas_export_info.left_f,
                             //top: canvas_export_info.top_f,
@@ -1366,13 +1368,13 @@
                     });
                     canvas_export.renderAll();
                     //imageObj.src = canvas_f.toDataURL('png');
-                    $('#pdp_result').animate({'opacity': 1}, 600, function() {
+                    $('#pdp_result').animate({'opacity': 1}, 600, function () {
                         $('#pdp_side_items li:eq(' + index + ')').children('img').attr('src', canvas_export.toDataURL('png'));
                         //$('#pdp_result').append('<img width="120" src="' + canvas_export.toDataURL('png') + '">');
                     });
                 }
             },
-            save_design2: function() {
+            save_design2: function () {
                 var info_save = '';
                 canvasEvents.save_history();
                 if (!fabric.Canvas.supports('toDataURL')) {
@@ -1393,7 +1395,7 @@
                     });
                     var canvas_export = new fabric.Canvas('canvas_export', {opacity: 1});
                     canvas_export.setBackgroundImage(img_bg, canvas_export.renderAll.bind(canvas_export));
-                    fabric.Image.fromURL(canvas.toDataURL('png'), function(image) {
+                    fabric.Image.fromURL(canvas.toDataURL('png'), function (image) {
                         image.set({
                             left: parseFloat(inlay_info[3]),
                             top: parseFloat(inlay_info[2]),
@@ -1408,13 +1410,13 @@
                         canvas_export.add(image);
                     });
                     canvas_export.renderAll();
-                    $('#pdp_result').animate({'opacity': 1}, 600, function() {
+                    $('#pdp_result').animate({'opacity': 1}, 600, function () {
                         $('#pdp_side_items li:eq(' + index + ')').children('img').attr('src', canvas_export.toDataURL('png'));
                         $('#pdp_result').html('');
                     });
                 }
             },
-            save_design: function(index, w, h) {
+            save_design: function (index, w, h) {
                 var info_save = '';
                 canvasEvents.save_history();
                 if (!fabric.Canvas.supports('toDataURL')) {
@@ -1432,7 +1434,7 @@
                     });
                     var canvas_export = new fabric.Canvas('canvas_export', {opacity: 1});
                     canvas_export.setBackgroundImage(img_bg, canvas_export.renderAll.bind(canvas_export));
-                    fabric.Image.fromURL(canvas.toDataURL('png'), function(image) {
+                    fabric.Image.fromURL(canvas.toDataURL('png'), function (image) {
                         image.set({
                             //left: canvas_export_info.left_f,
                             //top: canvas_export_info.top_f,
@@ -1450,7 +1452,7 @@
                     });
                     canvas_export.renderAll();
                     //imageObj.src = canvas_f.toDataURL('png');
-                    $('#pdp_result').animate({'opacity': 1}, 600, function() {
+                    $('#pdp_result').animate({'opacity': 1}, 600, function () {
                         $('#pdp_side_items li:eq(' + index + ')').children('img').attr('src', canvas_export.toDataURL('png'));
                         $('#pdp_result').html('');
                         //$('#pdp_result').append('<img width="120" src="' + canvas_export.toDataURL('png') + '">');
@@ -1458,28 +1460,28 @@
                 }
 
             },
-            save_design_json: function() {
+            save_design_json: function () {
                 var string_json = '';
-                $('#pdp_side_items li').each(function() {
+                $('#pdp_side_items li').each(function () {
                     string_json += $(this).attr('side_img') + '╦' + pdp_history[$(this).index()] + 'ϣ';
                 });
                 return string_json;
             },
-            saveSampleDesign: function() {
-                $("#save_sample_design").click(function() {
+            saveSampleDesign: function () {
+                $("#save_sample_design").click(function () {
                     alert('save sample design .............');
                     var jsonString = canvasEvents.save_design_json();
                     $.ajax({
                         type: "POST",
                         url: $("#url_site").val() + "/pdp/view/saveSampleDesign",
                         data: {json_string: jsonString},
-                        beforeSend: function() {
+                        beforeSend: function () {
 
                         },
-                        error: function() {
+                        error: function () {
                             console.log("Something went wrong...!");
                         },
-                        success: function(data) {
+                        success: function (data) {
                             var jsonData = $.parseJSON(data);
                             if (jsonData.success) {
                                 alert(jsonData.message);
@@ -1491,12 +1493,12 @@
                     });
                 });
             },
-            centerCanvas: function() {
+            centerCanvas: function () {
                 var w_wrap = $('.wrapper_pdp').width(),
                         w_canvas = $('.wrap_inlay_center').width();
                 $('.wrap_inlay_center').css("margin-left", (w_wrap - w_canvas) / 2 + 'px');
             },
-            saveCustomImage: function() {
+            saveCustomImage: function () {
                 if (!fabric.Canvas.supports('toDataURL')) {
                     alert('This browser doesn\'t provide means to serialize canvas to an image');
                 } else {
@@ -1523,7 +1525,7 @@
                         'top': 0
                     });
                     // Add added image from another canvas
-                    fabric.Image.fromURL(canvas.toDataURL('png'), function(image) {
+                    fabric.Image.fromURL(canvas.toDataURL('png'), function (image) {
                         image.set({
                             left: 0,
                             top: 0,
@@ -1542,13 +1544,13 @@
                     canvas.backgroundImage = null;
 
                     // Hide pop up
-                    jQuery('#pdp_popup').hide('fast', function() {
+                    jQuery('#pdp_popup').hide('fast', function () {
                         $(".pdp_loading").show();
                     });
 
 
                     // Save image and fix to load background and images'
-                    setTimeout(function() {
+                    setTimeout(function () {
                         //console.log(canvas.toDataURL({format: 'jpeg', quality: 1}));
                         //console.log(canvas_export.toDataURL({format: 'png', quality: 1}));
                         //zoomout(1850);
@@ -1564,14 +1566,14 @@
                                 overlay: canvas.toDataURL({format: 'jpeg', quality: 1}),
                                 overlayBg: overlayBg,
                                 productId: $('#product_id').val(),
-                                editId : $('#edit_id').val(),
-                                type : "order"
+                                editId: $('#edit_id').val(),
+                                type: "order"
                             },
                             dataType: 'json',
-                            beforeSend: function() {
+                            beforeSend: function () {
                                 $(".pdp_loading").show();
                             },
-                            success: function(response) {
+                            success: function (response) {
                                 $(".pdp_loading").hide();
                                 //console.log(response);
                                 if (response.status !== 'success') {
@@ -1597,35 +1599,35 @@
         canvasEvents.saveSampleDesign();
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         var $sendBackwardsEl = $('#send-backwards');
-        $sendBackwardsEl.on('click', function(canvas) {
+        $sendBackwardsEl.on('click', function (canvas) {
             var activeObject = canvas.getActiveObject();
             if (activeObject) {
                 canvas.sendBackwards(activeObject);
             }
         });
         var $sendToBackEl = $('#send-to-back');
-        $sendToBackEl.on('click', function(canvas) {
+        $sendToBackEl.on('click', function (canvas) {
             var activeObject = canvas.getActiveObject();
             if (activeObject) {
                 canvas.sendToBack(activeObject);
             }
         });
         var $bringForwardEl = $('#bring-forward');
-        $bringForwardEl.on('click', function(canvas) {
+        $bringForwardEl.on('click', function (canvas) {
             var activeObject = canvas.getActiveObject();
             if (activeObject) {
                 canvas.bringForward(activeObject);
             }
         });
         var $bringToFrontEl = $('#bring-to-front');
-        $bringToFrontEl.on('click', function(canvas) {
+        $bringToFrontEl.on('click', function (canvas) {
             var activeObject = canvas.getActiveObject();
             if (activeObject) {
                 canvas.bringToFront(activeObject);
             }
         });
         //////////////////////////////////EDIT BOTTOM FUNCTION/////////////////////////////////////////////////////////////////
-        $('#edit_item_wrap .item').click(function() {
+        $('#edit_item_wrap .item').click(function () {
             if ($('#edit_item_wrap').hasClass("active")) {
                 $('#edit_item_wrap .item.active').removeClass("active");
                 $(this).toggleClass("active");
@@ -1634,7 +1636,7 @@
                 $('#' + tab_act).slideToggle(500);
             }
         });         //////////////////////////////////EDIT FUNCTIONS/////////////////////////////////////////////////////////////////
-        $('#move_item .m_tl').click(function() {
+        $('#move_item .m_tl').click(function () {
             var active = canvas.getActiveObject();
             if (!active)
                 return;
@@ -1647,7 +1649,7 @@
                 onComplete: ''
             });
         });
-        $('#move_item .m_tr').click(function() {
+        $('#move_item .m_tr').click(function () {
             var active = canvas.getActiveObject(),
                     w_act = active.getWidth(),
                     w_cv = canvas.getWidth();
@@ -1662,7 +1664,7 @@
                 onComplete: ''
             });
         });
-        $('#move_item .m_bl').click(function() {
+        $('#move_item .m_bl').click(function () {
             var active = canvas.getActiveObject(),
                     h_act = active.getHeight(),
                     h_ch = canvas.getHeight();
@@ -1677,7 +1679,7 @@
                 onComplete: ''
             });
         });
-        $('#move_item .m_br').click(function() {
+        $('#move_item .m_br').click(function () {
             var active = canvas.getActiveObject(),
                     h_act = active.getHeight(), w_act = active.getWidth(),
                     h_ch = canvas.getHeight(),
@@ -1692,7 +1694,7 @@
                 onChange: canvas.renderAll.bind(canvas), onComplete: ''
             });
         });
-        $('#move_item .m_tc').click(function() {
+        $('#move_item .m_tc').click(function () {
             var active = canvas.getActiveObject(),
                     h_act = active.getHeight(),
                     w_act = active.getWidth(),
@@ -1708,7 +1710,7 @@
                 onComplete: ''
             });
         });
-        $('#move_item .m_cr').click(function() {
+        $('#move_item .m_cr').click(function () {
             var active = canvas.getActiveObject(),
                     h_act = active.getHeight(),
                     w_act = active.getWidth(),
@@ -1725,7 +1727,7 @@
                 onComplete: ''
             });
         });
-        $('#move_item .m_cl').click(function() {
+        $('#move_item .m_cl').click(function () {
             var active = canvas.getActiveObject(),
                     h_act = active.getHeight(),
                     w_act = active.getWidth(),
@@ -1741,7 +1743,7 @@
                 onComplete: ''
             });
         });
-        $('#move_item .m_bc').click(function() {
+        $('#move_item .m_bc').click(function () {
             var active = canvas.getActiveObject(),
                     h_act = active.getHeight(),
                     w_act = active.getWidth(),
@@ -1757,7 +1759,7 @@
                 onComplete: ''
             });
         });
-        $('#move_item .m_cc').click(function() {
+        $('#move_item .m_cc').click(function () {
             canvasEvents.center();
             //canvasEvents.centerX();
         });
@@ -1770,14 +1772,14 @@
          }
          });
          */         var $sendToBackEl = $('#move_to_back');
-        $sendToBackEl.on('click', function() {
+        $sendToBackEl.on('click', function () {
             var activeObject = canvas.getActiveObject();
             if (activeObject) {
                 canvas.sendToBack(activeObject);
             }
         });
         var $bringForwardEl = $('#move_to_front');
-        $bringForwardEl.on('click', function() {
+        $bringForwardEl.on('click', function () {
             var activeObject = canvas.getActiveObject();
             if (activeObject) {
                 canvas.bringForward(activeObject);
@@ -1805,7 +1807,7 @@
         //    canvasEvents.changeColor(color);
         //});
         ///////////////////////////////Reset active///////////////////////////
-        $('html').on('click', function(e) {
+        $('html').on('click', function (e) {
             var target = $('#canvas-container, #select_image, #add_text, #canvas_area, .pdp_extra_item, #pdp_opacity_item, .color_content, .control_tab, .canvas-container, .edit_area , #add_text, .p_rotate_wrap > div, .control_area, #edit_item_wrap').has(e.target).length;
             if (target === 0) {
                 canvasEvents.clearSelected();
@@ -1820,7 +1822,7 @@
         canvas.observe('object:added', canvasEvents.save_design2);
         canvas.observe('before:selection:cleared', canvasEvents.objectUnselected);
         //canvas.observe('object:modified', 'canvasEvents.saveDesign'); 
-        $(window).on('keydown', function(e) {
+        $(window).on('keydown', function (e) {
             var key = e.keyCode || e.which;
             if (key == 37) { // left arrow
                 canvasEvents.moveObject('left');
@@ -1840,16 +1842,16 @@
             }
         });
         ////////////////////////////////////Save Design//////////////////////////////////////////////////////
-        $('.action_pdp .save_svg').on('click', function() {
+        $('.action_pdp .save_svg').on('click', function () {
             //window.open('data:image/svg+xml;utf8,' + encodeURIComponent(canvas.toSVG()));
             $('#canvas_result').html('<img src="' + canvas_export_f.toDataURL('png') + '"><img src="' + canvas_export_b.toDataURL('png') + '">');
             //$('#canvas_result').html('<img src="'+'data:image/svg+xml;utf8,' + encodeURIComponent(canvas_f.toSVG())+'"><img src="'+'data:image/svg+xml;utf8,' + encodeURIComponent(canvas_b.toSVG())+'">');
         });
-        $('.action_pdp .save_json').on('click', function() {
+        $('.action_pdp .save_json').on('click', function () {
             //alert(JSON.stringify(canvas));
             $('#canvas_result').html(JSON.stringify(canvas_f));
         });
-        $('#load_json_btn').click(function() {
+        $('#load_json_btn').click(function () {
             var json = $('#json_area').val();
             //load_json(json);
         });
@@ -1860,7 +1862,7 @@
             for (var i = 0; i < objects.length; i++) {
                 var klass = fabric.util.getKlass(objects[i].type);
                 if (klass.async) {
-                    klass.fromObject(objects[i], function(img) {
+                    klass.fromObject(objects[i], function (img) {
                         canvas.add(img);
                     });
                 } else {
@@ -1874,12 +1876,12 @@
             $('.add_artwork_tab').click();
             $('.tab_design_image .facebook_api').click();
         }
-        $('#facebook_album').change(function() {
+        $('#facebook_album').change(function () {
             var fid = $(this).val();
             $('#fb_image_list li:not(.' + fid + ')').hide();
             $('#fb_image_list li.fb_album_' + fid).show();
         });
-        $(window).on('resize', function() {
+        $(window).on('resize', function () {
             setting.center_canvas();
         });
         setting = {
@@ -1887,9 +1889,9 @@
             border: '#88AFFB',
             padding: 5,
             cornerSize: 8,
-            center_canvas: function() {
+            center_canvas: function () {
                 var w_pdp_wapper = $('.wrap_pdp_design').width();
-                $(".product-image").each(function() {
+                $(".product-image").each(function () {
                     $(".product-image").hide();
                     $(this).show();
                     var w_canvas = $(this).find('.wrap_inlay_center img').width();
@@ -1899,16 +1901,16 @@
                 $(".product-image.act").show();
                 canvasEvents.renderall();
             },
-            first_category: function() {
+            first_category: function () {
                 var first_item = $('#image_category_list li:eq(0) span').text();
                 $('.pdp_selected_category').html(first_item);
             },
-            acitve_slider: function() {
+            acitve_slider: function () {
                 $('#h-shadow').noUiSlider({
                     range: [-50, 50],
                     start: [0],
                     handles: 1,
-                    slide: function() {
+                    slide: function () {
                         canvasEvents.editShadowItem();
                     }
                 });
@@ -1916,7 +1918,7 @@
                     range: [-50, 50],
                     start: [0],
                     handles: 1,
-                    slide: function() {
+                    slide: function () {
                         canvasEvents.editShadowItem();
                     }
                 });
@@ -1924,7 +1926,7 @@
                     range: [0, 50],
                     start: [0],
                     handles: 1,
-                    slide: function() {
+                    slide: function () {
                         canvasEvents.editShadowItem();
                     }
                 });
@@ -1932,7 +1934,7 @@
                     range: [0, 10],
                     start: [10],
                     handles: 1,
-                    slide: function() {
+                    slide: function () {
                         var opacity = $(this).val() / 10;
                         var active = canvas.getActiveObject();
                         if (!active)
@@ -1947,7 +1949,7 @@
                     range: [1, 200],
                     start: [20],
                     handles: 1,
-                    slide: function() {
+                    slide: function () {
                         //canvasEvents.editItem();
                         canvasEvents.editText();
                         $('#pdp_font_size_value').html($(this).val() + 'px');
@@ -1957,12 +1959,12 @@
                     range: [1, 100],
                     start: [13],
                     handles: 1,
-                    slide: function() {
+                    slide: function () {
                         //canvasEvents.editItem();
                         canvasEvents.editText();
                     }
                 });
-                $('#font_outline_colorpicker').farbtastic(function(color) {
+                $('#font_outline_colorpicker').farbtastic(function (color) {
                     $("#font_outline_color_value").css("background-color", color);
                     canvasEvents.editShadowItem();
                     $("#font_outline_color_value").val(color);
@@ -1970,7 +1972,7 @@
             }
         }
         setting.first_category();
-        $('.product-img-box').waitForImages(function() {
+        $('.product-img-box').waitForImages(function () {
             setting.center_canvas();
         });
         setting.acitve_slider();
@@ -2053,16 +2055,16 @@
             return unescape(output);
         }
 
-        $("ul.pdp_text_tag li").click(function() {
+        $("ul.pdp_text_tag li").click(function () {
             var my_tag = $(this).attr('class');
             $('.pdp_text_list ul li').hide(100);
             $('.pdp_text_list ul').find('li.' + my_tag).show(100);
         });
-        $('ul.pdp_text_tag li.all_tag').click(function() {
+        $('ul.pdp_text_tag li.all_tag').click(function () {
             $('.pdp_text_list ul').find('li').show(100);
         });
 
-        var zoomout = function(b) {
+        var zoomout = function (b) {
             canvas.setHeight(b);
             canvas.setWidth(b);
             var h = b / 780;
@@ -2085,7 +2087,7 @@
             canvas.renderAll()
         }
 
-        var zoomreset = function(b) {
+        var zoomreset = function (b) {
             canvas.setHeight(780);
             canvas.setWidth(780);
             var h = 780 / b;
@@ -2116,7 +2118,7 @@
             $("div.overlay").remove();
         });
 
-        jQuery('#view-3d a').on('click', function() {
+        jQuery('#view-3d a').on('click', function () {
 
             $('.canvas-container').hide();
 
@@ -2146,7 +2148,7 @@
 
             // console.log(canvas.toDataURL('png'));
             // Add added image from another canvas
-            fabric.Image.fromURL(canvas.toDataURL('png'), function(image) {
+            fabric.Image.fromURL(canvas.toDataURL('png'), function (image) {
                 image.set({
                     left: 0,
                     top: 0,
@@ -2166,7 +2168,7 @@
             canvas.backgroundImage = null;
 
             // Save image and fix to load background and images'
-            setTimeout(function() {
+            setTimeout(function () {
                 //console.log(canvas.toDataURL({format: 'jpeg', quality: 1}));
                 //console.log(canvas_export.toDataURL({format: 'png', quality: 1}));
                 //zoomout(1850);
@@ -2181,13 +2183,13 @@
                         img: canvas_export.toDataURL({format: 'jpeg', quality: 1}),
                         overlay: canvas.toDataURL({format: 'jpeg', quality: 1}),
                         overlayBg: overlayBg,
-                        type : "3dview"
+                        type: "3dview"
                     },
                     dataType: 'json',
-                    beforeSend: function() {
+                    beforeSend: function () {
                         $('.flash-wrapper').show().html('<span class="pdp_loading"><span>Please wait...</span></span>');
                     },
-                    success: function(response) {
+                    success: function (response) {
                         //console.log(response);
                         canvas.calcOffset();
                         if (response.status !== 'success') {
@@ -2203,7 +2205,7 @@
                                     img: response.image,
                                     phone: overlayBg
                                 }
-                            }).done(function(response) {
+                            }).done(function (response) {
                                 $('.flash-wrapper').show().html(response);
                                 zoomreset(462);
                             });
@@ -2213,7 +2215,7 @@
             }, 1000);
         });
 
-        jQuery('#edit-more').on('click', function() {
+        jQuery('#edit-more').on('click', function () {
             //zoomreset(462);
             var overlayImg = $('#pdp_side_items li:eq(1)').find('img').attr('src');
             //var overlayImg = 'media/test/iphone4_fg.png';//test
