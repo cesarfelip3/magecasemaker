@@ -113,8 +113,8 @@
         console.log(overlayImg);
         //var overlayImg = 'media/test/iphone4_fg.png';//test
         canvas.setOverlayImage(overlayImg, canvas.renderAll.bind(canvas), {
-            scaleX: 0.5,
-            scaleY: 0.5,
+            scaleX: 0.8,
+            scaleY: 0.8,
             'originX': 'left',
             'originY': 'top',
             'top': 0,
