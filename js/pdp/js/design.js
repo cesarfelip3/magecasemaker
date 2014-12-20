@@ -82,8 +82,8 @@
 //            'height': h_img_f, //(0.7*window.innerHeight)//h_img_f
 //        });
         $('#canvas_area').attr({
-            'width': w_img_f, //(0.7 * w_img_f), //w_img_f,
-            'height': h_img_f //(0.7 * h_img_f)//
+            'width': (0.7 * w_img_f), //w_img_f,
+            'height': (0.7 * h_img_f)//
         });
         var canvas = new fabric.Canvas('canvas_area', {
             'opacity': 1
@@ -113,15 +113,13 @@
         //console.log(overlayImg);
         //var overlayImg = 'media/test/iphone4_fg.png';//test
         canvas.setOverlayImage(overlayImg, canvas.renderAll.bind(canvas), {
-            //scaleX: 0.7,
-            //scaleY: 0.7,
+            scaleX: 0.7,
+            scaleY: 0.7,
             'originX': 'left',
             'originY': 'top',
             'top': 0,
             'left': 0,
         });
-        zoomout(564);
-        canvas.renderAll();
         $('#pdp_side_items li').each(function () {
             $('.wrapper_pdp').append($(this).children('img').clone().addClass('pdp_img_session_' + $(this).index()).removeAttr('width').hide());
             pdp_history[$(this).index()] = JSON.stringify(canvas);
@@ -616,7 +614,7 @@
                 });
                 $('.pdp_add_to_cart').on('click', function () {
                     // save image
-                    zoomreset(564);
+                    //zoomreset(462);
                     var overlayImg = $('#pdp_side_items li:eq(1)').find('img').attr('src');
                     //var overlayImg = 'media/test/iphone4_fg.png';//test
                     canvas.setOverlayImage(overlayImg, function () {
@@ -627,8 +625,8 @@
                         canvasEvents.saveCustomImage();
 
                     }, {
-                        //'scaleX': 0.7,
-                        //'scaleY': 0.7,
+                        'scaleX': (1/0.7),
+                        'scaleY': (1/0.7),
                         'originX': 'left',
                         'originY': 'top',
                         'top': 0,
