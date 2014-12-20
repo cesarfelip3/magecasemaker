@@ -82,8 +82,8 @@
 //            'height': h_img_f, //(0.7*window.innerHeight)//h_img_f
 //        });
         $('#canvas_area').attr({
-            'width': (0.7 * w_img_f),//w_img_f,
-            'height':(0.7 * h_img_f)//
+            'width': w_img_f, //(0.7 * w_img_f), //w_img_f,
+            'height': h_img_f //(0.7 * h_img_f)//
         });
         var canvas = new fabric.Canvas('canvas_area', {
             'opacity': 1
@@ -113,8 +113,8 @@
         //console.log(overlayImg);
         //var overlayImg = 'media/test/iphone4_fg.png';//test
         canvas.setOverlayImage(overlayImg, canvas.renderAll.bind(canvas), {
-            scaleX: 0.7,
-            scaleY: 0.7,
+            //scaleX: 0.7,
+            //scaleY: 0.7,
             'originX': 'left',
             'originY': 'top',
             'top': 0,
@@ -255,6 +255,7 @@
                 $(this).attr("id", 'img_upload_' + a).attr("color", "")
             })
         });
+        zoomout(546);
         /////////////////////// MagecaseMaker /////////////////////////////////////////////
         var MagecaseMaker = {
             utility: {},
@@ -615,6 +616,7 @@
                 $('.pdp_add_to_cart').on('click', function () {
                     // save image
                     //zoomreset(462);
+                    zoomreset(546);
                     var overlayImg = $('#pdp_side_items li:eq(1)').find('img').attr('src');
                     //var overlayImg = 'media/test/iphone4_fg.png';//test
                     canvas.setOverlayImage(overlayImg, function () {
@@ -625,8 +627,8 @@
                         canvasEvents.saveCustomImage();
 
                     }, {
-                        'scaleX': 0.7,
-                        'scaleY': 0.7,
+                        //'scaleX': 0.7,
+                        //'scaleY': 0.7,
                         'originX': 'left',
                         'originY': 'top',
                         'top': 0,
@@ -2067,6 +2069,38 @@
         $('ul.pdp_text_tag li.all_tag').click(function () {
             $('.pdp_text_list ul').find('li').show(100);
         });
+
+
+// Zoom In
+        var zoomin = function (b) {
+            // TODO limit the max canvas zoom in
+            
+            canvas.setHeight(canvas.getHeight() * b);
+            canvas.setWidth(canvas.getWidth() * b);
+
+            var objects = canvas.getObjects();
+            for (var i in objects) {
+                var scaleX = objects[i].scaleX;
+                var scaleY = objects[i].scaleY;
+                var left = objects[i].left;
+                var top = objects[i].top;
+
+                var tempScaleX = scaleX * b;
+                var tempScaleY = scaleY * b;
+                var tempLeft = left * b;
+                var tempTop = top * b;
+
+                objects[i].scaleX = tempScaleX;
+                objects[i].scaleY = tempScaleY;
+                objects[i].left = tempLeft;
+                objects[i].top = tempTop;
+
+                objects[i].setCoords();
+            }
+
+            canvas.renderAll();
+        }
+
 
         var zoomout = function (b) {
             canvas.setHeight(b);
