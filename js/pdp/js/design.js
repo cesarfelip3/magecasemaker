@@ -625,6 +625,8 @@
                         canvasEvents.saveCustomImage();
 
                     }, {
+                        'scaleX': 0.7,
+                        'scaleY': 0.7,
                         'originX': 'left',
                         'originY': 'top',
                         'top': 0,
