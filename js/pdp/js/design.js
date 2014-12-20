@@ -78,12 +78,12 @@
 
 /////////////////////////////////Setup the first Canvas//////////////////////////
 //        $('#canvas_area').attr({
-//            'width': w_img_f, //(0.7 *window.innerWidth),//w_img_f,
+//            'width': w_img_f,(0.7 *window.innerWidth),//w_img_f,
 //            'height': h_img_f, //(0.7*window.innerHeight)//h_img_f
 //        });
         $('#canvas_area').attr({
-            'width': w_img_f, //(0.7 * w_img_f), //w_img_f,
-            'height': h_img_f//(0.7 * h_img_f)//
+            'width': (0.7 * w_img_f), //w_img_f,
+            'height': (0.7 * h_img_f)//
         });
         var canvas = new fabric.Canvas('canvas_area', {
             'opacity': 1
@@ -113,8 +113,8 @@
         //console.log(overlayImg);
         //var overlayImg = 'media/test/iphone4_fg.png';//test
         canvas.setOverlayImage(overlayImg, canvas.renderAll.bind(canvas), {
-//            scaleX: 0.7,
-//            scaleY: 0.7,
+            scaleX: 0.7,
+            scaleY: 0.7,
             'originX': 'left',
             'originY': 'top',
             'top': 0,
@@ -625,8 +625,8 @@
                         canvasEvents.saveCustomImage();
 
                     }, {
-                        //'scaleX': 0.7,
-                        //'scaleY': 0.7,
+                        'scaleX': 0.7,
+                        'scaleY': 0.7,
                         'originX': 'left',
                         'originY': 'top',
                         'top': 0,
