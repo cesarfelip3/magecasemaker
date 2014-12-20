@@ -82,8 +82,8 @@
 //            'height': h_img_f, //(0.7*window.innerHeight)//h_img_f
 //        });
         $('#canvas_area').attr({
-            'width': (0.7 * w_img_f), //w_img_f,
-            'height': (0.7 * h_img_f)//
+            'width': w_img_f, //(0.7 * w_img_f), //w_img_f,
+            'height': h_img_f//(0.7 * h_img_f)//
         });
         var canvas = new fabric.Canvas('canvas_area', {
             'opacity': 1
@@ -113,8 +113,8 @@
         //console.log(overlayImg);
         //var overlayImg = 'media/test/iphone4_fg.png';//test
         canvas.setOverlayImage(overlayImg, canvas.renderAll.bind(canvas), {
-            scaleX: 0.7,
-            scaleY: 0.7,
+//            scaleX: 0.7,
+//            scaleY: 0.7,
             'originX': 'left',
             'originY': 'top',
             'top': 0,
@@ -1514,8 +1514,8 @@
                     // Create new canvas for export purpose
                     $('#pdp_canvas_result').html('<canvas id="canvas_export"></canvas>');
                     $('#canvas_export').attr({
-                        width: (1 / 0.7 * canvas.width),
-                        height: (1 / 0.7 * canvas.height),
+                        width: (canvas.width),
+                        height: (canvas.height),
                     });
                     var canvas_export = new fabric.Canvas('canvas_export', {
                         opacity: 1
@@ -1531,8 +1531,6 @@
                     // Add added image from another canvas
                     fabric.Image.fromURL(canvas.toDataURL('png'), function (image) {
                         image.set({
-                            'scaleX': (1 / 0.7),
-                            'scaleY': (1 / 0.7),
                             left: 0,
                             top: 0,
                             width: canvas.width,
