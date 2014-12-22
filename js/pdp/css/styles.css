@@ -1922,7 +1922,7 @@ div.design-btn {
     margin: 0 5px;
     padding: 0 6px;
 }
-.canvas-container{background:none repeat scroll 0 0 #ccc;}
+.canvas-container{background:none repeat scroll 0 0 #ccc; margin:0 auto;}
 
 img { 
     image-rendering: optimizeSpeed;             /* FUCK SMOOTHING, GIVE ME SPEED  */

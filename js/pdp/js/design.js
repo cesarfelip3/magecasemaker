@@ -98,7 +98,7 @@
             originX: 'left',
             originY: 'top',
         };
-        console.log(backgroundOptions);
+        //console.log(backgroundOptions);
         var backgroundImg = $('#pdp_side_items li:eq(0)').find('img').attr('src');
 //        canvas.setBackgroundImage(backgroundImg, canvas.renderAll.bind(canvas), {
 //            'originX': 'left',

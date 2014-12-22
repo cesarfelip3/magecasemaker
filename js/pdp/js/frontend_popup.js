@@ -84,12 +84,18 @@ frontendPopup(function($) {
 
             var $body = $(this.ie6 ? document.body : document); // using document in ie6 causes a crash
 
-            var popupTop = (parseInt($body.height() / 2) - parseInt($('#pdp_popup').height() / 2));
+            var top = ($(window).height() - $('#pdp_design_popup').height()) / 2;
+            var left = ($(window).width() - $('#pdp_design_popup').width()) / 2;
+            //$('#pdp_popup').css('top', top + $(document).scrollTop() + 'px');
+  
+
+            var popupTop = top + $(document).scrollTop(); //parseInt(($body.height() - $('#pdp_design_popup').height()) / 2);
             $('#pdp_popup').css('top', popupTop + 'px');
 //            $('#pdp_design_popup').width(w_pdp);
 //            $("#pdp_design_button", ".startnow").colorbox({inline: true, width: "90%", height: '850px', escKey: false, overlayClose: false});
 //            $('#pdp_design_button', ".startnow").click();
             //LoadDesign.center_canvas();
+            $('.canvas-container').css({'margin':'0 auto'});
 
         },
         center_canvas: function() {
