@@ -96,12 +96,12 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
             "height" => 1986
         ),
         "iphone6" => array(
-            "left" => 640,
-            "top" => 434,
-            "right" => 1685,
-            "bottom" => 1894,
-            "width" => 1800,
-            "height" => 2492
+            "left" => 0,
+            "top" => 0,
+            "right" => 2340,
+            "bottom" => 2340,
+            "width" => 2340,
+            "height" => 2340
         )
     );
 
