@@ -548,6 +548,7 @@ $itemId = isset($params['item_id']) ? $params['item_id'] : ''
             },
             _loadLibrary: function () {
                 if(this.state == false) {
+                    console.log(this.state);
                     var that = this;
                     $.ajaxSetup({cache: true});
                     $.getScript('//connect.facebook.net/en_UK/all.js', function () {
