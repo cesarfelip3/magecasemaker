@@ -538,20 +538,14 @@ $itemId = isset($params['item_id']) ? $params['item_id'] : ''
                 photos_album.innerHTML = pt_result + '</ul>';
             });
         };
-
-        console.log(window.state);
         
         var ItmyprofessionSocial = {
             init: function () {
                 this._loadLibrary();
 
-
                 that._build();
             },
             _loadLibrary: function () {
-
-                    window.state = 'test';
-                    console.log(window.state);
                     var that = this;
                     $.ajaxSetup({cache: true});
                     $.getScript('//connect.facebook.net/en_UK/all.js', function () {
@@ -562,7 +556,6 @@ $itemId = isset($params['item_id']) ? $params['item_id'] : ''
                         });
                         $('#loginbutton,#feedbutton').removeAttr('disabled');
                     });
-
             },
             _build: function () {
                 this.fbLogin();
