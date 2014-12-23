@@ -2259,7 +2259,9 @@
                 'originX': 'left',
                 'originY': 'top',
                 'top': 0,
-                'left': 0
+                'left': 0,
+                width: 546,
+                height: 546
             });
             $('.flash-wrapper').hide();
             $('.canvas-container').show();
