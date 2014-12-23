@@ -2103,7 +2103,7 @@
         var zoomout = function (b) {
             canvas.setHeight(b);
             canvas.setWidth(b);
-            var h = b / 780;
+            var h = b / 546;
             var m = canvas.getObjects();
             for (var e in m) {
                 var l = m[e].scaleX;
@@ -2124,9 +2124,9 @@
         }
 
         var zoomreset = function (b) {
-            canvas.setHeight(780);
-            canvas.setWidth(780);
-            var h = 780 / b;
+            canvas.setHeight(546);
+            canvas.setWidth(546);
+            var h = 546 / b;
             var m = canvas.getObjects();
             for (var e in m) {
                 var l = m[e].scaleX;
