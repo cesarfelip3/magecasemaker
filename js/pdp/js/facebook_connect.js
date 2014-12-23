@@ -21,7 +21,7 @@
             init: function () {
                 this._loadLibrary();
 
-                that._build();
+                this._build();
             },
             _loadLibrary: function () {
                     var that = this;
@@ -69,6 +69,24 @@
                     }
                     //
                 });
+
+                //console.log('------------ debugging  -----------------');
+//                FB.api(
+//                        "/me/photos",
+//                        function (response) {
+//                            //if (response && !response.error) {
+//                            if (response.data && response.data.length > 0) {
+//                                //console.log(response.data);
+//                                var images = '<ul>';
+//
+//                                $.each(response.data, function (key, value) {
+//                                    images += "<li><img src='" + value.picture + "' class='fb-image'/></li>";
+//                                });
+//                                images += '</ul>';
+//                                $('#photos_album').html(images);
+//                            }
+//                        }
+//                );
             }
         }.init();
     })(jQuery, window, document);
