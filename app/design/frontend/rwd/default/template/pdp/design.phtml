@@ -540,21 +540,29 @@ $itemId = isset($params['item_id']) ? $params['item_id'] : ''
         };
         
         var ItmyprofessionSocial = {
+            state: false,
             init: function () {
                 this._loadLibrary();
+                
+                console.log(this.state);
+
+                that._build();
             },
             _loadLibrary: function () {
-                var that = this;
-                $.ajaxSetup({cache: true});
-                $.getScript('//connect.facebook.net/en_UK/all.js', function () {
-                    FB.init({
-                        appId: '383795131773275', //'383795131773275',
-                        xfbml: true,
-                        version: 'v2.2'
+                if(this.state == false) {
+                    var that = this;
+                    $.ajaxSetup({cache: true});
+                    $.getScript('//connect.facebook.net/en_UK/all.js', function () {
+                        FB.init({
+                            appId: '383795131773275', //'383795131773275',
+                            xfbml: true,
+                            version: 'v2.2'
+                        });
+                        $('#loginbutton,#feedbutton').removeAttr('disabled');
                     });
-                    $('#loginbutton,#feedbutton').removeAttr('disabled');
-                });
-                that._build();
+                    this.state = true;
+                }
+
             },
             _build: function () {
                 this.fbLogin();
