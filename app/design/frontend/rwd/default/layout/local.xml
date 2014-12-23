@@ -28,4 +28,7 @@
             </action>
         </reference>
     </customer_account>
+    <default>
+        <remove name="checkout.cart.shipping"/>
+    </default>
 </layout>   
