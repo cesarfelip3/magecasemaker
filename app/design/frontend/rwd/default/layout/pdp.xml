@@ -349,6 +349,9 @@
             <action method="addJs" ifconfig="pdp/setting/enable" >
                 <script>pdp/js/custom.js</script>
             </action>
+            <action method="addJs" ifconfig="pdp/setting/enable" >
+                <script>pdp/js/facebook_connect.js</script>
+            </action>
         </reference>
         <reference name="product.info.addtocart">
             <block type="core/template" name="default_setting" as="default_setting" output="toHtml" template="pdp/default_setting.phtml" />
