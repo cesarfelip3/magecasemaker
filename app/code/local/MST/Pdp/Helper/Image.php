@@ -88,11 +88,11 @@ class MST_Pdp_Helper_Image extends Mage_Core_Helper_Abstract
             "height" => 2492
         ),
         "iphone6plus" => array(
-            "left" => 611,
+            "left" => 562,
             "top" => 140,
-            "right" => 1690,
-            "bottom" => 2127,
-            "width" => 1080,
+            "right" => 1733,
+            "bottom" => 2126,
+            "width" => 1170,
             "height" => 1986
         ),
         "iphone6" => array(
