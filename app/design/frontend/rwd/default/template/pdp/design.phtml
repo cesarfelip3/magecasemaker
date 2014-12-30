@@ -5,7 +5,7 @@ if (Mage::getStoreConfig('pdp/setting/enable') == 0) {
 }
 //if(($_REQUEST['id']=='')||(!isspdp_shadow_itemet($_REQUEST['id']))){
 //    echo "<h3>PDP module is enable. But you need to go from product page! How can you get this URL?</h3>";
-//	return false;
+//  return false;
 //}
 $helper = Mage::helper('pdp');
 $params = $this->getRequest()->getParams();
@@ -212,7 +212,7 @@ $dt_ts = array();
                         <div class="content_facebook">
                             <div id="fb-root"></div>
                             <div id="user-info"></div>
-                            <div id="photos_album">Login to facebook to get photos from your albums</div>
+                            <div id="photos_album" style="float:none;">Login to facebook to get photos from your albums</div>
                             <button id="fb-auth" class="login"></button> 
                         </div>
                     </div>
@@ -542,19 +542,20 @@ $itemId = isset($params['item_id']) ? $params['item_id'] : ''
         var ItmyprofessionSocial = {
             init: function () {
                 this._loadLibrary();
+
+                this._build();
             },
             _loadLibrary: function () {
-                var that = this;
-                $.ajaxSetup({cache: true});
-                $.getScript('//connect.facebook.net/en_UK/all.js', function () {
-                    FB.init({
-                        appId: '383795131773275', //'383795131773275',
-                        xfbml: true,
-                        version: 'v2.2'
+                    var that = this;
+                    $.ajaxSetup({cache: true});
+                    $.getScript('//connect.facebook.net/en_UK/all.js', function () {
+                        FB.init({
+                            appId: '383795131773275', //'383795131773275',
+                            xfbml: true,
+                            version: 'v2.2'
+                        });
+                        $('#loginbutton,#feedbutton').removeAttr('disabled');
                     });
-                    $('#loginbutton,#feedbutton').removeAttr('disabled');
-                });
-                that._build();
             },
             _build: function () {
                 this.fbLogin();
